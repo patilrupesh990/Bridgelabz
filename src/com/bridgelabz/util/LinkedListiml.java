@@ -1,5 +1,7 @@
 package com.bridgelabz.util;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class LinkedListiml<T>
 {
@@ -7,10 +9,12 @@ public class LinkedListiml<T>
 		private Node<T> node,root,p;
 	 
 		/**
-		 * Add element at last.
+		 * purpose:Add data in LinkedList
+		 * @param T data 
+		 * @return void
 		 * 
-		 * @param data
-		 */
+		**/
+	
 		@SuppressWarnings("unchecked")
 		public void add(T data) 
 		{
@@ -31,7 +35,13 @@ public class LinkedListiml<T>
 				
 			size++;
 		}
-		
+		/**
+		 * purpose:To chek LinkedList Empty or not  
+		 * @param  no param 
+		 * @return boolean
+		 * 
+		**/
+
 		public boolean isEmpty()
 		{
 			if(root==null)
@@ -42,12 +52,14 @@ public class LinkedListiml<T>
 			return false;
 		}
 	
-	 
 		/**
-		 * Add element at first. set the newly created node as root node
+		 * purpose:Add data at first node in LinkedList
+		 * @param T data 
+		 * @return void
 		 * 
-		 * @param data
-		 */
+		**/
+
+		
 		public void addAtFirst(T data) 
 		{
 			node=new Node<T>(data,null);
@@ -56,7 +68,13 @@ public class LinkedListiml<T>
 			root=node;
 			size++;
 		}
-		
+		/**
+		 * purpose:Remove Node from LinkedList
+		 * @param T data 
+		 * @return void
+		 * 
+		**/
+
 		@SuppressWarnings("unchecked")
 		public void removeNode(T data)
 		{
@@ -81,23 +99,35 @@ public class LinkedListiml<T>
 	        prev.nextNode = temp.nextNode; 
 		}
 		
-		
+		/**
+		 * purpose:search data in LinkedList
+		 * @param T data 
+		 * @return boolean
+		 * 
+		**/
+
 		@SuppressWarnings("unchecked")
 		public boolean searchNode(T data)
 		{
 			p=root;
 			while(p!=null)
 			{
-				if((boolean) node.getData().equals(data))
+				if((boolean) p.getData().equals(data))
 				{
-					System.out.println(node.getData());
+					//System.out.println(node.getData());
 					return true;
 				}
 				p=p.nextNode;
 			}
 			return false;
 		}
-		
+		/**
+		 * purpose:Display data from LinkedList
+		 * @param no param
+		 * @return void
+		 * 
+		**/
+
 		
 		@SuppressWarnings("unchecked")
 		public void Display()
@@ -105,51 +135,46 @@ public class LinkedListiml<T>
 			p=root;
 			while(p != null)
 			{
-				System.out.println(p.data);
+				System.out.print(" "+p.data);
 				p=p.nextNode;
 			}
 		}
 		 
-	
-	 
-			public int size() 
+		@SuppressWarnings("unchecked")
+		public void add2Stack()
+		{
+			p=root;
+			while(p != null)
 			{
-				return this.size;
+				Stack.push(p.data);
+				p=p.nextNode;
 			}
-	 
-	 
-		 
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((node == null) ? 0 : node.hashCode());
-			result = prime * result + size;
-			return result;
-		}
-	 
-		/**
-		 * Two linked list is equal when their size is equals and both have similar node structure
-		 */
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (!(obj instanceof LinkedListiml))
-				return false;
-			@SuppressWarnings("rawtypes")
-			LinkedListiml other = (LinkedListiml) obj;
-			if (node == null) {
-				if (other.node != null)
-					return false;
-			} else if (!node.equals(other.node))
-				return false;
-			if (size != other.size)
-				return false;
-			return true;
 		}
 		
+		@SuppressWarnings("unchecked")
+		public void add2Queue()
+		{
+			p=root;
+			while(p != null)
+			{
+				Queue.insert(p.data);
+				p=p.nextNode;
+			}
+		}
+		 
+		
+			public void WriteinFile() throws FileNotFoundException
+			{
+				p=root;
+				while(p != null)
+				{
+					PrintWriter writer = new PrintWriter("E:\\project p\\test.txt");
+					writer.print(p.data+",");
+					//System.out.print(" "+p.data);
+					p=p.nextNode;
+				}
+			}
+			
+				
 	}
 

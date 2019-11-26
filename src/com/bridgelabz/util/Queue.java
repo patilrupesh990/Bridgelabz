@@ -31,7 +31,7 @@ public class Queue<T>
 			queue[rear++]=data.toString();
 			}catch (ArrayIndexOutOfBoundsException e) {
 				// TODO: handle exception
-				System.out.println("queue size is limited:"+size);
+				//System.out.println("queue size is limited:"+size);
 			}
 		}
 	}
@@ -75,7 +75,7 @@ public class Queue<T>
 	
 	public static boolean isEmpty()
 	{
-		if(rear==0)
+		if(rear==-1)
 		{
 			return true;
 		}

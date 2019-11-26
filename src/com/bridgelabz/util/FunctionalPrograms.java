@@ -75,7 +75,7 @@ public class FunctionalPrograms
 
 	
 	/**
-	 * For Calculate WindChill Based On temperature and wind speed
+	 * purpose:For Calculate WindChill Based On temperature and wind speed
 	 * @param two double command-line arguments t and v 
 	 * @return void
 	 * 

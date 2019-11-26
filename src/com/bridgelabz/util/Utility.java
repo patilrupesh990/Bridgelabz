@@ -1,15 +1,6 @@
  package com.bridgelabz.util;
-import java.awt.List;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Random;
+
 import java.util.Scanner;
-
-import com.bridgelabz.logicalprograms.Gambler;
-
 /**
 * Created by:Rupesh Patil
 * Date: 11/06/2016

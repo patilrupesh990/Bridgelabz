@@ -24,7 +24,7 @@ public class AlgorithmPrograms
 		file=new File(FileName);
 		FileReader filereader=null;
 		BufferedReader b_reader;
-		String line=null;
+		String line="";
 		T temp=null;
 		
 			filereader = new FileReader(file);

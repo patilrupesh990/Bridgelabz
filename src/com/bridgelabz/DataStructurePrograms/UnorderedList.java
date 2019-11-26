@@ -32,12 +32,26 @@ public class UnorderedList
 		String words[]=unorlist.ReadFile(FileName);
 		list=unlist.add2List(words, list);
 		
-		list.Display();
-		
-		System.out.println("Enter the word you want to search");
-		String word=util.InputString();
-		
-		unlist.SearchWord(word, list);
-		list.Display();
+		while(true)
+		{
+			System.out.println();
+			System.out.println("Enter your choice:");
+			System.out.println("1.search press any key for exit");
+			int i=util.InputInt();
+			if(i==1)
+			{
+			list.Display();
+			System.out.println();
+			System.out.println("Enter the word you want to search");
+			String word=util.InputString();
+			
+			unlist.SearchWord(word, list);
+			list.Display();
+			}
+			else
+			{
+				System.exit(0);
+			}
+		}
 	}
 }
