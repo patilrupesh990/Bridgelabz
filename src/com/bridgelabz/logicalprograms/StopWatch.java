@@ -4,13 +4,11 @@ import com.bridgelabz.util.Utility;
 
 /**
 * Author: RupeshPatil
-* Date: 15/11/2019
-	Purpose:to measure the time that elapses between the start and end clicks
-	I/P -> Start the Stopwatch and End the Stopwatch
-	Logic -> Measure the elapsed time between start and end
-	O/P -> Print the elapsed time.
-
-**/
+* Date: 18/11/2019
+*	Purpose:to measure the time that elapses between the start and end clicks
+*	I/P -> Start the Stopwatch and End the Stopwatch
+*	O/P -> Print the elapsed time.
+***********************************************************************************/
 
 public class StopWatch
 {

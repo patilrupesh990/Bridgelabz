@@ -17,19 +17,21 @@ public class Utility {
 	
 	/**Redylymade input methods using Scanner class**/
 	
-	/** for take Integer input
+	/***************************** 
+	 * for take Integer input
 	 * @param no param
 	 * @return integer
-	 * **/
+	 ********************************/
 	public int InputInt()
 	{
 		int int_variable=scanner.nextInt();
 		return int_variable;
 	}
-	/** for take Float input
+	/*********************************
+	 *  for take Float input
 	 * @param no param
 	 * @return float
-	 * **/
+	 ********************************/
 	public float InputFloat()
 	{
 		float float_varialble=scanner.nextFloat();
@@ -37,30 +39,33 @@ public class Utility {
 		return float_varialble;
 	}
 	
-	/** for take Character input
+	/********************************
+	 *  for take Character input
 	 * @param no param
 	 * @return character
-	 * **/
+	 ********************************/
 	public char InputChar()
 	{
 		char char_variable=scanner.next().charAt(0); 
 		return char_variable;
 	}
 	
-	/** for take String input from scanner
+	/*************************************************
+	 *  for take String input from scanner
 	 * @param no param
 	 * @return String
-	 * **/
+	 ********************************************/
 	public String InputString()
 	{
 		String string_variable=scanner.next(); 
 		return string_variable;
 	}
 	
-	/** for take Double input
+	/**************************************************** 
+	 * for take Double input
 	 * @param no param
 	 * @return double
-	 * **/
+	 ************************************************/
 	public double InputDouble()
 	{
 		double double_variable=scanner.nextDouble();
@@ -71,7 +76,7 @@ public class Utility {
 	/** for take Boolean input
 	 * @param no param
 	 * @return boolean
-	 * **/
+	 * *********************************************************************************/
 	public boolean InputBoolean()
 	{
 		boolean boolean_variable=scanner.nextBoolean();
@@ -84,7 +89,7 @@ public class Utility {
 	 * @param names al
 	 * @param key ArrayList<String>
 	 * @return void
-	 **/
+	 ***********************************************************************************************/
 	public void InsertionSort(ArrayList<String> al)
 	{
 		for(int i=0;i<al.size()-1;i++)
@@ -111,7 +116,7 @@ public class Utility {
 	 * @param names FileName
 	 * @param key String
 	 * @return ArrayList<String> of words
-	 **/	
+	 **********************************************************************************************************/	
 	public ArrayList<String> ReadFile(String FileName) throws IOException,FileNotFoundException
 	{
 		File file;
@@ -143,7 +148,7 @@ public class Utility {
 	 * @param names names,key(word)
 	 * @param key SortedSet,String
 	 * @return void
-	 **/
+	 **********************************************************************************************/
 	@SuppressWarnings("rawtypes")
 	public void SearchWord(SortedSet s,String word)
 	{
@@ -177,7 +182,7 @@ public class Utility {
 	 * @param key ArrayList<String>
 	 * @return void
 	 * @algorithm BubbleSort
-	 **/
+	 *************************************************************************************************/
 	
 	
 	public void BubbleSort(ArrayList<Integer> al)
@@ -201,6 +206,13 @@ public class Utility {
 		}
 	}
 	
+	/**
+	 * Porpose:Divede string elements in ArrayList and pass as an arguments to merge method.
+	 * @param  names String words 
+	 * @param key ArrayList<String>
+	 * @return ArrayList<String>
+	 * @algorithm mergesort
+	 ******************************************************************************************/
 	@SuppressWarnings("null")
 	public ArrayList<String> MergeSort(ArrayList<String> al)
 	{
@@ -245,7 +257,13 @@ public class Utility {
 		return sorted;
 		
 	}//end
-	
+	/**
+	 * Porpose:it will merge elements in ArrayList after sorting and return sorded elements string
+	 * @param  names String words 
+	 * @param key ArrayList<String> left,ArrayList<String> right
+	 * @return ArrayList<String>
+	 * @algorithm Mergesort
+	 *************************************************************************************************/
 	public ArrayList<String> MergeList(ArrayList<String> left,ArrayList<String> right)
 	{
 		ArrayList<String> merge=new ArrayList<String>();

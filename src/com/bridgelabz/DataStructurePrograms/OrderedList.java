@@ -22,16 +22,18 @@ public class OrderedList
 	static Utility util=new Utility();
 	public static <T> void main(String[] args) throws FileNotFoundException, IOException 
 	{
-		String filename="D:\\c drive\\new Desktop\\Brigezlebz\\Bridgelabz\\src\\com\\bridgelabz\\DataStructurePrograms\\OrderList.txt";
+		String filename="G:\\Bridgelabz\\Bridgelabz\\src\\com\\bridgelabz\\DataStructurePrograms\\OrderList.txt";
 				
 		 int numbers[]=OrderedList.ReadFile(filename);
+		 
 		 Arrays.sort(numbers);
 		 list=DataStructure.add2List2(numbers, list);
 		 
 		 list.Display();
-		 
+		 System.out.println();
 		 System.out.println("Enter The Number you want to search");
 		 int number=util.InputInt();
+		 
 		 DataStructure.SearchWord(number, list);
 	}
 	

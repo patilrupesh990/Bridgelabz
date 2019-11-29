@@ -5,7 +5,7 @@ import com.bridgelabz.util.Utility;
 
 /**
 * Author: RupeshPatil
-* Date: 13/11/2019
+* Date: 16/11/2019
 Purpose:Sum of three Integer adds to ZERO
  A program with cubic running time. Read in N integers and counts the
 number of triples that sum to exactly 0.

@@ -23,6 +23,7 @@ public class CashCounter
 		
 		System.out.println("press S for start Counter");
 		String start=util.InputString();
+		
 		if(start.equals("s")||start.equals("S"))
 		{
 			DataStructure.StartCounter();

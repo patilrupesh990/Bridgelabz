@@ -1,5 +1,9 @@
 package com.bridgelabz.util;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
 
 import com.bridgelabz.util.Utility;
 public class DataStructure 
@@ -47,7 +51,8 @@ public class DataStructure
 		{
 			list.add((T) word);
 			System.out.println(word+" Not Present in list and now added to list");
-			list.WriteinFile();
+			DataStructure.WriteinFile(word);
+			
 		}
 		else
 		{
@@ -55,6 +60,22 @@ public class DataStructure
 			System.out.println(word+" it was alrady in lIST and Removed from List");
 		}
 		list.Display();
+	}
+	
+	
+	
+	public static <T>void WriteinFile(T word) throws FileNotFoundException
+	{
+		try { 
+			  
+            // Open given file in append mode. 
+            BufferedWriter out = new BufferedWriter( 
+                   new FileWriter("G:\\Bridgelabz\\Bridgelabz\\src\\com\\bridgelabz\\DataStructurePrograms\\OrderList.txt", true)); 
+            out.write(","+String.valueOf(word)); 
+            out.close(); 
+        }catch (IOException e) {
+			// TODO: handle exception
+		} 
 	}
 	
 	/****************************************************************************** 
@@ -71,7 +92,13 @@ public class DataStructure
 		{
 			if(i=='('||i=='{'||i=='[') 
 			{
+				try {
 			  Stack.push(i);	
+				}
+				catch (Exception e) {
+					// TODO: handle exception
+					System.out.println();
+				}
 			}
 			else if(i==')'||i=='}'||i==']')
 			{
@@ -321,15 +348,79 @@ public class DataStructure
 		*   Purpose:Takes array of prime numbers and divide them in Anagrams numbers and Non Anagrams Numbers
 		*   		and stored in 2D Array and print  
 		*   @param int primes (array of prime numbers(0-100))
+		 * @return 
 		*   @return int[] (anagrams list)
 		******************************************************************************************************/		
 		
-		public static int[] primeAnagrams(int primes[])
+		public static int[] primeAnagrams3(int primes[])
+		{
+			int[] temp=new int[primes.length];
+			int x=1;
+			
+			for(int i=0;i<primes.length-1;i++)
+			{
+				for(int j=i+1;j<primes.length;j++)
+				{
+					  int a=DataStructure.dividedigit(primes[i]);
+					
+					  int b=DataStructure.dividedigit(primes[j]);
+					if(a==b &&primes[j]>10)
+								temp[x++]=primes[j];				
+				}
+			}
+			System.out.println();
+			int anagrams[]=new int[x+1];
+			anagrams=temp;
+			
+			Arrays.sort(anagrams);
+			
+			System.out.println("prime anagrams");
+			for(int i=0;i<anagrams.length-1;i++)
+			{
+				if(anagrams[i]>0&&anagrams[i]!=anagrams[i+1])	
+				System.out.print(anagrams[i]+"  ");
+			}
+			Arrays.sort(anagrams);
+			int anagram[]=new int[anagrams.length];
+			int y=0;
+			for(int j=0;j<anagrams.length-1;j++)
+			{
+				if(anagrams[j]!=anagrams[j+1])
+				anagram[y++]=anagrams[j];
+			}
+			int finalanagram[]=new int[y];
+			return finalanagram;
+		}
+			
+		public static int dividedigit(int n)
+			{
+				int d=n;
+				int sum[]=new int[3];
+				int x=0;
+				while(d>0)
+				{
+					int rem=d%10;
+					sum[x++]=rem;
+					d=d/10;
+				}
+				Arrays.sort(sum);
+				int sorted=0;
+				for(int i=0;i<x;i++)
+				{
+					sorted+=(10*sorted)+sum[i];
+				}
+				
+				return sorted;
+			}
+
+			
+	/*	public static int[] primeAnagrams(int primes[])
 		{
 			int temp[]=new int[500],temp2[]=new int[800],
 					index=0,index2=0;
 			for(int i=0;i<primes.length;i++)
 			{
+				
 				if(primes[i]>0)
 				{
 					int t=primes[i];
@@ -341,6 +432,7 @@ public class DataStructure
 						sum=(sum*10)+rem;
 						t=t/10;
 					}
+					
 					if(sum==primes[i]&&sum>10)
 					{
 						temp[index++]=primes[i];						
@@ -358,7 +450,7 @@ public class DataStructure
 			not_anagram=temp2;
 			index=0;index2=0;
 			int result[][]=new int[2][1000];
-//			System.out.println("Prime anagrams");
+			System.out.println("Prime anagrams");
 
 				for(int j=0;j<not_anagram.length;j++)
 				{
@@ -378,8 +470,10 @@ public class DataStructure
 				}
 				System.out.println();
 			}
-			return anagram;
-		}
+					return anagram;
+		}*/
+		
+		
 		/**************************************************************************************************** 
 		*   Date: 26/11/2019
 		*   Purpose:Takes anagram numbers array and pass them to add linkedlist and after that that will access from stack and queue,
@@ -388,12 +482,11 @@ public class DataStructure
 		*   @return void
 		******************************************************************************************************/
 		public static void AddAnagramLinkedList(int anagram[])
-		{
-			
-			
+		{	
 			//add in stack using linkedlist
 			String stackanag[]=new String[anagram.length];
 			Stack.setStackSize(anagram.length);
+			
 			for(int i=0;i<anagram.length;i++)
 			{
 				LinkedListiml<Integer> linklist=new LinkedListiml<Integer>();
@@ -401,7 +494,9 @@ public class DataStructure
 				linklist.add2Stack();
 				stackanag[i]=Stack.peek().toString();
 			}
+			System.out.println();
 			System.out.println("stack anagrams entry");
+			
 			for(int j=stackanag.length-1;j>=0;j--)
 			{
 				if(!stackanag[j].equals("0"))
@@ -411,6 +506,7 @@ public class DataStructure
 			//add in queue using linkedlist
 			String queueanag[]=new String[anagram.length];
 			Queue.setSize(anagram.length);
+			
 			for(int i=0;i<anagram.length;i++)
 			{
 				LinkedListiml<Integer> linklist2=new LinkedListiml<Integer>();
@@ -420,14 +516,35 @@ public class DataStructure
 			}
 			System.out.println();
 			System.out.println("Queue anagrams entry");
-			for(int j=queueanag.length-1;j>=0;j--)
+			
+			for(int j=0;j<queueanag.length;j++)
 			{
 				if(!queueanag[j].equals("0"))
 				System.out.print(queueanag[j]+" ");
 			}
 			
 		}//end whole primes operations
-	
+		/**************************************************************************************************** 
+		*   Date: 26/11/2019
+		*   Purpose:Takes months,day,and year as input and returns odd days to the class 
+		*   @param int month,day,year
+		*   @return int
+		******************************************************************************************************/			
+		 public static int day(int month, int day, int year) {
+		        int y = year - (14 - month) / 12;
+		        int x = y + y/4 - y/100 + y/400;
+		        int m = month + 12 * ((14 - month) / 12) - 2;
+		        int d = (day + x + (31*m)/12) % 7;
+		        return d;
+		    }
+		 public static boolean isLeap(int year)
+		 {
+			 if((year%4==0&&year%100!=0)||year%400==0)
+				 return true;
+			 else
+			 return false;
+		 }
+
 	
 	
 }

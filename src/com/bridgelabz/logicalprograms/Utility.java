@@ -1,7 +1,13 @@
 package com.bridgelabz.logicalprograms;
-
 import java.util.Random;
-
+/**
+ * @author Rupeshp007
+ * date:18/11/2019
+ * Purpos:utility class for tic toe game for print 3X3 board and initialize the marks for perticuler localtions. 
+ * to check who is winning
+ * to check game is over or not
+ * two marks "X" and "0" 
+ **********************************************************************************/
 public class Utility 
 {
 	private static char board[][];
@@ -121,11 +127,14 @@ public class Utility
 							System.out.println();
 							System.out.println("=====================");
 						}
-						break;
+							break;
 					}
+					else
+						continue;
+				
+					
 				}
 
-		//}
 	}
 	public boolean ComputerTurn(int row,int col)
 	{

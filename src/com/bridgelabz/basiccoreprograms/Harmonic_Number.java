@@ -1,15 +1,11 @@
 package com.bridgelabz.basiccoreprograms;
 import com.bridgelabz.util.*;
 /**
- Author RupeshPatil
-* Date: 13/11/2019
-Purpose:Harmonic Number
-a. Desc -> Prints the Nth harmonic number: 1/1 + 1/2 + ... + 1/N
-(http://users.encs.concordia.ca/~chvatal/notes/harmonic.html).
-b. I/P -> The Harmonic Value N. Ensure N != 0
-c. Logic -> compute 1/1 + 1/2 + 1/3 + ... + 1/N
-d. O/P -> Print the Nth Harmonic Value.
-**/
+* Author RupeshPatil
+* Date: 16/11/2019
+* Purpose:Harmonic Number Prints the Nth harmonic number: 1/1 + 1/2 + ... + 1/N
+*  O/P -> Print the Nth Harmonic Value.
+**************************************************************************************/
 
 
 public class Harmonic_Number 

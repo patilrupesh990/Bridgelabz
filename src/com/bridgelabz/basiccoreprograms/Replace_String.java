@@ -1,17 +1,17 @@
 package com.bridgelabz.basiccoreprograms;
 
+import java.util.InputMismatchException;
+
 import com.bridgelabz.util.Utility;;
 
 
 
 /**
 * Author: RupeshPatil
-* Date: 13/11/2019
-Purpose:User Input and Replace String Template “Hello <<UserName>>, How are you?”
-a. I/P​ -> Take User Name as Input. ​ Ensure UserName has min 3 char
-b. Logic​ -> Replace <<UserName>> with the proper name
-c. O/P​ -> Print the String with User Name
-**/
+* Date: 16/11/2019
+* Purpose:Take User Name as Input User Input and Replace String Template “Hello <<UserName>>, How are you?”
+* Print the String with User Name
+***************************************************************************************************************/
 
 public class Replace_String 
 {
@@ -19,17 +19,29 @@ public class Replace_String
 	
 	public static void main(String[] args) 
 	{
-		String user_name;
+		String user_name ="";
 		String user_name2;
 		String user_name3;
 		
 		System.out.println("Enter User Name");
+		try
+		{
 		user_name=u.InputString();
+		}
+		catch (InputMismatchException e) 
+		{
+			// TODO: handle exception
+			System.out.println("Enter name only numbers not allowedd");
+		}
 		
 		if(user_name.length()<3)
 		{
 			System.out.println("Please enter minimum 3 character");
-			user_name=u.InputString();
+			try
+			{user_name=u.InputString();}
+			
+			catch(InputMismatchException e)
+			{System.out.println("invalid input");}
 		}
 		
 		

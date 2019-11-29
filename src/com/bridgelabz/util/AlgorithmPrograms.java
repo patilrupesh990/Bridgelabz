@@ -76,23 +76,23 @@ public class AlgorithmPrograms
 	 **/
 	public void BubbleSort(int arr[])
 	{
-		for(int i=0;i<arr.length;i++)
+		for(int index1=0;index1<arr.length;index1++)
 		{
-			for(int j=0;j<arr.length-1;j++)
+			for(int index2=0;index2<arr.length-1;index2++)
 			{
 				int temp=0;
-				if(arr[j]>arr[j+1])
+				if(arr[index2]>arr[index2+1])
 				{
-					temp=arr[j];
-					arr[j]=arr[j+1];
-					arr[j+1]=temp;
+					temp=arr[index2];
+					arr[index2]=arr[index2+1];
+					arr[index2+1]=temp;
 				}
 			}
 			
 		}
-		for(int i=0;i<arr.length;i++)
+		for(int index=0;index<arr.length;index++)
 		{
-			System.out.println("Elements in ascending order After Bubble Sort"+arr[i]);
+			System.out.println("Elements in ascending order After Bubble Sort"+arr[index]);
 		}
 	}//end bubbleSort
 	
@@ -105,9 +105,9 @@ public class AlgorithmPrograms
 		
 	public String[] InsertElementInArray(String arr[],int size)
 	{
-		for(int i=0;i<size;i++)
+		for(int index=0;index<size;index++)
 		{
-			arr[i]=util.InputString();
+			arr[index]=util.InputString();
 		}
 		return arr;
 		//
@@ -124,21 +124,21 @@ public class AlgorithmPrograms
 	public static void Insertionsort(String arr[])
 	{
 		String temp;
-		for(int i=0;i<arr.length-1;i++)
+		for(int index=0;index<arr.length-1;index++)
 		{
-			for(int j=i+1;j<arr.length;j++)
+			for(int index2=index+1;index2<arr.length;index2++)
 			{
-				if(arr[i].compareTo(arr[j])>0)
+				if(arr[index].compareTo(arr[index2])>0)
 				{
-					temp=arr[i];
-					arr[i]=arr[j];
-					arr[j]=temp;
+					temp=arr[index];
+					arr[index]=arr[index2];
+					arr[index2]=temp;
 				}
 			}
 		}
-		for(int i=0;i<arr.length;i++)
+		for(int index=0;index<arr.length;index++)
 		{
-			System.out.println("After the Insertion sort"+arr[i]);
+			System.out.println("After the Insertion sort"+arr[index]);
 		}
 	}// end of InsertionSort
 	/**
@@ -174,15 +174,15 @@ public class AlgorithmPrograms
 				left=new String[list.length/2];
 				right=new String[(list.length/2)+1];
 			}
-				int i=0;
-				int j=0;
-				for(;i<mid;i++)
+				int index1=0;
+				int index2=0;
+				for(;index1<mid;index1++)
 				{
-					left[i]=list[i];
+					left[index1]=list[index1];
 				}
-				for(;i<list.length;i++)
+				for(;index1<list.length;index1++)
 				{
-					right[j++]=list[i];
+					right[index2++]=list[index1];
 				}
 				left=MergeSort(left);
 				right=MergeSort(right);
@@ -243,22 +243,22 @@ public class AlgorithmPrograms
 	   {
 		int temp[]=new int[100];
 		int count=0;
-		for(int i=0;i<primes.length;i++)
+		for(int index=0;index<primes.length;index++)
 		{
-			if(primes[i]>10)
+			if(primes[index]>10)
 			{
-				int t=0;
-				int u=primes[i];
-				while(u>0)
+				int temp2=0;
+				int temp3=primes[index];
+				while(temp3>0)
 				{
 					
-					int rem=u%10;
-					t=t*10+rem;
-					u=u/10;
+					int rem=temp3%10;
+					temp2=temp2*10+rem;
+					temp3=temp3/10;
 				}
-				if(t==primes[i])
+				if(temp3==primes[index])
 				{
-					temp[count]=primes[i];
+					temp[count]=primes[index];
 					count++;
 				}
 			}
@@ -266,32 +266,32 @@ public class AlgorithmPrograms
 		int primepalindrome[]=new int[count];
 		primepalindrome=temp;
 		System.out.println("Prime Anagram and Palindrome are:");
-		for(int j=0;j<count;j++)
+		for(int index=0;index<count;index++)
 		{
-			System.out.println(primepalindrome[j]);
+			System.out.println(primepalindrome[index]);
 		}
 		
 	}//prime palindrome and anagram
 		
-		public void Anagram(char[]c1,char[]c2)
+		public void Anagram(char[]chararray1,char[]chararray2)
 		{
-			if(c1.length!=c2.length)
+			if(chararray1.length!=chararray2.length)
 			{
 				System.out.println("Two Strings are not anagram");
 			}
 			else
 			{
 				int count=0;
-				Arrays.sort(c1);
-				Arrays.sort(c2);
-				for(int i=0;i<c1.length;i++)
+				Arrays.sort(chararray1);
+				Arrays.sort(chararray2);
+				for(int index=0;index<chararray1.length;index++)
 				{
-					if(c1[i]==c2[i])
+					if(chararray1[index]==chararray2[index])
 					{
 						count++;
 					}
 				}
-				if(count==c1.length)
+				if(count==chararray1.length)
 				{
 					System.out.println("Two Strings Are Anagram");
 				}
@@ -324,8 +324,8 @@ public class AlgorithmPrograms
 		    else if (input.equals("yes"))
 	            {
 					System.out.println("The number you thought was: "+middle);
-					int no=++count;
-					System.out.println("It takes "+no+" times to find your exact number");
+					int number=++count;
+					System.out.println("It takes "+number+" times to find your exact number");
 					break;
 	            }
 				else if(input.equals("low"))

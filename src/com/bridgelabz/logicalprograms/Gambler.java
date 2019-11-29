@@ -3,7 +3,7 @@ package com.bridgelabz.logicalprograms;
 
 import com.bridgelabz.util.LogicalProgram;
 import com.bridgelabz.util.Utility;;
-/*
+/**
 * Author: RupeshPatil
 * Date: 13/11/2019
 * Purpose:Gambler Simulates a gambler who start with $stake and place fair $1 bets 

@@ -1,19 +1,17 @@
 package com.bridgelabz.util;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 
 public class LinkedListiml<T>
 {
 		private int size = 0;
 		private Node<T> node,root,p;
 	 
-		/**
+		/***********************************************************************
 		 * purpose:Add data in LinkedList
 		 * @param T data 
 		 * @return void
 		 * 
-		**/
+		************************************************************************/
 	
 		@SuppressWarnings("unchecked")
 		public void add(T data) 
@@ -82,7 +80,6 @@ public class LinkedListiml<T>
 	        @SuppressWarnings("rawtypes")
 			Node temp = root, prev = null; 
 	  
-	  
 	        if (temp != null && temp.data.equals(data)) 
 	        { 
 	            root = temp.nextNode; // Changed head 
@@ -93,10 +90,11 @@ public class LinkedListiml<T>
 	        { 
 	            prev = temp; 
 	            temp = temp.nextNode; 
-	        }     
-	   
-	        if (temp == null) return; 
-	        prev.nextNode = temp.nextNode; 
+	            
+	        }   
+	        if(temp==null)
+	        	return;
+	        	prev.nextNode = temp.nextNode; 
 		}
 		
 		/**
@@ -107,19 +105,28 @@ public class LinkedListiml<T>
 		**/
 
 		@SuppressWarnings("unchecked")
+		static int index=0;
 		public boolean searchNode(T data)
 		{
+			index=0;
 			p=root;
 			while(p!=null)
 			{
+				
 				if((boolean) p.getData().equals(data))
 				{
 					//System.out.println(node.getData());
 					return true;
 				}
+				index++;
 				p=p.nextNode;
 			}
 			return false;
+			
+		}
+		public static int getindex()
+		{
+			return index;
 		}
 		/**
 		 * purpose:Display data from LinkedList
@@ -160,20 +167,8 @@ public class LinkedListiml<T>
 				Queue.insert(p.data);
 				p=p.nextNode;
 			}
-		}
-		 
-		
-			public void WriteinFile() throws FileNotFoundException
-			{
-				p=root;
-				while(p != null)
-				{
-					PrintWriter writer = new PrintWriter("E:\\project p\\test.txt");
-					writer.print(p.data+",");
-					//System.out.print(" "+p.data);
-					p=p.nextNode;
-				}
-			}
+		}		
+			
 			
 				
 	}

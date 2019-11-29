@@ -22,21 +22,21 @@ public class FunctionalPrograms
 		array=new int[size];
 		
 		/**Purpose: input elements in Array**/
-		for(int j=0;j<size;j++)
+		for(int index=0;index<size;index++)
 		{
-			array[j]=util.InputInt();
+			array[index]=util.InputInt();
 		}
 		
 		/**Purpose: to print triplets of sum 0 and total count of distincts triplets**/
-		for(int i=0;i<size;i++)
+		for(int index=0;index<size;index++)
 		{
-			for(int j=i+1;j<size;j++)
+			for(int index2=index+1;index2<size;index2++)
 			{
-				for(int k=j+1;k<size;k++)
+				for(int index3=index2+1;index3<size;index3++)
 				{
-					if(array[i]+array[j]+array[k]==0)
+					if(array[index]+array[index2]+array[index3]==0)
 					{
-						System.out.println(array[i]+","+array[j]+","+array[k]);
+						System.out.println(array[index]+","+array[index2]+","+array[index3]);
 						count++;
 					}
 				}
@@ -49,9 +49,9 @@ public class FunctionalPrograms
 	 * @param int x1, int y1
 	 * @return void
 	 *  **/
-	public void Euclidean_distance(int x1,int y1)
+	public void Euclidean_distance(int point_x,int point_y)
 	{
-		double result=Math.sqrt((Math.pow(x1,2))+Math.pow(y1, 2));
+		double result=Math.sqrt((Math.pow(point_x,2))+Math.pow(point_y, 2));
 		System.out.println("Euclidean Distance="+result);
 	}
 	//end of Euclidean_distance
@@ -63,14 +63,14 @@ public class FunctionalPrograms
 		Root 2 of x = (-b - sqrt(delta))/(2*a)
 	 *@return void
 	**/
-	public void Find_Quadratic(double a,double b,double c)
+	public void Find_Quadratic(double a_value,double b_value,double c_value)
 	{
-		double delta=b*b-4*a*c;
-		double x1=(-b+Math.sqrt(delta))/(2*a);
-		double x2=(-b-Math.sqrt(delta))/(2*a);
+		double delta=b_value * b_value-4 * a_value * c_value;
+		double result1=(-b_value + Math.sqrt(delta))/(2 * a_value);
+		double result2=(-b_value - Math.sqrt(delta))/(2 * a_value);
 		
-		System.out.println(x1);
-		System.out.println(x2);
+		System.out.println(result1);
+		System.out.println(result2);
 	}// end Quadratic 
 
 	
@@ -80,12 +80,12 @@ public class FunctionalPrograms
 	 * @return void
 	 * 
 	**/
-	public void Compute_Wind_Chill(double t,double v)
+	public void Compute_Wind_Chill(double temperature,double speed)
 	{
-		double w=35.74+0.6215+(0.4275*t-35.75)*Math.pow(v, 0.16);
-		System.out.println("Temprature is: "+t+" °F");
-		System.out.println("Wind Speed is: "+v+"Mile/hour");
-		System.out.println("Wind-Chill: "+w+" Mile/hour");
+		double wind_chill=35.74+0.6215+(0.4275 * temperature-35.75)*Math.pow(speed, 0.16);
+		System.out.println("Temprature is: "+temperature+" °F");
+		System.out.println("Wind Speed is: "+speed+"Mile/hour");
+		System.out.println("Wind-Chill: "+wind_chill+" Mile/hour");
 	} //end wind child
 	
 }

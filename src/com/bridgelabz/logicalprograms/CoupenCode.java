@@ -2,7 +2,7 @@ package com.bridgelabz.logicalprograms;
 
 import com.bridgelabz.util.LogicalProgram;
 import com.bridgelabz.util.Utility;
-/*
+/**
 * Author: RupeshPatil
 * Date: 16/11/2019
 * Purpose:Generate A Random code coupen as per user user size limit 

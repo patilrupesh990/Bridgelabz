@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * date:19/11/2019
  * Purpos:Sorting the Elements in ArrayList
  * Algorithm:Insertion Sort using Generic
- **/
+ **********************************************************************************/
 
 public class InsertionSortGenercs 
 {
@@ -17,12 +17,14 @@ public class InsertionSortGenercs
 	
 		System.out.println("How many words wants to insert??");
 		int size=util.InputInt();
+		
 		System.out.println("Enter the words into list");
 		for(int i=0;i<size;i++)
 		{
 			String s=util.InputString();
 			al.add(s);
 		}
+		
 		util.InsertionSort(al);
 	}
 	

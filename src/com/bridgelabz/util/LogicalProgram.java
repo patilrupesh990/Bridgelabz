@@ -1,6 +1,12 @@
 package com.bridgelabz.util;
 
 import java.util.Random;
+/**********************************************************************************************************
+* Created by:	Rupesh Patil
+* Date:  		16/11/2019
+* Purpose: 		Logical programs utility methods.
+***********************************************************************************************************/
+
 public class LogicalProgram 
 {
 	static Utility util=new Utility();
@@ -132,7 +138,7 @@ public class LogicalProgram
 		}//End Gamble
 		
 		/**
-		 * repetation of gambler after first given number of game
+		 * Repetition of gambler after first given number of game
 		 * @param no parameters
 		 * @return void
 		**/

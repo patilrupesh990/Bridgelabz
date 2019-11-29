@@ -1,6 +1,12 @@
 package com.bridgelabz.functionalprograms;
 
 import com.bridgelabz.util.Utility;
+/**********************************************************************************************************
+* Created by:	Rupesh Patil
+* Date:  		16/11/2019
+* Purpose: 		Developed Two Dimentional array based on user input e.g Row Size Column Size
+* 				and datatypes.
+***********************************************************************************************************/
 
 public class TwoDimentional_Array
 {
@@ -30,31 +36,31 @@ public class TwoDimentional_Array
 		{
 			case 1:
 					System.out.println("Enter elemnts in integer Array");
-				for(int i=0;i<row;i++)
+				for(int index1=0;index1<row;index1++)
 				{
-					for(int j=0;j<colom;j++)
+					for(int index2=0;index2<colom;index2++)
 					{
-						intArray[i][j]=util.InputInt();
+						intArray[index1][index2]=util.InputInt();
 					}
 				}
 				break;
 			case 2:
 				System.out.println("Enter elemnts in double Array");
-				for(int i=0;i<row;i++)
+				for(int index1=0;index1<row;index1++)
 				{
-					for(int j=0;j<colom;j++)
+					for(int index2=0;index2<colom;index2++)
 					{
-						doubleArray[i][j]=util.InputDouble();
+						doubleArray[index1][index2]=util.InputDouble();
 					}
 				}
 				break;
 			case 3:
 				System.out.println("Enter elemnts in boolean Array");
-				for(int i=0;i<row;i++)
+				for(int index1=0;index1<row;index1++)
 				{
-					for(int j=0;j<colom;j++)
+					for(int index2=0;index2<colom;index2++)
 					{
-						booleanArray[i][j]=util.InputBoolean();
+						booleanArray[index1][index2]=util.InputBoolean();
 					}
 				}
 				break;
@@ -84,33 +90,33 @@ public class TwoDimentional_Array
 	
 	public static void print_IntArray(int array[][])
 	{
-		for(int i=0;i<row;i++)
+		for(int index1=0;index1<row;index1++)
 		{
-			for(int j=0;j<colom;j++)
+			for(int index2=0;index2<colom;index2++)
 			{
-				System.out.print(" "+intArray[i][j]+" ");;
+				System.out.print(" "+intArray[index1][index2]+" ");;
 			}
 			System.out.println();
 		}
 	}
 	public static void print_DoubleArray(double array[][])
 	{
-		for(int i=0;i<row;i++)
+		for(int index1=0;index1<row;index1++)
 		{
-			for(int j=0;j<colom;j++)
+			for(int index2=0;index2<colom;index2++)
 			{
-				System.out.print(" "+doubleArray[i][j]+" ");;
+				System.out.print(" "+doubleArray[index1][index2]+" ");;
 			}
 			System.out.println();
 		}
 	}
 	public static void print_BooleanArray(boolean array[][])
 	{
-		for(int i=0;i<row;i++)
+		for(int index1=0;index1<row;index1++)
 		{
-			for(int j=0;j<colom;j++)
+			for(int index2=0;index2<colom;index2++)
 			{
-				System.out.print(" "+booleanArray[i][j]+" ");;
+				System.out.print(" "+booleanArray[index1][index2]+" ");;
 			}
 			System.out.println();
 		}

@@ -19,17 +19,22 @@ public class Question
 			
 			try
 			{
-				Utility u=new Utility();
-				System.out.println("Enter any Number:");
-				int n=u.InputInt();
-				range=(int)(Math.pow(2,n-1));                //range calculation for the number
-				System.out.println("Take number between '0' to "+range);
+				Utility util=new Utility();
 				count=0;
 				input=null;
 				lower=0;
+				
+				System.out.println("Enter any Number:");
+				int number=util.InputInt();
+				
+				range=(int)(Math.pow(2,number-1));                //range calculation for the number
+				
+				System.out.println("Take number between '0' to "+range);
+				
 				upper=range;
 				middle=(lower+upper/2);
-				AlgorithmPrograms.binarySearch(lower,upper,middle,count,input,n);
+				
+				AlgorithmPrograms.binarySearch(lower,upper,middle,count,input,number);
 			}
 			catch (ArrayIndexOutOfBoundsException ae)
 			{

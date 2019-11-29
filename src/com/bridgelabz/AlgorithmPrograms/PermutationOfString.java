@@ -12,30 +12,33 @@ public class PermutationOfString
 
 			public static void main(String[] args) 
 			{ 
-			    String str = "ABC"; 
+			    String string = "ABC"; 
 			    
-			    int n = str.length(); 
+			    int length = string.length(); 
 			    
 			    PermutationOfString permutation = new PermutationOfString(); 
-			    permutation.permute(str, 0, n - 1); 
+			    permutation.permute(string, 0, length - 1); 
 			} 
 			
 			/** 
 			 * permutation function 
 			 * @param str string to calculate permutation for 
-			 * @param l starting index 
-			 * @param r end index
+			 * @param start starting index 
+			 * @param last end index
 			 * @return void 
 			 */
-			private void permute(String str, int l, int r) 
+			private void permute(String string, int start, int last) 
 			{ 
-			    if (l == r) 
-			        System.out.println(str); 
+			    if (start == last) 
+			        System.out.println(string); 
 			    else { 
-			        for (int i = l; i <= r; i++) { 
-			            str = swap(str, l, i); 
-			            permute(str, l + 1, r); 
-			            str = swap(str, l, i); 
+			        for (int index = start; index <= last; index++) { 
+			            
+			        	string = swap(string, start, index); 
+			            
+			        	permute(string, start + 1, last); 
+			            
+			        	string = swap(string, start, index); 
 			        } 
 			    } 
 			} 
@@ -47,13 +50,13 @@ public class PermutationOfString
 			 * @param j position 2 
 			 * @return swapped string 
 			 */
-			public String swap(String a, int i, int j) 
+			public String swap(String string, int pos1, int pos2) 
 			{ 
 			    char temp; 
-			    char[] charArray = a.toCharArray(); 
-			    temp = charArray[i]; 
-			    charArray[i] = charArray[j]; 
-			    charArray[j] = temp; 
+			    char[] charArray = string.toCharArray(); 
+			    temp = charArray[pos1]; 
+			    charArray[pos1] = charArray[pos2]; 
+			    charArray[pos2] = temp; 
 			    return String.valueOf(charArray); 
 			} 
 } 

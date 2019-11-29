@@ -1,12 +1,18 @@
 package com.bridgelabz.util;
 
 public class Dequeueimpl<E> {
+
 	
-	Dequeueimpl<E> front;
-	Dequeueimpl<E> rear;
+	Deque<E> front;
+	Deque<E> rear;
 	int size=0;
 	
-	//add front
+	/**
+	 * To Add data in front
+	 * @param Type value
+	 * @return void
+	 * **/
+	@SuppressWarnings("null")
 	public void addFront(E c)
 	{
 		if(front==null) //if no element in list
@@ -16,7 +22,7 @@ public class Dequeueimpl<E> {
 		}
 		else  //if element in list
 		{
-			Dequeue<E>tNode=null;
+			Deque<E>tNode=null;
 			tNode.data=c;
 			tNode.next=front;
 			front.pre=tNode;
@@ -24,27 +30,33 @@ public class Dequeueimpl<E> {
 		}
 		size++;
 	}
-	
-	//add rear
+	/**
+	 * To Add data in Rear
+	 * @param Type value
+	 * @return void
+	 * **/	
 	public void addRear(E c)
 	{
 		if(front==null) //if no element in list
 		{
-			Dequeue<E>tNode=new Dequeue<E>(c);
+			Deque<E>tNode=new Deque<E>(c);
 			front=tNode;
 			rear=front;
 		}
 		else  //if element in list
 		{
-			Dequeue<E>tNode=new Dequeue<>(c);
+			Deque<E>tNode=new Deque<>(c);
 			rear.next=tNode;
 			tNode.pre=rear;
 			rear=tNode;
 		}
 		size++;
 	}
-	
-	//remove front
+	/**
+	 * To remove data from front
+	 * @param no param
+	 * @return type data
+	 * **/
 	public E removeFront()
 	{
 		E val=null;
@@ -60,8 +72,11 @@ public class Dequeueimpl<E> {
 		size--;
 		return val;
 	}
-	
-	//remove rear
+	/**
+	 * To Add data from Rear
+	 * @param no param
+	 * @return Type data
+	 * **/
 	public E removeRear()
 	{
 		E val=null;
@@ -78,8 +93,11 @@ public class Dequeueimpl<E> {
 		size--;
 		return val;
 	}
-	
-	//to remove
+	/**
+	 * it will check whether queue is empty or not
+	 * @param no param
+	 * @return boolean
+	 * **/
 	public boolean isEmpty()
 	{
 		if(front==null)
@@ -87,11 +105,12 @@ public class Dequeueimpl<E> {
 		else
 			return false;
 	}
- 
-	//return size of Dequeue
-	public int size()
+	/**
+	 * it will return size of queue
+	 * @param no param
+	 * @return int
+	 * **/	public int size()
 	{
 		return size;
 	}
-
 }

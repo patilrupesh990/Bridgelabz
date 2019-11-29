@@ -1,5 +1,11 @@
 package com.bridgelabz.logicalprograms;
-
+/**
+ * @author Rupeshp007
+ * date:18/11/2019
+ * Purpos:To develop tic toc based game in that user will paly with computer on 3X3 board. 
+ * first user will select the mark for play
+ * two marks "X" and "0" 
+ **********************************************************************************/
 public class TicTacToe 
 {
 	public static void main(String[] args) 
@@ -11,7 +17,6 @@ public class TicTacToe
 		String name=scan.InputString();
 		util.Initilization();
 		util.PrintBord(name);
-		
 	}
 	
 	

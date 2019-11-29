@@ -1,4 +1,14 @@
 package com.bridgelabz.util;
+/***************************************************************************************
+* Created by:Rupesh Patil
+* Date: 22/11/2019
+* Purpose: Insert element Array in FIRST IN FIRST OUT manner.
+* 	Operations on queueu	
+*	1 Insert
+*	2 Delete.
+*	3 IsEmpty.
+*	4 IsFull	 
+*******************************************************************************************/
 
 public class Queue<T>
 {
@@ -7,12 +17,21 @@ public class Queue<T>
 	static String queue[];
 	static int size;
 	
+	/**
+	 * Set size of queue array 
+	 * @param int 
+	 * @return void
+	 * **/
 	public static void setSize(int size1)
 	{
 		size=size1;
 		queue=new String[size1];
 	}
-	
+	/**
+	 * insert the values into queue 
+	 * @param type data 
+	 * @return void
+	 * **/
 	public static <T>void insert(T data)	
 	{
 		if(isEmpty())
@@ -36,11 +55,20 @@ public class Queue<T>
 		}
 	}
 	
+	/**
+	 * Reset the values of rear and front so queue will be empty 
+	 * @param reference value of type data type
+	 * @return void
+	 * **/
 	public static void reset()
 	{
 		rear=-1;front=-1;
 	}
-	
+	/***************************************************************************
+	 * delete values from  queue
+	 * @param no params
+	 * @return type data
+	 * ***********************************************************************/
 	@SuppressWarnings("unchecked")
 	public static <T> T detete()
 	{
@@ -62,7 +90,11 @@ public class Queue<T>
 		
 		
 	}
-	
+	/****************************************************************************
+	 * To check whether queue is full or not
+	 * @param no param
+	 * @return boolean
+	 *****************************************************************************/
 	public static boolean isFull()
 	{
 		if(front==queue.length)
@@ -72,7 +104,11 @@ public class Queue<T>
 		
 		return false;				
 	}
-	
+	/******************************************************************************
+	 * To check whether queue is empty or not 
+	 * @param no param
+	 * @return boolean
+	 **********************************************************************************/
 	public static boolean isEmpty()
 	{
 		if(rear==-1)
@@ -81,7 +117,11 @@ public class Queue<T>
 		}
 		return false;
 	}
-	
+	/*****************************************************************************
+	 * To display the values from queue 
+	 * @param no param
+	 * @return void
+	 * ****************************************************************************/
 	public static void Display()
 	{
 		for(int i=0;i<rear;i++)

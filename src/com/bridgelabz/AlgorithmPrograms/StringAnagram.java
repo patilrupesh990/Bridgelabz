@@ -7,7 +7,7 @@ import com.bridgelabz.util.Utility;
  * @version 1.0
  * Purpose:For check given two Strings are anarams or not eg. "earth" and "heart" this strings are anagrams 
  *  takes two input from user String1 and String2
- **/
+ **********************************************************************************************************/
 
 public class StringAnagram 
 {
@@ -17,11 +17,14 @@ public class StringAnagram
 	{
 		System.out.println("Enter the First String");
 		String string1=util.InputString();
+		
 		System.out.println("Enter the First String");
 		String string2=util.InputString();
-		char[] c1=string1.toCharArray();
-		char[] c2=string2.toCharArray();
-		anagram.Anagram(c1,c2);
+		
+		char[] chararray1=string1.toCharArray();
+		char[] chararray2=string2.toCharArray();
+		
+		anagram.Anagram(chararray1,chararray2);
 		
 	}
 	
