@@ -131,44 +131,38 @@ public class DataStructure
 	*************************************************************************************/
 	public static void StartCounter()
 	{
-		int size=2;
+		int size=4;
 		double cash=2000000.00;
 		
 		
 		Queue.setSize(size);
-		System.out.println("initially "+size+" people standing in queue");
 		for(int i=1;i<=size;i++)
 		{
 			Queue.insert(i);
 		}
 		while(true)
 		{
-				
+				System.out.println(size+"people standing in queue");
 				System.out.println("1.CallNext Customer 2.Add people in queue 3.close counter");
 				int action=util.InputInt();
 				switch(action)
 				{
 					case 1:
-							if(Queue.isEmpty())
-							{
-								System.out.println("Queue is Empty");
-								break;
-							}
-							else
-							{
+							
 								cash=callNext(cash);
+								size--;
+								String message=Queue.detete();
+								if(message.equals("Queue is Empty"))
+								{
+									System.out.println("please add people in queue");
+									size=DataStructure.addPeople(size);
+								}
 								break;
-							}
 							
 					case 2:	
 							Queue.reset();
 							System.out.println("Enter the number of people");
-							int x=util.InputInt();
-							Queue.setSize(x);
-							for(int i=0;i<x;i++)
-							{
-								Queue.insert(i);
-							}
+							size=DataStructure.addPeople(size);
 							break;
 					case 3:	
 							System.out.println("Cash counter closed final Amount:"+cash);
@@ -184,6 +178,18 @@ public class DataStructure
 		}//end while loop
 	}//end startcounter
 	
+	
+	public static int addPeople(int size)
+	{
+		System.out.println("Enter the number of people");
+		int x=util.InputInt()+size;
+		Queue.setSize(x);
+		for(int i=0;i<x;i++)
+		{
+			Queue.insert(i);
+		}
+		return x;
+	}
 	
 	/**************************************************************************************************** 
 	*   Date: 25/11/2019
@@ -228,7 +234,7 @@ public class DataStructure
 	{
 		double total=0.0;
 		
-		Queue.detete();
+		
 		System.out.println("Enter the Deposite Amount");
 		double deposite=util.InputDouble();
 		total=current+deposite;
@@ -248,14 +254,22 @@ public class DataStructure
 	{
 		double total=0.0;
 		
-		Queue.detete();
+		
 		System.out.println("Enter the withdrow Amount");
 		double withdrow=util.InputDouble();
+		if(withdrow>current)
+		{
+			System.out.println("Sorry cash not available more then"+current+"Rs.");
+			DataStructure.callNext(current);
+			return current;
+		}
+		else {
 		total=current-withdrow;
 		System.out.println("Successfully withdraw"+withdrow+"Rs.");
 		System.out.println("Available Cash"+total);
 		System.out.println("=======================================================================================");
 		return total;
+		}
 	}
 	
 	

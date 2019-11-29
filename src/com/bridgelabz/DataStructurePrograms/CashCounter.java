@@ -19,11 +19,9 @@ public class CashCounter
 	public static void main(String[] args) 
 	{
 		
-		Utility util=new Utility();
-		
+		Utility util=new Utility();	
 		System.out.println("press S for start Counter");
 		String start=util.InputString();
-		
 		if(start.equals("s")||start.equals("S"))
 		{
 			DataStructure.StartCounter();
@@ -32,6 +30,5 @@ public class CashCounter
 		{
 			System.out.println("Invalid Option");
 		}
-		
 	}
 }

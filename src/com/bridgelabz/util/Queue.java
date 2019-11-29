@@ -13,10 +13,9 @@ package com.bridgelabz.util;
 public class Queue<T>
 {
 	
-	static int front=-1,rear=-1;
+	static int front=0,rear=-1,count=0;
 	static String queue[];
 	static int size;
-	
 	/**
 	 * Set size of queue array 
 	 * @param int 
@@ -27,6 +26,12 @@ public class Queue<T>
 		size=size1;
 		queue=new String[size1];
 	}
+	
+	public static int getSize()
+	{
+		return count;
+	}
+	
 	/**
 	 * insert the values into queue 
 	 * @param type data 
@@ -34,10 +39,7 @@ public class Queue<T>
 	 * **/
 	public static <T>void insert(T data)	
 	{
-		if(isEmpty())
-		{
-			front=0;rear=0;
-		}
+		
 		if(isFull())
 		{
 			System.out.println("Sorry For inconvenience Queue is Full");
@@ -97,11 +99,9 @@ public class Queue<T>
 	 *****************************************************************************/
 	public static boolean isFull()
 	{
-		if(front==queue.length)
-		{
-			return true;
-		}
-		
+		if(getSize()==size)
+		return true;
+		else
 		return false;				
 	}
 	/******************************************************************************
@@ -111,10 +111,8 @@ public class Queue<T>
 	 **********************************************************************************/
 	public static boolean isEmpty()
 	{
-		if(rear==-1)
-		{
+		if(getSize()==0)
 			return true;
-		}
 		return false;
 	}
 	/*****************************************************************************

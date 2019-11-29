@@ -13,17 +13,8 @@ import com.bridgelabz.util.LinkedListiml;
 
 public class DataStructure {
 
-	@Test
-	public void BalancedParenthesTest()
-	{
-		String expr="(a+b(a+c)";
-		String result=com.bridgelabz.util.DataStructure.BalanaceParenthes(expr);
-		assertTrue("not balanced", result!="balaced");
-	}
-	
+		
 	//values for OrderedList
-	int list[]= {};	
-	String fileName="G:\\Bridgelabz\\Bridgelabz\\Testings\\com\\bridgelabz\\testing\\OrderListTest.txt";
-	static LinkedListiml<Integer> al=new LinkedListiml<Integer>();
-	int result[]=new int[6];
+	
+	
 }
