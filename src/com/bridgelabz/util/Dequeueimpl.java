@@ -30,11 +30,11 @@ public class Dequeueimpl<E> {
 		}
 		size++;
 	}
-	/**
+	/*************************
 	 * To Add data in Rear
 	 * @param Type value
 	 * @return void
-	 * **/	
+	 *************************/	
 	public void addRear(E c)
 	{
 		if(front==null) //if no element in list
@@ -109,7 +109,8 @@ public class Dequeueimpl<E> {
 	 * it will return size of queue
 	 * @param no param
 	 * @return int
-	 * **/	public int size()
+	 * **/	
+	public int size()
 	{
 		return size;
 	}

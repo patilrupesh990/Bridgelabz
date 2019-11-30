@@ -41,10 +41,11 @@ public class OrderedList
 	 * Porpose:to find read Numbers from (,) separated lines from TextFile       *
 	 * @param names FileName                                                     *
 	 * @param key String                                                         *
-	 * @return int[] array of Numbers                                            *
+	 * @return int[] array of Numbers                                            
+	 * @throws IOException *
 	 *****************************************************************************/	
 	
-	public static int[] ReadFile(String FileName) throws IOException,FileNotFoundException
+	public static int[] ReadFile(String FileName)
 	{
 		File file;
 		file=new File(FileName);
@@ -53,12 +54,22 @@ public class OrderedList
 		String temp= "";
 		String line="";
 		
-			filereader = new FileReader(file);
+			try {
+				filereader = new FileReader(file);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			b_reader=new BufferedReader(filereader);
 	
-		while((temp=b_reader.readLine())!=null)
-		{
-			line+=temp;
+		try {
+			while((temp=b_reader.readLine())!=null)
+			{
+				line+=temp;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		String[] temp2= line.split(",");
@@ -69,7 +80,12 @@ public class OrderedList
 			 words[i++]=Integer.parseInt(s);
 		 }
 		//List word=new List();
-		b_reader.close();
+		try {
+			b_reader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return words;
 	}
 }

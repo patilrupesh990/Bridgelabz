@@ -95,7 +95,10 @@ public class Utility
 	}
 //end of input methods
 	
-	
+	/** for Read the contents from the text file and store in ArrayList and returns list.
+	 * @param String filename
+	 * @return ArrayList<T> list of words/numbers 
+	 * **/
 	public <T>ArrayList<T> ReadFile(String FileName) 
 	{
 		File file;
@@ -139,7 +142,25 @@ public class Utility
 		return (ArrayList<T>) al;
 	}
 	
+	/** To Display Calender in 2D array formate as per day and dates.
+	 * @param int day,int[] days,int month
+	 * @return void 
+	 * **/	
+	public static void DisplayCalender(int day,int days[],int month)
+	{
+		for (int i = 0; i < day; i++)
+	        System.out.print("\t");
+	    for (int i = 1; i <= days[month-1]; i++) {
+	        System.out.print(i+"\t");
+	        if (((i + day) % 7 == 0) || (i == days[month-1])) 
+	        	System.out.println();
+	    }
+    }
 	
+	/** To Write contents in file .
+	 * @param T String,String fileName
+	 * @return void 
+	 * **/	
 	public static <T>void WriteinFile(T string,String filename)
 	{
 		try { 
@@ -150,8 +171,38 @@ public class Utility
             out.write(","+String.valueOf(string)); 
             out.close(); 
         }catch (IOException e) {
-			// TODO: handle exception
+			
 		} 
+	}
+	
+	public static <T>void DeleteFromeFile(String filename,T word)
+	{
+		File inputFile = new File(filename);
+        File outputFile = new File(filename);
+         Scanner sc = null;
+        FileWriter fw = null;
+
+        try {       
+            sc = new Scanner(inputFile);
+            fw = new FileWriter(outputFile);
+
+            while(sc.hasNextLine()) {
+                String str = sc.nextLine();                 
+                str = str.replaceAll("\\s,"+word+"\\s", "");                 
+                fw.write(str + "\r\n");
+            }
+
+            sc.close();
+            fw.close();
+
+        } catch (FileNotFoundException e2) {
+            e2.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
 	}
 	
 	/**To convert Temperature from Celsius to Feranhit
@@ -190,9 +241,12 @@ public class Utility
 	
 	for(int count=0;count<binarynew.length;count++)
 		binarynew[count]=binary[count];
-	
-	
 	return binarynew;
 	}    
 	
+	
+	
+	
+	
 }
+	

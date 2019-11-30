@@ -21,6 +21,9 @@ public class Stack<T>
 	 * *****************************************************************************/
 	 static public void setStackSize(int size)
 	 {
+		 if(size<0)
+			 System.out.println("stack size cannot be negative");
+		 else
 		  stack=new String[size];
 	 }
 	 	/**
@@ -51,9 +54,9 @@ public class Stack<T>
 		 * @param no param
 		 * @return boolean
 		 *************************************************************************/
-	static boolean isFull()
+	public static boolean isFull()
 	{
-		if(top==stack.length+1)
+		if(top==stack.length-1)
 		{
 			return true;
 		}
@@ -75,7 +78,8 @@ public class Stack<T>
 		}
 		else
 		{
-			element=(T) stack[top--];
+			element=(T) stack[top];
+			--top;
 		}
 		return element;
 		
@@ -96,7 +100,7 @@ public class Stack<T>
 	
 	public static <T> int getSize()
 	{
-		return top;
+		return top+1;
 	}
     /*************************************************************************
 	 * To get value from top of stack its called as peek operation.

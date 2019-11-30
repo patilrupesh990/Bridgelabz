@@ -104,8 +104,8 @@ public class LinkedListiml<T>
 		 * 
 		**/
 
-		@SuppressWarnings("unchecked")
 		static int index=0;
+		@SuppressWarnings("unchecked")
 		public boolean searchNode(T data)
 		{
 			index=0;

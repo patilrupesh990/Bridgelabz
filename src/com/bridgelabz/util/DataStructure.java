@@ -1,8 +1,5 @@
 package com.bridgelabz.util;
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
 
 import com.bridgelabz.util.Utility;
@@ -51,33 +48,22 @@ public class DataStructure
 		{
 			list.add((T) word);
 			System.out.println(word+" Not Present in list and now added to list");
-			DataStructure.WriteinFile(word);
+			
+			Utility.WriteinFile(word,"E:\\project p\\BinarySearch.txt");
 			
 		}
 		else
 		{
 			list.removeNode((T) word);
 			System.out.println(word+" it was alrady in lIST and Removed from List");
+			Utility.DeleteFromeFile("E:\\project p\\BinarySearch.txt", word);;
 		}
 		list.Display();
 	}
 	
 	
 	
-	public static <T>void WriteinFile(T word) throws FileNotFoundException
-	{
-		try { 
-			  
-            // Open given file in append mode. 
-            BufferedWriter out = new BufferedWriter( 
-                   new FileWriter("G:\\Bridgelabz\\Bridgelabz\\src\\com\\bridgelabz\\DataStructurePrograms\\OrderList.txt", true)); 
-            out.write(","+String.valueOf(word)); 
-            out.close(); 
-        }catch (IOException e) {
-			// TODO: handle exception
-		} 
-	}
-	
+		
 	/****************************************************************************** 
 	*   Date: 24/11/2019
 	*   Purpose:To push '(', '{' and '[' in the Stack and if related closing braces found
@@ -133,8 +119,6 @@ public class DataStructure
 	{
 		int size=4;
 		double cash=2000000.00;
-		
-		
 		Queue.setSize(size);
 		for(int i=1;i<=size;i++)
 		{
@@ -149,16 +133,19 @@ public class DataStructure
 				{
 					case 1:
 							
-								cash=callNext(cash);
-								size--;
-								String message=Queue.detete();
-								if(message.equals("Queue is Empty"))
+								if(!(Queue.isEmpty()))
+								{
+									cash=callNext(cash);
+									size--;
+									Queue.detete();
+								}
+								else
 								{
 									System.out.println("please add people in queue");
 									size=DataStructure.addPeople(size);
 								}
 								break;
-							
+								
 					case 2:	
 							Queue.reset();
 							System.out.println("Enter the number of people");
@@ -233,8 +220,6 @@ public class DataStructure
 	public static double deposite(double current)
 	{
 		double total=0.0;
-		
-		
 		System.out.println("Enter the Deposite Amount");
 		double deposite=util.InputDouble();
 		total=current+deposite;
@@ -357,6 +342,15 @@ public class DataStructure
 			}//for
 			return result;
 		}//end primenumbers
+		
+		public static int countDigits(int num) {
+			int count = 0;
+			while (num != 0) {
+				num = num / 10;
+				++count;
+			}
+			return count;
+		}
 		/**************************************************************************************************** 
 		*   Date: 26/11/2019
 		*   Purpose:Takes array of prime numbers and divide them in Anagrams numbers and Non Anagrams Numbers
@@ -368,43 +362,58 @@ public class DataStructure
 		
 		public static int[] primeAnagrams3(int primes[])
 		{
-			int[] temp=new int[primes.length];
-			int x=1;
-			
-			for(int i=0;i<primes.length-1;i++)
-			{
-				for(int j=i+1;j<primes.length;j++)
-				{
-					  int a=DataStructure.dividedigit(primes[i]);
-					
-					  int b=DataStructure.dividedigit(primes[j]);
-					if(a==b &&primes[j]>10)
-								temp[x++]=primes[j];				
+				// logic to check prime numbers are anagram or not
+			int temp[]=new int[1000];
+			int count=0;
+			for (int k = 0; k < primes.length; k++) {
+					for (int j = k + 1; j < primes.length; j++) {
+						if (DataStructure.isAnagram(primes[k], primes[j]) && (primes[k] != 0 && primes[j] != 0)) {
+							System.out.println(primes[k] + " " + primes[j]);
+							temp[count++]=primes[k];
+							temp[count++]=primes[j];
+						}
+					}
 				}
+			int anagram[]=new int[count];
+			anagram=temp;
+			return anagram;
 			}
-			System.out.println();
-			int anagrams[]=new int[x+1];
-			anagrams=temp;
-			
-			Arrays.sort(anagrams);
-			
-			System.out.println("prime anagrams");
-			for(int i=0;i<anagrams.length-1;i++)
-			{
-				if(anagrams[i]>0&&anagrams[i]!=anagrams[i+1])	
-				System.out.print(anagrams[i]+"  ");
+
+		
+		
+		public static boolean isAnagram(int number1, int number2) {
+			int len1 = countDigits(number1);
+			int len2 = countDigits(number2);
+			if (len1 != len2) {
+				return false;
 			}
-			Arrays.sort(anagrams);
-			int anagram[]=new int[anagrams.length];
-			int y=0;
-			for(int j=0;j<anagrams.length-1;j++)
-			{
-				if(anagrams[j]!=anagrams[j+1])
-				anagram[y++]=anagrams[j];
+			int index1 = 0;
+			int index2 = 0;
+			int[] num1 = new int[len1];
+			int[] num2 = new int[len2];
+			while (number1 != 0) {
+				int rem = number1 % 10;
+				num1[index1] = rem;
+				number1 = number1 / 10;
+				index1++;
 			}
-			int finalanagram[]=new int[y];
-			return finalanagram;
+			while (number2 != 0) {
+				int rem = number2 % 10;
+				num2[index2] = rem;
+				number2 = number2 / 10;
+				index2++;
+			}
+			Arrays.sort(num1);
+			Arrays.sort(num2);
+
+			if (Arrays.equals(num1, num2))
+				return true;
+			else
+				return false;
 		}
+			
+			
+		
 			
 		public static int dividedigit(int n)
 			{
@@ -426,66 +435,6 @@ public class DataStructure
 				
 				return sorted;
 			}
-
-			
-	/*	public static int[] primeAnagrams(int primes[])
-		{
-			int temp[]=new int[500],temp2[]=new int[800],
-					index=0,index2=0;
-			for(int i=0;i<primes.length;i++)
-			{
-				
-				if(primes[i]>0)
-				{
-					int t=primes[i];
-					int rem=0;
-					int sum=0;
-					while(t>0)
-					{
-						rem=t%10;
-						sum=(sum*10)+rem;
-						t=t/10;
-					}
-					
-					if(sum==primes[i]&&sum>10)
-					{
-						temp[index++]=primes[i];						
-					}
-					else
-					{
-						temp2[index2++]=primes[i];
-						
-					}
-				}
-			}//end for
-			int anagram[]=new int[index2];
-			anagram=temp;
-			int not_anagram[]=new int[index2];
-			not_anagram=temp2;
-			index=0;index2=0;
-			int result[][]=new int[2][1000];
-			System.out.println("Prime anagrams");
-
-				for(int j=0;j<not_anagram.length;j++)
-				{
-						result[0][j]=not_anagram[j];
-				}
-				for(int j=0;j<anagram.length;j++)
-				{
-						result[1][j]=anagram[j];
-				}
-				System.out.println("Prime anagrams/not anagrams");
-			for(int i=0;i<2;i++)
-			{
-				for(int j=0;j<not_anagram.length;j++)
-				{
-					if(result[i][j]>0)
-					System.out.print(result[i][j]+" ");
-				}
-				System.out.println();
-			}
-					return anagram;
-		}*/
 		
 		
 		/**************************************************************************************************** 

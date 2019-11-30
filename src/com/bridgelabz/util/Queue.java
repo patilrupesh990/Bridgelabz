@@ -15,7 +15,7 @@ public class Queue<T>
 	
 	static int front=0,rear=-1,count=0;
 	static String queue[];
-	static int size;
+	static int size=0;
 	/**
 	 * Set size of queue array 
 	 * @param int 
@@ -47,12 +47,12 @@ public class Queue<T>
 		}
 		else
 		{
-			//queue.add(queue.indexOf(front), data.toString());
+			
 			try {
-			queue[rear++]=data.toString();
+			queue[++rear]=data.toString();
+			count++;
 			}catch (ArrayIndexOutOfBoundsException e) {
-				// TODO: handle exception
-				//System.out.println("queue size is limited:"+size);
+				
 			}
 		}
 	}
@@ -71,12 +71,11 @@ public class Queue<T>
 	 * @param no params
 	 * @return type data
 	 * ***********************************************************************/
-	@SuppressWarnings("unchecked")
-	public static <T> T detete()
+	public static <T>String detete()
 	{
 		if(isEmpty())
 		{
-			return (T) "Queue is Empty";
+			return  "Queue is empty";
 		}
 		else
 		{
@@ -87,8 +86,10 @@ public class Queue<T>
 				queue[i]=queue[i+1];
 			}
 			rear--;
-			return (T) deleted;
+			count--;
+			return deleted;
 		}
+		
 		
 		
 	}
@@ -99,7 +100,7 @@ public class Queue<T>
 	 *****************************************************************************/
 	public static boolean isFull()
 	{
-		if(getSize()==size)
+		if(count==size-1)
 		return true;
 		else
 		return false;				
@@ -111,7 +112,7 @@ public class Queue<T>
 	 **********************************************************************************/
 	public static boolean isEmpty()
 	{
-		if(getSize()==0)
+		if(count==-1)
 			return true;
 		return false;
 	}
@@ -133,10 +134,5 @@ public class Queue<T>
 			}
 		}
 	}
-	
-	
-	public static void main(String args[])
-	{
-		
-	}
+
 }
