@@ -7,8 +7,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.bridgelabz.AlgorithmPrograms.UserDetails;
 /***************************************************************************************
 * Created by:Rupesh Patil
 * Date: 16/11/2019
@@ -38,13 +46,11 @@ public class Utility
 		int int_variable=scanner.nextInt();
 		return int_variable;
 	}
-	/** for take Float input
+	/************************ 
+	 * for take Float input
 	 * @param no param
 	 * @return float
-	 ***/
-	
-	
-	
+	 ***************************/
 	public float InputFloat()
 	{
 		float float_varialble=scanner.nextFloat();
@@ -52,10 +58,11 @@ public class Utility
 		return float_varialble;
 	}
 	
-	/** for take Character input
+	/********************************
+	 *  for take Character input
 	 * @param no param
 	 * @return character
-	 * **/
+	 *******************************/
 	
 	public char InputChar()
 	{
@@ -63,20 +70,22 @@ public class Utility
 		return char_variable;
 	}
 	
-	/** for take String input from scanner
+	/**************************************
+	 *  for take String input from scanner
 	 * @param no param
 	 * @return String
-	 * **/
+	 ***************************************/
 	public String InputString()
 	{
 		String string_variable=scanner.next(); 
 		return string_variable;
 	}
 	
-	/** for take Double input
+	/***********************************
+	 *  for take Double input
 	 * @param no param
 	 * @return double
-	 * **/
+	 ***********************************/
 	public double InputDouble()
 	{
 		double double_variable=scanner.nextDouble();
@@ -84,10 +93,11 @@ public class Utility
 		return double_variable;
 	}
 	
-	/** for take Boolean input
+	/********************************* 
+	 * for take Boolean input
 	 * @param no param
 	 * @return boolean
-	 * **/
+	 ********************************/
 	public boolean InputBoolean()
 	{
 		boolean boolean_variable=scanner.nextBoolean();
@@ -95,10 +105,60 @@ public class Utility
 	}
 //end of input methods
 	
-	/** for Read the contents from the text file and store in ArrayList and returns list.
+	
+	BufferedReader br;
+	private final String REGEX_NAME = "<<name>>";
+	private final String REGEX_FULLNAME = "<<full name>> ";
+	private final String REGEX_MOBILE_NO = "xxxxxxxxxx";
+	private final String REGEX_DATE = "12/06/2016";
+	
+	//constructor to initialize bufferedReader
+	public Utility(){
+		br = new BufferedReader(new InputStreamReader(System.in));
+	}
+
+	/*************************************************************** 
+	 * it will Give String in Pattern using java RegulerExpression.
+	 * @param String message,UserDetails userDetails(class object)
+	 * @return String 
+	 ******************************************************************/
+	public String convertString(UserDetails userDetails,String message){
+		
+		Pattern p = Pattern.compile(REGEX_NAME);
+		Matcher m = p.matcher(message); 
+		message = m.replaceAll(userDetails.getfName());
+
+		p = Pattern.compile(REGEX_FULLNAME);
+		m = p.matcher(message); 
+		message = m.replaceAll(userDetails.getfName()+" "+userDetails.getlName());
+
+		p = Pattern.compile(REGEX_MOBILE_NO);
+		m = p.matcher(message); 
+		message = m.replaceAll(userDetails.mobileNo());
+
+		p = Pattern.compile(REGEX_DATE);
+		m = p.matcher(message); 
+		message = m.replaceAll(userDetails.date());
+
+		return message;
+	}
+	
+	/*************************************************** 
+	 * it will format the Date as Date/Month/Year.
+	 * @param Date date
+	 * @return String 
+	 *************************************************/
+	public String getFormatedDate(Date date){
+		SimpleDateFormat sdf=new SimpleDateFormat("dd/mm/yyyy");
+		return sdf.format(date);
+	}
+	
+	/*********************************************************************************** 
+	 * for Read the contents from the text file and store in ArrayList and returns list.
 	 * @param String filename
 	 * @return ArrayList<T> list of words/numbers 
-	 * **/
+	 *********************************************************************************/
+	@SuppressWarnings("unchecked")
 	public <T>ArrayList<T> ReadFile(String FileName) 
 	{
 		File file;
@@ -142,6 +202,27 @@ public class Utility
 		return (ArrayList<T>) al;
 	}
 	
+	/** for Read the contents from the text file and store in ArrayList and returns list.
+	 * @param double c NoneNegative
+	 * @return ArrayList<T> list of words/numbers 
+	 * **/
+	
+	public double SqurerootNewtonMethod(double c)
+	{
+		
+		double epsilon = 1e-15;   
+        double t = c;             
+
+       
+        while (Math.abs(t - c/t) > epsilon*t) {
+            t = (c/t + t) / 2.0;
+        }
+        
+        
+        return t;
+	}
+	
+	
 	/** To Display Calender in 2D array formate as per day and dates.
 	 * @param int day,int[] days,int month
 	 * @return void 
@@ -156,7 +237,55 @@ public class Utility
 	        	System.out.println();
 	    }
     }
+
+	/** To Check whether two numbers are anagram or not.
+	 * @param int number1,int number2
+	 * @return boolean
+	 * **/		
+	public static boolean isAnagram(int number1, int number2) {
+		int len1 = countDigits(number1);
+		int len2 = countDigits(number2);
+		if (len1 != len2) {
+			return false;
+		}
+		int index1 = 0;
+		int index2 = 0;
+		int[] num1 = new int[len1];
+		int[] num2 = new int[len2];
+		while (number1 != 0) {
+			int rem = number1 % 10;
+			num1[index1] = rem;
+			number1 = number1 / 10;
+			index1++;
+		}
+		while (number2 != 0) {
+			int rem = number2 % 10;
+			num2[index2] = rem;
+			number2 = number2 / 10;
+			index2++;
+		}
+		Arrays.sort(num1);
+		Arrays.sort(num2);
+
+		if (Arrays.equals(num1, num2))
+			return true;
+		else
+			return false;
+	}
 	
+	/** To count the digits in a numbers.
+	 * @param int number
+	 * @return int 
+	 * **/	
+	
+	public static int countDigits(int num) {
+		int count = 0;
+		while (num != 0) {
+			num = num / 10;
+			++count;
+		}
+		return count;
+	}
 	/** To Write contents in file .
 	 * @param T String,String fileName
 	 * @return void 
@@ -175,6 +304,10 @@ public class Utility
 		} 
 	}
 	
+	/** To Delete line from text file.
+	 * @param String filename,T word
+	 * @return void 
+	 ***/	
 	public static <T>void DeleteFromeFile(String filename,T word)
 	{
 		File inputFile = new File(filename);
@@ -225,7 +358,11 @@ public class Utility
 		
 		return celcius;
 	}
-	
+	/********************************************
+	 *  To convert number from decim to binary.
+	 * @param int decimal
+	 * @return int[] 
+	 *********************************************/	
 	public static int[] toBinary(int decimal){    
 	     int binary[] = new int[40];    
 	     int index = 0;    
@@ -243,10 +380,40 @@ public class Utility
 		binarynew[count]=binary[count];
 	return binarynew;
 	}    
+	/** To Check whether the String is palindrom or not.
+	 * e.g madam is palindrom
+	 * @param int day,int[] days,int month
+	 * @return void 
+	 * **/	
+	public String isStringPalindrom(String string)
+	{
+	//adding each character to the rear of the deque
+		Dequeueimpl<Character> dequeu=new Dequeueimpl<Character>();
+			for(int i=0;i<string.length();i++)
+			{
+				char c =string.charAt(i);
+				dequeu.addRear(c);
+			}
+			int flag=0;
+
+			while(dequeu.size()>1)
+			{
+				if(dequeu.removeFront()!=dequeu.removeRear())
+				{
+					flag=1;
+					break;
+				}
+			}
+
+			if(flag==0)
+			{
+				return "String is palindrome";
+			}
+			else
+			{
+				return "String is not palindrome";
+			}
 	
-	
-	
-	
-	
+	}
 }
 	

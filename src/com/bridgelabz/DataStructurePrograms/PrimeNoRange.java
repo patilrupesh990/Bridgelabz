@@ -14,6 +14,7 @@ import com.bridgelabz.util.DataStructure;
 
 public class PrimeNoRange 
 {
+	
 	static int max = 1000, min = 0;
 
 	public static void main(String[] args) {
@@ -35,7 +36,6 @@ public class PrimeNoRange
 			k = k + 100;
 			l = l + 100;
 		}
-
 		int anagrams[] = DataStructure.primeAnagrams3(primes);
 		DataStructure.AddAnagramLinkedList(anagrams);
 

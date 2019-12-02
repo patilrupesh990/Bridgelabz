@@ -1,5 +1,11 @@
 package com.bridgelabz.util;
 
+/***************************************************************************************
+* Created by:Rupesh Patil
+* Date: 22/11/2019
+* Purpose: To create new Node for create LinkedList.
+*******************************************************************************************/
+
 public class Node<T> 
 {
 	 

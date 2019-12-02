@@ -16,6 +16,7 @@ import com.bridgelabz.util.Utility;
 
 public class JunitTestCases {
 
+	/** To test VendingMachine to count minimum notes for given amount**/	
 	@Test
 	public void VendingMachine()
 	{
@@ -24,6 +25,7 @@ public class JunitTestCases {
 		assertEquals(result, 9);
 	}
 	
+	/** To test day of week by passing value of month odd day and year **/	
 	@Test
 	public void Dayweek()
 	{
@@ -32,6 +34,8 @@ public class JunitTestCases {
 		assertEquals(result, 4);
 	}
 	
+	/** To test conversation of tempurature convertion of 
+	 * ferenhit to celsius and celsious to ferenhit **/
 	@Test
 		public void TempratureConversion()
 		{
@@ -47,13 +51,14 @@ public class JunitTestCases {
 			double result3=Utility.temperaturConversionToFerenhit(-10);
 			assertEquals(22.0, result3,1);
 		}
-	
+	/** To test monthly EMI payment based on principal Time in year and ratio of interast **/
 	@Test
 	public void payment()
 	{
 		double result=MonthlyPayment.payment(100, 10, 1);
 		assertEquals(999.9999999999997, result,1);
 	}
+	/** To test conversion of Decimal to binary conversion **/
 	@Test
 	public void binaryCoversion()
 	{
@@ -63,6 +68,22 @@ public class JunitTestCases {
 		int result2[]=Utility.toBinary(7);
 		int aspected2[]= {1,1,1};
 		assertArrayEquals(aspected2, result2);
+	}
+	/** To test the squre root of number using newtons methodology **/
+	@Test
+	public void TestSqureRoot()
+	{
+		Utility util=new Utility();
+		
+		double result=util.SqurerootNewtonMethod(4);
+		assertEquals(2, result,1);
+		
+		 result=util.SqurerootNewtonMethod(36);
+		assertEquals(6, result,1);
+		
+		result=util.SqurerootNewtonMethod(5);
+		assertEquals(2.23606797749979, result,1);
+		
 	}
 
 }

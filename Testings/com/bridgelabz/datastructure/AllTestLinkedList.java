@@ -3,9 +3,9 @@ package com.bridgelabz.datastructure;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-/**To test all BalancedParentheses programs**/
+/**To test all LinkList Modules and fuctions**/
 @RunWith(Suite.class)
-@SuiteClasses({ TestBalancedParenthes.class })
-public class AllTestsBalancedParentheses {
+@SuiteClasses({ TestLinkedList.class })
+public class AllTestLinkedList {
 
 }

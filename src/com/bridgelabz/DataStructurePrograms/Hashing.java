@@ -4,6 +4,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import com.bridgelabz.util.HashingFunction;
 import com.bridgelabz.util.Utility;
+/**
+ * @author Rupeshp007
+ * date:30/11/2019
+ * Purpos:To create hashing table to data based on hashcode using singly linkedlist.
+ * suppose we want to store data 26.
+ * 26%11=4 it will store data on 4th location
+ * 44%11=4 its aslo store on 4th location
+ * 22%11=2
+ * 33%11=3
+ * so finally
+ * 				(2)->22
+ * 				(3)->33
+ * 				(4)->44,26
+ **********************************************************************************/
 
 public class Hashing 
 {

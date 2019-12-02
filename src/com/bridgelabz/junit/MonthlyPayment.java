@@ -1,5 +1,11 @@
 package com.bridgelabz.junit;
 
+/************************************************************************************
+ * @author Rupeshp007
+ * date:28/11/2019
+ * Purpos:To count Monthly EMI on principal amount based on Year and Interest Rate(%).
+ **********************************************************************************/
+
 public class MonthlyPayment 
 {
 	public static void main(String[] args) 

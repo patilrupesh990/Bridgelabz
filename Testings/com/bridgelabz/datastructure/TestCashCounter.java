@@ -1,13 +1,19 @@
 package com.bridgelabz.datastructure;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
-import com.bridgelabz.util.DataStructure;
+
+/**
+* Author: RupeshPatil
+* Date: 28/11/2019
+* Purpose:To Test Working modules of CashCouner Program Based on Queue 
+***********************************************************************/
 public class TestCashCounter 
 {
+	
+	/**To Check test cash Counter Fuctionality to callnext cash deposite withdraw**/
+
 	@Test
 	public void testCallNext()
 	{

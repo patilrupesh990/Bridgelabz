@@ -263,12 +263,28 @@ public class AlgorithmPrograms
 				}
 			}
 		}
+			
+		
+		int temp2[]=new int[1000];
+		int count2=0;
+		System.out.println("Prime Anagram");
+		for (int k = 0; k < primes.length; k++) {
+				for (int j = k + 1; j < primes.length; j++) {
+					if (Utility.isAnagram(primes[k], primes[j]) && (primes[k] != 0 && primes[j] != 0)) {
+						System.out.println(primes[k] + " " + primes[j]);
+						temp2[count2++]=primes[k];
+						temp2[count2++]=primes[j];
+					}
+				}
+			}
 		int primepalindrome[]=new int[count];
 		primepalindrome=temp;
-		System.out.println("Prime Anagram and Palindrome are:");
+		
+
+		System.out.println("Prime Palindrome");
 		for(int index=0;index<count;index++)
 		{
-			System.out.println(primepalindrome[index]);
+			System.out.print(primepalindrome[index]);
 		}
 		
 	}//prime palindrome and anagram

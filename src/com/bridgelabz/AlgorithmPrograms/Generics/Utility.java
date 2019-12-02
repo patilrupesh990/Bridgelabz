@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.SortedSet;
 
+/**
+ * @author Rupeshp007
+ * date:19/11/2019
+ * Purpos:Utility methods useful for generic algorithm programs.
+ **********************************************************************************/
 
 public class Utility {
 	public static Scanner scanner=new Scanner(System.in);

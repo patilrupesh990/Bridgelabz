@@ -3,6 +3,13 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 import com.bridgelabz.util.Utility;
+/*************************************************************************************
+ * purpose:ontains the Methods Related to DataStructure
+ * @author Rupeshp007
+ * date:23/11/2019
+ * @version 1.0
+*****************************************************************************************/
+
 public class DataStructure 
 {
 	static Utility util=new Utility();
@@ -343,14 +350,7 @@ public class DataStructure
 			return result;
 		}//end primenumbers
 		
-		public static int countDigits(int num) {
-			int count = 0;
-			while (num != 0) {
-				num = num / 10;
-				++count;
-			}
-			return count;
-		}
+		
 		/**************************************************************************************************** 
 		*   Date: 26/11/2019
 		*   Purpose:Takes array of prime numbers and divide them in Anagrams numbers and Non Anagrams Numbers
@@ -367,7 +367,7 @@ public class DataStructure
 			int count=0;
 			for (int k = 0; k < primes.length; k++) {
 					for (int j = k + 1; j < primes.length; j++) {
-						if (DataStructure.isAnagram(primes[k], primes[j]) && (primes[k] != 0 && primes[j] != 0)) {
+						if (Utility.isAnagram(primes[k], primes[j]) && (primes[k] != 0 && primes[j] != 0)) {
 							System.out.println(primes[k] + " " + primes[j]);
 							temp[count++]=primes[k];
 							temp[count++]=primes[j];
@@ -381,36 +381,7 @@ public class DataStructure
 
 		
 		
-		public static boolean isAnagram(int number1, int number2) {
-			int len1 = countDigits(number1);
-			int len2 = countDigits(number2);
-			if (len1 != len2) {
-				return false;
-			}
-			int index1 = 0;
-			int index2 = 0;
-			int[] num1 = new int[len1];
-			int[] num2 = new int[len2];
-			while (number1 != 0) {
-				int rem = number1 % 10;
-				num1[index1] = rem;
-				number1 = number1 / 10;
-				index1++;
-			}
-			while (number2 != 0) {
-				int rem = number2 % 10;
-				num2[index2] = rem;
-				number2 = number2 / 10;
-				index2++;
-			}
-			Arrays.sort(num1);
-			Arrays.sort(num2);
-
-			if (Arrays.equals(num1, num2))
-				return true;
-			else
-				return false;
-		}
+		
 			
 			
 		

@@ -1,12 +1,17 @@
 package com.bridgelabz.junit;
 
-import com.bridgelabz.util.Utility;
+/************************************************************************************
+ * @author Rupeshp007
+ * date:28/11/2019
+ 
+ **********************************************************************************/
+
 public class Binary 
 {
 	public static void main(String[] args) 
 	{
 		//int nibble[]=Utility.toBinary(result);
-			int result=swapNibbles(100);
+			swapNibbles(100);
 }
 	static int swapNibbles(int x) 
 	{ 
