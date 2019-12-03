@@ -12,15 +12,15 @@ public class Harmonic_Number
 {
 	public static void main(String[] args) 
 	{	
-		Utility util=new Utility();
+		
 		CorePrograms harmonic=new CorePrograms();
 		
 		System.out.println("Enter the Number till you want Harmonic");
-		int  number=util.InputInt();
+		int  number=Utility.InputInt();
 		if(number==0)
 		{
 			System.out.println("please enter the number more than 0");
-			number=util.InputInt();
+			number=Utility.InputInt();
 		}
 		harmonic.Harmonic(number);	
 	}
