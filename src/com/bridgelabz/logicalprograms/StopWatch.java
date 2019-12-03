@@ -16,17 +16,16 @@ public class StopWatch
     private long start = 0;
 	public static void main(String[] args) throws InterruptedException
 	{
-		Utility util=new Utility();
 		
 		 StopWatch stopwatch=new StopWatch(); 
 		System.out.println("press 1 for start");
-		int i=util.InputInt();
+		int i=Utility.InputInt();
 		if(i==1)
 		{
 		 stopwatch.start();
 		}
 		System.out.println("press 2 for start");
-		int j=util.InputInt();
+		int j=Utility.InputInt();
 		if(j==2)
 		{
 		stopwatch.stop();
