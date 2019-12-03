@@ -12,7 +12,7 @@ import com.bridgelabz.util.Utility;
 
 public class DataStructure 
 {
-	static Utility util=new Utility();
+	
 	
    /****************************************************************************** 
 	* Date: 22/11/2019
@@ -135,7 +135,7 @@ public class DataStructure
 		{
 				System.out.println(size+"people standing in queue");
 				System.out.println("1.CallNext Customer 2.Add people in queue 3.close counter");
-				int action=util.InputInt();
+				int action=Utility.InputInt();
 				switch(action)
 				{
 					case 1:
@@ -176,7 +176,7 @@ public class DataStructure
 	public static int addPeople(int size)
 	{
 		System.out.println("Enter the number of people");
-		int x=util.InputInt()+size;
+		int x=Utility.InputInt()+size;
 		Queue.setSize(x);
 		for(int i=0;i<x;i++)
 		{
@@ -200,7 +200,7 @@ public class DataStructure
 		System.out.println("Enter the Input:");
 		System.out.println("Token No:"+token);token++;
 		System.out.println (" 1.Deposite  2.Withdraw ");
-		int ch=util.InputInt();
+		int ch=Utility.InputInt();
 		switch(ch)
 		{
 		case 1:
@@ -228,7 +228,7 @@ public class DataStructure
 	{
 		double total=0.0;
 		System.out.println("Enter the Deposite Amount");
-		double deposite=util.InputDouble();
+		double deposite=Utility.InputDouble();
 		total=current+deposite;
 		System.out.println("Successfully Deposited"+deposite+"Rs.");
 		System.out.println("Available Cash"+total);
@@ -248,7 +248,7 @@ public class DataStructure
 		
 		
 		System.out.println("Enter the withdrow Amount");
-		double withdrow=util.InputDouble();
+		double withdrow=Utility.InputDouble();
 		if(withdrow>current)
 		{
 			System.out.println("Sorry cash not available more then"+current+"Rs.");
