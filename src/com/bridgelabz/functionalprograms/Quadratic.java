@@ -16,14 +16,14 @@ public class Quadratic
 {
 	public static void main(String[] args) 
 	{
-		Utility util=new Utility();
+		
 		FunctionalPrograms quadratic=new FunctionalPrograms();
 		System.out.println("Enter the value of a:");
-		double a_value=util.InputDouble();
+		double a_value=Utility.InputDouble();
 		System.out.println("Enter the value of b:");
-		double b_value=util.InputDouble();
+		double b_value=Utility.InputDouble();
 		System.out.println("Enter the value of c:");
-		double c_value=util.InputDouble();
+		double c_value=Utility.InputDouble();
 		quadratic.Find_Quadratic(a_value, b_value, c_value);
 	}
 }
