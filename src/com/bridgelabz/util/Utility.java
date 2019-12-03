@@ -202,6 +202,24 @@ public class Utility
 		return (ArrayList<T>) al;
 	}
 	
+	public static boolean isLeapYear(int year)
+	{
+		if(year%4==0&&year%100!=0||year%400==0)
+		{
+			if(year>0)
+			return true;
+		}
+		else
+		{
+			if(year>0)
+			return false;
+			else
+				return false;
+		}
+		return false;
+		
+	}
+	
 	/** for Read the contents from the text file and store in ArrayList and returns list.
 	 * @param double c NoneNegative
 	 * @return ArrayList<T> list of words/numbers 

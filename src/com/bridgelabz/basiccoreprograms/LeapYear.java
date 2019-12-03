@@ -17,11 +17,11 @@ public class LeapYear
 	static int year;
 	public static void main(String[] args) 
 	{
-		Utility util=new Utility();
+		
 		
 		System.out.println("Enter the the year");
 		try {
-		year=util.InputInt();
+		year=Utility.InputInt();
 		}
 		catch (InputMismatchException e) {
 			System.out.println("Enter digits only");
@@ -30,19 +30,9 @@ public class LeapYear
 		if(year<0)
 		{
 			System.out.println("please Enter Positive values");
-			year=util.InputInt();
+			year=Utility.InputInt();
 		}
 		
-		if(year%4==0&&year%100!=0||year%400==0)
-		{
-			if(year>0)
-			System.out.println(year+" Is LeapYear");
-		}
-		else
-		{
-			if(year>0)
-			System.out.println(year+" Is Not LeapYear");
-		}
-		
+		Utility.isLeapYear(year);
 	}
 }
