@@ -16,9 +16,9 @@ public class CashCounter
 	public static void main(String[] args) 
 	{
 		
-		Utility util=new Utility();	
+		
 		System.out.println("press S for start Counter");
-		String start=util.InputString();
+		String start=Utility.InputString();
 		if(start.equals("s")||start.equals("S"))
 		{
 			DataStructure.StartCounter();

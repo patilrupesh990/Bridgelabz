@@ -10,8 +10,7 @@ public class CalenderUsingQueueLinkedList
 {
 	public static void main(String[] args) {
 	
-		Utility util=new Utility();
-	
+		
 	Day sunday = new Day(DayOfWeek.SUNDAY);
     Day monday = new Day(DayOfWeek.MONDAY);
     Day tuesday = new Day(DayOfWeek.TUESDAY);
@@ -36,9 +35,9 @@ public class CalenderUsingQueueLinkedList
 	}
 	
 	System.out.println("Eneter the year");
-	int year=util.InputInt();
+	int year=Utility.InputInt();
 	System.out.println("Enter the month ");
-	int month=util.InputInt();
+	int month=Utility.InputInt();
 	int d=DataStructure.day(month, 1, year);
 	System.out.println(d);
 	}
