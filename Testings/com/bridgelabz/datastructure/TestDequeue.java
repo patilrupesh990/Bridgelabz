@@ -21,7 +21,7 @@ public class TestDequeue {
 	/**To test is dequeue is Empty or not**/
 
 	@Test
-	public void isEmptyTest() {
+	public void if_returns_true_dequeue_should_empty() {
 		Assert.assertEquals(true, deque.isEmpty());
 	}
 

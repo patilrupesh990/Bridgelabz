@@ -15,27 +15,35 @@ import com.bridgelabz.util.Utility;
 public class TestPalindromeChecker {
 
 	/**To test String is palindrome or not module**/
+	String message;
+	String result;
 	@Test
-	public void testStrigPalindromUsingDequeue() 
+	public void When_Strig_is_madam_then_String_should_palindrome() 
 	{
-		Utility util=new Utility();
+		
 		String message="madam";
-		String result=util.isStringPalindrom(message);
+		String result=Utility.isStringPalindrom(message);
 		assertEquals("String is palindrome",result);
-		
-		 message="raman";
-		result=util.isStringPalindrom(message);
-		assertEquals("String is not palindrome",result);
-		
-		 message="121";
-			result=util.isStringPalindrom(message);
-			assertEquals("String is palindrome",result);
-			
-		message="123";
-			result=util.isStringPalindrom(message);
-			assertEquals("String is not palindrome",result);
-
-
 	}
+	
+	public void When_Strig_is_raman_then_String_should_palindrome() 
+	{
+		 message="raman";
+		result=Utility.isStringPalindrom(message);
+		assertEquals("String is not palindrome",result);
+	}	
+	public void When_Strig_is_121_then_String_should_palindrome() 
+	{
+		 message="121";
+			result=Utility.isStringPalindrom(message);
+			assertEquals("String is palindrome",result);
+	}
+	public void When_Strig_is_123_then_String_should_palindrome() 
+	{
+		message="123";
+			result=Utility.isStringPalindrom(message);
+			assertEquals("String is not palindrome",result);
+	}
+
 
 }

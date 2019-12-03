@@ -29,8 +29,7 @@ import com.bridgelabz.algorithmprograms.UserDetails;
 public class Utility 
 {
 	//util class initilization
-	public static Scanner scanner=new Scanner(System.in);
-	static Utility util=new Utility();
+	final public static Scanner scanner=new Scanner(System.in);
 	
 	
 	/**Redymade input methods using Scanner class**/
@@ -57,7 +56,17 @@ public class Utility
 		
 		return float_varialble;
 	}
+	/********************************
+	 *  for take long input
+	 * @param no param
+	 * @return long
+	 *******************************/
 	
+	public static long inputLong()
+	{
+		long long_variable=scanner.nextLong();
+		return long_variable;
+	}
 	/********************************
 	 *  for take Character input
 	 * @param no param
@@ -433,5 +442,11 @@ public class Utility
 			}
 	
 	}
+	
+	
+	
+	
+	
+	
 }
 	
