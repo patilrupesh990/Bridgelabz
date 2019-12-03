@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 public class AlgorithmPrograms
 {
-	static Utility util=new Utility();
 	/**
 	 * Porpose:to find read word from (,) separated lines from TextFile
 	 * @param <T>
@@ -107,7 +106,7 @@ public class AlgorithmPrograms
 	{
 		for(int index=0;index<size;index++)
 		{
-			arr[index]=util.InputString();
+			arr[index]=Utility.InputString();
 		}
 		return arr;
 		//
@@ -329,7 +328,7 @@ public class AlgorithmPrograms
 	       	System.out.println("Is your number:"+middle);
 			System.out.println();
 			System.out.println("Enter your answer in 'yes' or 'high' or 'low'");
-			input=util.InputString();
+			input=Utility.InputString();
 	       	do
 	        {
 	            if (input.equals("high"))
@@ -353,7 +352,7 @@ public class AlgorithmPrograms
 	            {
 					middle=(lower+ upper+1)/2;
 					System.out.println("Is your number "+middle+":");
-					input=util.InputString();
+					input=Utility.InputString();
 				}
 			}
 			while(lower<=upper);
