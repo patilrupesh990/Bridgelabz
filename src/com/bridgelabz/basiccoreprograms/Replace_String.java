@@ -15,7 +15,7 @@ import com.bridgelabz.util.Utility;;
 
 public class Replace_String 
 {
-	static Utility u=new Utility();
+	
 	
 	public static void main(String[] args) 
 	{
@@ -26,7 +26,7 @@ public class Replace_String
 		System.out.println("Enter User Name");
 		try
 		{
-		user_name=u.InputString();
+		user_name=Utility.InputString();
 		}
 		catch (InputMismatchException e) 
 		{
@@ -38,7 +38,7 @@ public class Replace_String
 		{
 			System.out.println("Please enter minimum 3 character");
 			try
-			{user_name=u.InputString();}
+			{user_name=Utility.InputString();}
 			
 			catch(InputMismatchException e)
 			{System.out.println("invalid input");}
