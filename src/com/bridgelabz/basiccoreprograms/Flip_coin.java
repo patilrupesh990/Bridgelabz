@@ -18,7 +18,7 @@ public class Flip_coin
 	{
 		
 		CorePrograms toss=new CorePrograms();
-		Utility util=new Utility();		
+				
 		int choice=0;	   
 		
 		
@@ -28,7 +28,7 @@ public class Flip_coin
 		{
 			System.out.println("Enter '1' to Flip Coin OR Enter '0' to Quit: ");
 			try {
-			choice = util.InputInt();
+			choice = Utility.InputInt();
 			}
 			catch (InputMismatchException e) {
 				System.out.println("invalid input");
@@ -41,7 +41,7 @@ public class Flip_coin
 			else if (choice > 1){
 				System.out.println("Invalid entry - please enter 1 or 0: ");
 				try {
-				choice = util.InputInt();}
+				choice = Utility.InputInt();}
 				catch (Exception e) {
 					System.out.println("Invalid input");
 				}
