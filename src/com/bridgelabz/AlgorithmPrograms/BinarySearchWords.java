@@ -22,7 +22,6 @@ public class BinarySearchWords
 	static String wordsarray[];
 		public static void main(String[] args) throws IOException 
 		{
-			Utility util=new Utility();
 			
 			AlgorithmPrograms binary=new AlgorithmPrograms();
 			
@@ -38,7 +37,7 @@ public class BinarySearchWords
 			}
 			
 			System.out.println("Enter the word you Want to Search");
-			String word=util.InputString();
+			String word=Utility.InputString();
 			
 			
 			int index=binary.searchString(wordsarray,word);

@@ -15,26 +15,27 @@ public class Regex
 {
 	public static void main(String args[])
 	{
-		Utility util=new Utility();
 
 		UserDetails user=new UserDetails();
 		System.out.println();
 	
 		//asking user to enter his data
 		System.out.println("Enter FirstName:");
-		user.setfName(util.InputString());
+		user.setfName(Utility.InputString());
 		System.out.println();
 	
 		System.out.println("Enter LastName:");
-		user.setlName(util.InputString());
+		user.setlName(Utility.InputString());
 		System.out.println();
 	
 		System.out.println("Enter Mobile Number:");
-		user.setmobileNo(util.InputString());
+		user.setmobileNo(Utility.InputString());
 		System.out.println();	
 		String filename="G:\\Bridgelabz\\Bridgelabz\\src\\com\\bridgelabz\\AlgorithmPrograms\\UserDetails.txt";
 		//Setting current date
-		user.setdate(util.getFormatedDate(new Date()));
+		user.setdate(Utility.getFormatedDate(new Date()));
+		Utility util=new Utility();
+
 		System.out.println(util.convertString(user,Regex.ReadFile(filename)));	
 	}
 	 /****************************************************************************** 

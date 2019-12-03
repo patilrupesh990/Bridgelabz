@@ -20,10 +20,9 @@ public class MergeSort
 	public static void main(String[] args) 
 	{
 		AlgorithmPrograms sort=new AlgorithmPrograms();
-		Utility util=new Utility();
 		
 		System.out.println("Enter the Size of array");
-		size=util.InputInt();
+		size=Utility.InputInt();
 		
 		array=new String[size];
 		System.out.println("Enter The Elemetns");

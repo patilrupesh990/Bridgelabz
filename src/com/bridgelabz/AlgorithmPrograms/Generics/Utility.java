@@ -27,7 +27,7 @@ public class Utility {
 	 * @param no param
 	 * @return integer
 	 ********************************/
-	public int InputInt()
+	public static int InputInt()
 	{
 		int int_variable=scanner.nextInt();
 		return int_variable;
@@ -37,7 +37,7 @@ public class Utility {
 	 * @param no param
 	 * @return float
 	 ********************************/
-	public float InputFloat()
+	public static float InputFloat()
 	{
 		float float_varialble=scanner.nextFloat();
 		
@@ -49,7 +49,7 @@ public class Utility {
 	 * @param no param
 	 * @return character
 	 ********************************/
-	public char InputChar()
+	public static char InputChar()
 	{
 		char char_variable=scanner.next().charAt(0); 
 		return char_variable;
@@ -60,7 +60,7 @@ public class Utility {
 	 * @param no param
 	 * @return String
 	 ********************************************/
-	public String InputString()
+	public static String InputString()
 	{
 		String string_variable=scanner.next(); 
 		return string_variable;
@@ -71,7 +71,7 @@ public class Utility {
 	 * @param no param
 	 * @return double
 	 ************************************************/
-	public double InputDouble()
+	public static double InputDouble()
 	{
 		double double_variable=scanner.nextDouble();
 		
@@ -82,7 +82,7 @@ public class Utility {
 	 * @param no param
 	 * @return boolean
 	 * *********************************************************************************/
-	public boolean InputBoolean()
+	public static boolean InputBoolean()
 	{
 		boolean boolean_variable=scanner.nextBoolean();
 		return boolean_variable;
@@ -95,7 +95,7 @@ public class Utility {
 	 * @param key ArrayList<String>
 	 * @return void
 	 ***********************************************************************************************/
-	public void InsertionSort(ArrayList<String> al)
+	public static void InsertionSort(ArrayList<String> al)
 	{
 		for(int i=0;i<al.size()-1;i++)
 		{
@@ -122,7 +122,7 @@ public class Utility {
 	 * @param key String
 	 * @return ArrayList<String> of words
 	 **********************************************************************************************************/	
-	public ArrayList<String> ReadFile(String FileName) throws IOException,FileNotFoundException
+	public static ArrayList<String> ReadFile(String FileName) throws IOException,FileNotFoundException
 	{
 		File file;
 		file=new File(FileName);
@@ -155,7 +155,7 @@ public class Utility {
 	 * @return void
 	 **********************************************************************************************/
 	@SuppressWarnings("rawtypes")
-	public void SearchWord(SortedSet s,String word)
+	public static void SearchWord(SortedSet s,String word)
 	{
 		@SuppressWarnings("unchecked")
 		ArrayList<String> al=new ArrayList<String>(s);
@@ -190,7 +190,7 @@ public class Utility {
 	 *************************************************************************************************/
 	
 	
-	public void BubbleSort(ArrayList<Integer> al)
+	public static void BubbleSort(ArrayList<Integer> al)
 	{
 		for(int i=0;i<al.size();i++)
 		{
@@ -218,8 +218,8 @@ public class Utility {
 	 * @return ArrayList<String>
 	 * @algorithm mergesort
 	 ******************************************************************************************/
-	@SuppressWarnings("null")
-	public ArrayList<String> MergeSort(ArrayList<String> al)
+
+	public  ArrayList<String> MergeSort(ArrayList<String> al)
 	{
 		ArrayList<String> sorted=al;
 		if(al.size()==1)
@@ -269,7 +269,7 @@ public class Utility {
 	 * @return ArrayList<String>
 	 * @algorithm Mergesort
 	 *************************************************************************************************/
-	public ArrayList<String> MergeList(ArrayList<String> left,ArrayList<String> right)
+	public static ArrayList<String> MergeList(ArrayList<String> left,ArrayList<String> right)
 	{
 		ArrayList<String> merge=new ArrayList<String>();
 		int l=0,r=0,c=0,m=0;

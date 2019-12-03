@@ -12,14 +12,13 @@ import com.bridgelabz.util.Utility;
 public class StringAnagram 
 {
 	static AlgorithmPrograms anagram=new AlgorithmPrograms();
-	static Utility util=new Utility();
 	public static void main(String[] args) 
 	{
 		System.out.println("Enter the First String");
-		String string1=util.InputString();
+		String string1=Utility.InputString();
 		
 		System.out.println("Enter the First String");
-		String string2=util.InputString();
+		String string2=Utility.InputString();
 		
 		char[] chararray1=string1.toCharArray();
 		char[] chararray2=string2.toCharArray();

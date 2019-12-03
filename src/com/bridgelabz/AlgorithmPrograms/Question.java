@@ -19,13 +19,13 @@ public class Question
 			
 			try
 			{
-				Utility util=new Utility();
+
 				count=0;
 				input=null;
 				lower=0;
 				
 				System.out.println("Enter any Number:");
-				int number=util.InputInt();
+				int number=Utility.InputInt();
 				
 				range=(int)(Math.pow(2,number-1));                //range calculation for the number
 				

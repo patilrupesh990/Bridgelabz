@@ -18,10 +18,10 @@ public class TaskScheduling
 			this.taskName=taskName;
 		}
 		public static void main(String[] args) {
-			Utility util=new Utility();
+			
 			
 			System.out.println("Enter the number of tasks");
-			int noTasks=util.InputInt();
+			int noTasks=Utility.InputInt();
 			TaskScheduling tasks[]=new TaskScheduling[noTasks];
 			
 			int deadline[]=new int[noTasks];
@@ -32,12 +32,12 @@ public class TaskScheduling
 
 				
 				System.out.println("Enter the name of task");
-				 name[count]=util.InputString();
+				 name[count]=Utility.InputString();
 				
 				 System.out.println("Enter the time in minit");
-				finish[count]=util.InputInt();
+				finish[count]=Utility.InputInt();
 				System.out.println("Enter the Deadline");
-				deadline[count]=util.InputInt();
+				deadline[count]=Utility.InputInt();
 				
 				int deadl=deadline[count];
 				int min=finish[count];

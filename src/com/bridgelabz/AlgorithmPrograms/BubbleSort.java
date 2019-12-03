@@ -16,19 +16,19 @@ public class BubbleSort
 	
 	public static void main(String[] args) 
 	{
-		Utility util=new Utility();
+
 		AlgorithmPrograms bubble=new AlgorithmPrograms();
 		
 		
 		System.out.println("Enter the Size Of Array");
-		size=util.InputInt();
+		size=Utility.InputInt();
 		
 		System.out.println("Enter the Elements in Array");
 		array=new int[size];
 		
 		for(int index=0;index<size;index++)
 		{
-			array[index]=util.InputInt();
+			array[index]=Utility.InputInt();
 		}
 		
 		bubble.BubbleSort(array);

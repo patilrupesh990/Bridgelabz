@@ -11,14 +11,13 @@ import com.bridgelabz.util.Utility;
 public class InsertionSort 
 {
 	static String array[];
-	static Utility util=new Utility();
 	
 	static AlgorithmPrograms sort=new AlgorithmPrograms();
 	
 	public static void main(String[] args) 
 	{
 		System.out.println("Enter the Size of Array");
-		int size=util.InputInt();
+		int size=Utility.InputInt();
 		
 		System.out.println("Enter the elements in array");
 		array=new String[size];

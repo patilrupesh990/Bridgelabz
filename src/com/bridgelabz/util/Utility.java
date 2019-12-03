@@ -41,7 +41,7 @@ public class Utility
 	 * @return integer         *
 	 **************************/
 	
-	public int InputInt()
+	public static int InputInt()
 	{
 		int int_variable=scanner.nextInt();
 		return int_variable;
@@ -51,7 +51,7 @@ public class Utility
 	 * @param no param
 	 * @return float
 	 ***************************/
-	public float InputFloat()
+	public static float InputFloat()
 	{
 		float float_varialble=scanner.nextFloat();
 		
@@ -64,7 +64,7 @@ public class Utility
 	 * @return character
 	 *******************************/
 	
-	public char InputChar()
+	public static char InputChar()
 	{
 		char char_variable=scanner.next().charAt(0); 
 		return char_variable;
@@ -75,7 +75,7 @@ public class Utility
 	 * @param no param
 	 * @return String
 	 ***************************************/
-	public String InputString()
+	public static String InputString()
 	{
 		String string_variable=scanner.next(); 
 		return string_variable;
@@ -86,7 +86,7 @@ public class Utility
 	 * @param no param
 	 * @return double
 	 ***********************************/
-	public double InputDouble()
+	public static double InputDouble()
 	{
 		double double_variable=scanner.nextDouble();
 		
@@ -98,7 +98,7 @@ public class Utility
 	 * @param no param
 	 * @return boolean
 	 ********************************/
-	public boolean InputBoolean()
+	public static boolean InputBoolean()
 	{
 		boolean boolean_variable=scanner.nextBoolean();
 		return boolean_variable;
@@ -148,7 +148,7 @@ public class Utility
 	 * @param Date date
 	 * @return String 
 	 *************************************************/
-	public String getFormatedDate(Date date){
+	public static String getFormatedDate(Date date){
 		SimpleDateFormat sdf=new SimpleDateFormat("dd/mm/yyyy");
 		return sdf.format(date);
 	}
@@ -159,7 +159,7 @@ public class Utility
 	 * @return ArrayList<T> list of words/numbers 
 	 *********************************************************************************/
 	@SuppressWarnings("unchecked")
-	public <T>ArrayList<T> ReadFile(String FileName) 
+	public static <T>ArrayList<T> ReadFile(String FileName) 
 	{
 		File file;
 		file=new File(FileName);
@@ -207,7 +207,7 @@ public class Utility
 	 * @return ArrayList<T> list of words/numbers 
 	 * **/
 	
-	public double SqurerootNewtonMethod(double c)
+	public static double SqurerootNewtonMethod(double c)
 	{
 		
 		double epsilon = 1e-15;   
@@ -385,7 +385,7 @@ public class Utility
 	 * @param int day,int[] days,int month
 	 * @return void 
 	 * **/	
-	public String isStringPalindrom(String string)
+	public static String isStringPalindrom(String string)
 	{
 	//adding each character to the rear of the deque
 		Dequeueimpl<Character> dequeu=new Dequeueimpl<Character>();
