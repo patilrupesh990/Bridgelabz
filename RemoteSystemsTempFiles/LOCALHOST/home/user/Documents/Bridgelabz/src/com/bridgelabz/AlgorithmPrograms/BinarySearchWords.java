@@ -9,7 +9,7 @@ import com.bridgelabz.util.Utility;
 
 /*****************************************************************************************
 * @Author: RupeshPatil
-* @since: 16/11/2019
+* @since: 17/11/2019
 * @version :1.0
 * @Purpose:Read the words from comma separated file  and store in array and sort
 * After sorting take the word input from user and search the word from array
@@ -22,26 +22,33 @@ public class BinarySearchWords
 	static String wordsarray[];
 		public static void main(String[] args) throws IOException 
 		{
-			Utility util=new Utility();
+			
 			AlgorithmPrograms binary=new AlgorithmPrograms();
-			String FileName="E:\\project p\\BinarySearch.txt";
+			
+			String FileName="/home/user/Documents/Bridgelabz/src/com/bridgelabz/AlgorithmPrograms/BinarySearch.txt";
 			binary.ReadFile(FileName);
+			
 			wordsarray=binary.ReadFile(FileName);
 			Arrays.sort(wordsarray);
-			for(String s:wordsarray)
+			
+			for(String word:wordsarray)
 			{
-				System.out.println(s);
-			}
-			System.out.println("Enter the word you Want to Search");
-			String word=util.InputString();
-			int i=binary.searchString(wordsarray,word);
-			if(i>=0)
-			{
-				System.out.println("word found at "+i+" th location" );
-			}else
-			{
-				System.out.println("Word not found");
+				System.out.println(word);
 			}
 			
+			System.out.println("Enter the word you Want to Search");
+			String word=Utility.InputString();
+			
+			
+			int index=binary.searchString(wordsarray,word);
+			
+			if(index>=0)
+			{
+				System.out.println("word found at "+index+" th location" );
+			}
+			else
+			{
+				System.out.println("Word not found");
+			}			
 		}
 }
