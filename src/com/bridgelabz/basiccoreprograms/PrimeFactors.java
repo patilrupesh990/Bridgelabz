@@ -15,13 +15,12 @@ public class PrimeFactors
        
 	public static void main (String[] args) 
     {
-		Utility util=new Utility();
 		int number=0;
 		
 		System.out.println("Enter the number");
 		try 
 		{
-			number=util.InputInt();
+			number=Utility.InputInt();
 		}
 		catch (InputMismatchException e) 
 		{
