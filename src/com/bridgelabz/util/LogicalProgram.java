@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class LogicalProgram 
 {
-	static Utility util=new Utility();
+	
 	
 	/**
 	 * Code Generation for given number of size
@@ -54,11 +54,11 @@ public class LogicalProgram
 		public static void Initilazation()
 		{
 			System.out.println("Enter the Stack amount");
-			stack=util.InputDouble();
+			stack=Utility.InputDouble();
 			System.out.println("Enter Your Goal:");
-			goal=util.InputInt();
+			goal=Utility.InputInt();
 			System.out.println("How many taimes want to play Gambler");
-			time=util.InputInt();
+			time=Utility.InputInt();
 		}//end Initilazion
 		
 		/**
@@ -77,7 +77,7 @@ public class LogicalProgram
 				}
 				System.out.println("press 1 for Rotate  press 2 for Exit");
 				System.out.println("=======================================>>>>>>><<<<<<=====================================");
-				choice=util.InputInt();
+				choice=Utility.InputInt();
 				if(choice==1)
 				{
 					LogicalProgram.gamble();
@@ -149,7 +149,7 @@ public class LogicalProgram
 					System.out.println();
 					System.out.println("Sorry You cant reached To Your Goal!! You Want to play Again?");
 					System.out.println("press Y for play again: Y/N");
-					char ch=util.InputChar();
+					char ch=Utility.InputChar();
 					
 					if(ch=='y'||ch=='Y')
 					{
@@ -157,16 +157,16 @@ public class LogicalProgram
 						System.out.println("You have "+stack+"Now");
 						System.out.println("You want to add Money In Stack??");
 						System.out.println("press Y for add Money or press N for skip: Y/N");
-						int ch2=util.InputChar();
+						int ch2=Utility.InputChar();
 						if(ch2=='y'||ch2=='Y')
 						{
 							System.out.println();
 							System.out.println("enter the amount of stack");
-							stack+=util.InputDouble();
+							stack+=Utility.InputDouble();
 							System.out.println("You have Now "+stack+" stacks");
 							
 							System.out.println("How Many Times Want To Rotate??");
-							time=util.InputInt();
+							time=Utility.InputInt();
 							while(time>0)
 							{
 								time--;
