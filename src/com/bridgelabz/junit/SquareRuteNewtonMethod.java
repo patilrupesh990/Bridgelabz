@@ -11,13 +11,13 @@ import com.bridgelabz.util.Utility;
 public class SquareRuteNewtonMethod {
 
 	 public static void main(String[] args) {
-		 Utility util=new Utility();
+
 		 double d=0.0;  
-		 double c = util.InputDouble();
+		 double c = Utility.InputDouble();
 	       
 		 if(c>0)
 		 {
-			 d=util.SqurerootNewtonMethod(c);
+			 d=Utility.SqurerootNewtonMethod(c);
 		 }
 	       else
 	       {
