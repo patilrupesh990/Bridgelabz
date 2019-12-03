@@ -18,13 +18,13 @@ public class FunctionalPrograms
 		int count=0;
 		
 		System.out.println("How many Elements want to insert");
-		size=util.InputInt();
+		size=Utility.InputInt();
 		array=new int[size];
 		
 		/**Purpose: input elements in Array**/
 		for(int index=0;index<size;index++)
 		{
-			array[index]=util.InputInt();
+			array[index]=Utility.InputInt();
 		}
 		
 		/**Purpose: to print triplets of sum 0 and total count of distincts triplets**/
@@ -83,7 +83,7 @@ public class FunctionalPrograms
 	public void Compute_Wind_Chill(double temperature,double speed)
 	{
 		double wind_chill=35.74+0.6215+(0.4275 * temperature-35.75)*Math.pow(speed, 0.16);
-		System.out.println("Temprature is: "+temperature+" °F");
+		System.out.println("Temprature is: "+temperature+" ï¿½F");
 		System.out.println("Wind Speed is: "+speed+"Mile/hour");
 		System.out.println("Wind-Chill: "+wind_chill+" Mile/hour");
 	} //end wind child
