@@ -20,7 +20,7 @@ public class BalancedParentheses
 		System.out.println("This is Program for BalancedParentheses");
 		
 		System.out.println("enter Expression like (5+6)∗(7+8)/(4+3)(5+6)∗(7+8)/(4+3) it will check parenthes are balanced or not");
-		String exprs=util.InputString();
+		String exprs=Utility.InputString();
 		
 		int size=exprs.length();
 		Stack.setStackSize(size);
