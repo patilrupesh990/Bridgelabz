@@ -14,10 +14,10 @@ public class CoupenCode
 {
 	public static void main(String[] args) 
 	{
-		Utility util=new Utility();
+
 		LogicalProgram coupencode=new LogicalProgram();
 		System.out.println("How many numbers you want?");
-		int max=util.InputInt();
+		int max=Utility.InputInt();
 		coupencode.GenerateCode(max);
 	}
 }
