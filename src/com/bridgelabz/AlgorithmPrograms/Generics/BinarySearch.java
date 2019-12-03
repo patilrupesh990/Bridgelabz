@@ -14,14 +14,14 @@ import java.util.TreeSet;
 *************************************************************************************/
 
 public class BinarySearch {
-	static Utility util = new Utility();
+
 	static ArrayList<String> al=new ArrayList<String>();
 	
 	
 	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) throws IOException {
 		String FileName = "E:\\project p\\BinarySearch.txt";
-		al=util.ReadFile(FileName);
+		al=Utility.ReadFile(FileName);
 		
 		@SuppressWarnings("unchecked")
 		SortedSet sorted = new TreeSet(al);
@@ -34,9 +34,9 @@ public class BinarySearch {
 	      }
 	     
 	        System.out.println("Enter the word you Want to Search");
-			String word=util.InputString();
+			String word=Utility.InputString();
 			
-			util.SearchWord(sorted,word);
+			Utility.SearchWord(sorted,word);
 
 	}
 }
