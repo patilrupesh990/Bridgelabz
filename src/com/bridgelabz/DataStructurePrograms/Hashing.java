@@ -23,7 +23,7 @@ public class Hashing
 {
 	static int size;
 	static HashingFunction hashing=new HashingFunction();
-	static Utility util=new Utility();
+	
 	static String filename="G:\\Bridgelabz\\Bridgelabz\\src\\com\\bridgelabz\\DataStructurePrograms\\OrderList.txt";
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException 
@@ -36,7 +36,7 @@ public class Hashing
 		}
 		
 		System.out.println("Enter the Number you want to search");
-		int search=util.InputInt();
+		int search=Utility.InputInt();
 		SearchElement(search);
 	}
 	
