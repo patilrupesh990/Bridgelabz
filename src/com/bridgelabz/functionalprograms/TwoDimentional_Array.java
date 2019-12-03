@@ -11,7 +11,6 @@ import com.bridgelabz.util.Utility;
 public class TwoDimentional_Array
 {
 	static int row,colom;
-	static Utility util=new Utility();
 	static int intArray[][];
 	static double doubleArray[][];
 	static boolean booleanArray[][];
@@ -20,9 +19,9 @@ public class TwoDimentional_Array
 	{
 		System.out.println("2 Dimentional Array Input");
 		System.out.println("Enter the Size of Row");
-		 row=util.InputInt();
+		 row=Utility.InputInt();
 		System.out.println("Enter the Size of Row");
-		 colom=util.InputInt();
+		 colom=Utility.InputInt();
 	}
 	
 	public static void main(String args[])
@@ -31,7 +30,7 @@ public class TwoDimentional_Array
 		 doubleArray=new double[row][colom];
 		 booleanArray=new boolean[row][colom];
 		System.out.println("Which Type Data Want to insert press 1 for Integer press 2 for double 3 for boolean");
-		int choice=util.InputInt();
+		int choice=Utility.InputInt();
 		switch(choice)
 		{
 			case 1:
@@ -40,7 +39,7 @@ public class TwoDimentional_Array
 				{
 					for(int index2=0;index2<colom;index2++)
 					{
-						intArray[index1][index2]=util.InputInt();
+						intArray[index1][index2]=Utility.InputInt();
 					}
 				}
 				break;
@@ -50,7 +49,7 @@ public class TwoDimentional_Array
 				{
 					for(int index2=0;index2<colom;index2++)
 					{
-						doubleArray[index1][index2]=util.InputDouble();
+						doubleArray[index1][index2]=Utility.InputDouble();
 					}
 				}
 				break;
@@ -60,7 +59,7 @@ public class TwoDimentional_Array
 				{
 					for(int index2=0;index2<colom;index2++)
 					{
-						booleanArray[index1][index2]=util.InputBoolean();
+						booleanArray[index1][index2]=Utility.InputBoolean();
 					}
 				}
 				break;
@@ -68,7 +67,7 @@ public class TwoDimentional_Array
 						System.out.println("Invalide Input:");
 		}
 		System.out.println("Which Type Array want to print press 1 for Integer press 2 for double 3 for boolean");
-		int choice2=util.InputInt();
+		int choice2=Utility.InputInt();
 		switch(choice2)
 		{
 			case 1:
