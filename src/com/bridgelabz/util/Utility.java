@@ -16,7 +16,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.bridgelabz.AlgorithmPrograms.UserDetails;
+import com.bridgelabz.algorithmprograms.UserDetails;
 /***************************************************************************************
 * Created by:Rupesh Patil
 * Date: 16/11/2019

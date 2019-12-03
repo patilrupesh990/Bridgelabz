@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import com.bridgelabz.DataStructurePrograms.OrderedList;
+import com.bridgelabz.dataStructure_programs.OrderedList;
 import com.bridgelabz.util.DataStructure;
 import com.bridgelabz.util.LinkedListiml;
 /**
