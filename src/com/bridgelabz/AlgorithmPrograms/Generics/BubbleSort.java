@@ -10,22 +10,23 @@ import java.util.ArrayList;
 
 public class BubbleSort 
 {
-	static Utility util=new Utility();
+	
+
 	public static void main(String[] args) 
 	{
 		ArrayList<Integer> al=new ArrayList<Integer>();
 		
 		System.out.println("Enter the how many elements want to insert?");
-		int size=util.InputInt();
+		int size=Utility.InputInt();
 		
 		System.out.println("Enter the Elements");
 		for(int i=0;i<size;i++)
 		{
-			al.add(util.InputInt());
+			al.add(Utility.InputInt());
 		}
 		
 		//calling BubbleSort Method
-		util.BubbleSort(al);
+		Utility.BubbleSort(al);
 		
 		
 		
