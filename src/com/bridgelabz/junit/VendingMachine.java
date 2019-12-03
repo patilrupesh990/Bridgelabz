@@ -47,11 +47,10 @@ public class VendingMachine
   	// Starting Main Function
 	public static void main(String[] args)
 	{
-        Utility u1=new Utility();
 
 		//ask the user enter the money
 		System.out.print("Enter the Amount:");
-		money =u1.InputInt();
+		money =Utility.InputInt();
 
 		// Creating The Object of Vending MAchine class
 		int total=VendingMachine.calculate(money,notes);
