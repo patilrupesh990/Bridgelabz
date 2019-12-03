@@ -19,7 +19,7 @@ import com.bridgelabz.util.Utility;
 public class OrderedList 
 {
 	static LinkedListiml<Integer> list=new LinkedListiml<Integer>();
-	static Utility util=new Utility();
+	
 	public static <T> void main(String[] args) throws FileNotFoundException, IOException 
 	{
 		String filename="G:\\Bridgelabz\\Bridgelabz\\src\\com\\bridgelabz\\DataStructurePrograms\\OrderList.txt";
@@ -32,7 +32,7 @@ public class OrderedList
 		 list.Display();
 		 System.out.println();
 		 System.out.println("Enter The Number you want to search");
-		 int number=util.InputInt();
+		 int number=Utility.InputInt();
 		 
 		 DataStructure.SearchWord(number, list);
 	}

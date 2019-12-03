@@ -10,12 +10,12 @@ public class PalindromeChecker
 {
 	public static void main(String[] args) 
 	{
-		Utility util=new Utility();
+		
 		System.out.println("Enter a String: ");
-		String string=util.InputString();
+		String string=Utility.InputString();
 		
 		//isStringPalindrom is palindrom checker method using dequeue
-		String result=util.isStringPalindrom(string);
+		String result=Utility.isStringPalindrom(string);
 		System.out.println(result);
 	}
 }
