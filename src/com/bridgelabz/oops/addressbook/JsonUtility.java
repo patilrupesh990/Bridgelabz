@@ -1,5 +1,8 @@
 package com.bridgelabz.oops.addressbook;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -56,5 +59,23 @@ public class JsonUtility
 		}
 		return result;
 		
+	}
+	
+	
+	public static String readFile(String message) throws FileNotFoundException {
+		FileReader f = new FileReader(message);
+		@SuppressWarnings("resource")
+		BufferedReader read = new BufferedReader(f);
+		String line = "";
+		try {
+			String word="";
+			while ((word = read.readLine()) != null) {
+				line = word;
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return line;
 	}
 }
