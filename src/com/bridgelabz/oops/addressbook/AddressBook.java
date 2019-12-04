@@ -18,7 +18,7 @@ import com.bridgelabz.util.Utility;
 public class AddressBook
 {
 	static ObjectMapper objectmapper=new ObjectMapper();
-	static File[] arrayOfFiles = new File(System.getProperty("user.home")).listFiles();
+	static File[] arrayOfFiles = new File(System.getProperty("user.dir","user.home")).listFiles();
 	static List<PersonDetails> persondetails=new ArrayList<PersonDetails>();
 	static AddressBook addressbook = new AddressBook();
 	static String originbook="/home/user/Documents/FellowShip/Bridgelabz/src/com/bridgelabz/oops/addressbook/";
@@ -113,12 +113,11 @@ public class AddressBook
 			String filename = file.getName();
 			if (bookName.equals(filename)) 
 			{
-					if (file.length() >= 0) 
+					if (file.length() > 0) 
 					{
 								System.out.println("Add Details");
 								String string="";
 								try {
-									String fileName=originbook+bookName;
 									string = JsonUtility.readFile(filename);
 								} catch (FileNotFoundException e) {
 									// TODO Auto-generated catch block
@@ -132,13 +131,13 @@ public class AddressBook
 									e.printStackTrace();
 								}
 								AddressBook.setpersondetails(persondetails);
-								AddressBookMenu();
+								AddressBookMenu(filename);
 					}
 					else 
 					{
 						System.out.println("Address Book is empty");
 						System.out.println("Add new data onto the Address Book");
-						AddressBookMenu();
+						AddressBookMenu(filename);
 					}
 				flag=1;
 			}//end if
@@ -157,11 +156,11 @@ public class AddressBook
 	 //////////////////////////////////////////////////////////////////////////
 	 
 		static String fileName="/home/user/Documents/FellowShip/Bridgelabz/src/com/bridgelabz/oops/addressbook/AddressBook.json";
-	 public static void AddressBookMenu()  //use whene book open
+	 public static void AddressBookMenu(String filename)  //use whene book open
 		{
 			int choice=0;
 			System.out.println("Select the Option");
-			System.out.println("1.Add New Person 2.Delete Person 3.Sort List 4.Search Person 5.MainMenu 6.exit");
+			System.out.println("1.Add New Person 2.Delete Person 3.Show All Entry 4.Search Person 5.MainMenu 6.exit");
 			try{
 			 choice=Utility.InputInt();
 			}
@@ -172,7 +171,7 @@ public class AddressBook
 			switch(choice)
 			{
 				case 1:
-							AddressBookPerson.addNewPeson();
+							AddressBookPerson.addNewPeson(filename);
 							break;
 				case 2:
 							AddressBookPerson.deletePerson(fileName);

@@ -12,7 +12,7 @@ public class AddressBookPerson
 
 	static PersonDetails person=null;
 	
-	public static void addNewPeson()
+	public static void addNewPeson(String filename)
 	{
 		person=new PersonDetails();
 
@@ -48,9 +48,9 @@ public class AddressBookPerson
 		}
 		personDetails.add(person);
 		String jsonPerson=JsonUtility.ConverJavaToJson(person);
-		String fileName="/home/user/Documents/FellowShip/Bridgelabz/src/com/bridgelabz/oops/addressbook/AddressBook.json";
+		String fileName="/home/user/Documents/FellowShip/Bridgelabz/src/com/bridgelabz/oops/addressbook/"+filename;
 		//WriteinFile(jsonPerson, fileName);
-	}// End AddPerson
+	}// End AddPers   on
 	
 	
 	
