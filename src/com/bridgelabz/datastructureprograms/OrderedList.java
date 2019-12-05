@@ -1,4 +1,4 @@
-package com.bridgelabz.dataStructure_programs;
+package com.bridgelabz.datastructureprograms;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;

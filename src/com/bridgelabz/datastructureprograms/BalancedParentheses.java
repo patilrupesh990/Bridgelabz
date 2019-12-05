@@ -1,4 +1,4 @@
-package com.bridgelabz.dataStructure_programs;
+package com.bridgelabz.datastructureprograms;
 
 import com.bridgelabz.util.DataStructure;
 import com.bridgelabz.util.Stack;

@@ -1,14 +1,18 @@
 package com.bridgelabz.oops.addressbook;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+
 
 public class JsonUtility 
 {
@@ -44,9 +48,12 @@ public class JsonUtility
 	
 	public static <T>T converJsonToJava(String jsonstring,Class<T> cls)
 	{
-		T result=null;
+		String result=null;
 		try {
-			result=mapper.readValue(jsonstring, cls);
+			result=(String) mapper.readValue(jsonstring, cls);
+
+			
+
 		} 
 		catch (JsonParseException e) {
 			System.out.println("Exceptionoccured while converting JSON object to java object");
@@ -57,25 +64,69 @@ public class JsonUtility
 		catch (IOException e) {
 			System.out.println("Exceptionoccured while converting JSON object to java object");
 		}
-		return result;
+		return (T) result;
 		
 	}
 	
 	
-	public static String readFile(String message) throws FileNotFoundException {
-		FileReader f = new FileReader(message);
-		@SuppressWarnings("resource")
-		BufferedReader read = new BufferedReader(f);
-		String line = "";
-		try {
-			String word="";
-			while ((word = read.readLine()) != null) {
-				line = word;
+	public static String readFile(String fileName) throws FileNotFoundException {
+		File file;
+		file=new File(fileName);
+		FileReader filereader=null;
+		BufferedReader b_reader;
+		String line="";
+		
+		
+			try 
+			{
+				filereader = new FileReader(file);
 			}
+			catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			b_reader=new BufferedReader(filereader);
+			String temp="";
+		
+			
+		try
+		{
+			while((temp=b_reader.readLine())!=null)
+			{
+				line+=temp;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		catch (Exception e) {
+		try {
+			b_reader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return line;
 	}
+	
+	public static <T>void WriteinFile(T string,String filename)
+	{
+		try { 
+			  
+            // Open given file in append mode. 
+            BufferedWriter out = new BufferedWriter( 
+                   new FileWriter(filename, true)); 
+            out.write(String.valueOf(string)); 
+            out.newLine();
+            out.close(); 
+        }catch (FileNotFoundException e) {
+			// TODO: handle exception
+        	System.out.println("File Does Not Exist");
+		}
+		catch (IOException e) {
+			
+		} 
+		
+	}
+	
+	
+		
+	
 }

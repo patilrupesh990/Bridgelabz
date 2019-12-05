@@ -1,4 +1,4 @@
-package com.bridgelabz.dataStructure_programs;
+package com.bridgelabz.datastructureprograms;
 /*****************************************************************************************
 * @Author: RupeshPatil
 * @since: 25/11/2019

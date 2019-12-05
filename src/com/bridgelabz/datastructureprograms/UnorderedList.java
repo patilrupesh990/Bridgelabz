@@ -1,4 +1,4 @@
-package com.bridgelabz.dataStructure_programs;
+package com.bridgelabz.datastructureprograms;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import com.bridgelabz.util.AlgorithmPrograms;
