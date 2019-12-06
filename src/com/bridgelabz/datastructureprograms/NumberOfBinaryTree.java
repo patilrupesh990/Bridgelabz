@@ -4,67 +4,58 @@ import com.bridgelabz.util.Utility;
 
 public class NumberOfBinaryTree 
 {
-	static int numbers[];
-	static int resultcount=0;
-	public static void main(String[] args) 
-	{
-		System.out.println("Enter the Number of Task");
-		int tasks=Utility.InputInt();
-		numbers=new int[tasks];
-		
-		for(int count=0;count<tasks;count++)
-		{
-			numbers[count]=Utility.InputInt();
+	 //factorial() will calculate the factorial of given number  
+    public static int factorial(int num) {  
+        int fact = 1;  
+        if(num == 0)  
+            return 1;  
+        else {  
+            while(num > 1) {  
+                fact = fact * num;  
+                num--;  
+            }  
+            return fact;  
+        }  
+    }  
+      
+    //numOfBST() will calculate the total number of possible BST by calculating Catalan Number for given key  
+    public static int numOfBST(int key) {  
+    	int catalanNumber=0;
+    	try{
+        catalanNumber = factorial(2 * key)/(factorial(key + 1) * factorial(key));  
+    	}catch (Exception e) {
 		}
-		int result[]=countTree(numbers, tasks);
-		for(int index=0;index<resultcount;index++)
-		{
-			System.out.println(result[index]);
-		}
-		
-	}
-	
-	public static int[] countTree(int numbers[],int tasks)
-	{
-		int result[]=new int[20];
-		
-		int temp[]=new int[100];
-		temp[0]=1;
-		temp[1]=1;
-		temp[2]=2;
-		
-		
-		for(int count=0;count<numbers.length;count++)
-		{
-			if(numbers[count]==0)
-			{
-				 result[resultcount++]=0;
-				 
-			}
-			else if(numbers[count]==1)
-			{
-				 result[resultcount++]=1;
-			}
-			else if(numbers[count]==2)
-			{
-				 result[resultcount++]=2;
-			}
-			else
-			{
-				int index=0,sum=0;                             
-				for(int count2=3;count2<=numbers[count];count2++)
-				{
-					temp[count2]=temp[index++]+temp[count2-1];
-					sum+=temp[count2];
-				}
-				result[resultcount++]=sum;          
-			}
-			
-			
-		}
-		return result;
-		
-	}
-	
-	
-}
+        return catalanNumber; 
+
+    	
+    }  
+	  public static void display(int results[])
+	  {
+		  System.out.println("Number of tree respectively");
+		  for(int index:results)
+		  {
+			  System.out.println(index);
+		  }
+	  }
+
+	  public static void main(String[] args) {  
+          
+		  System.out.println("Enter How many Task");
+		  int noOfTask=Utility.InputInt();
+		  System.out.println("Enter "+noOfTask+" Tasks");
+		  int tasks[]=new int[noOfTask];
+
+		  for(int index=0;index<noOfTask;index++)
+          {
+        	tasks[index]=Utility.InputInt();  
+          }
+		 
+		  int results[]=new int[noOfTask];
+          for(int index2=0;index2<noOfTask;index2++)
+        	  results[index2]=numOfBST(tasks[index2]);
+          
+          display(results);
+      }  
+	  
+}  
+
