@@ -1,3 +1,17 @@
-
-{"inventoryprice":50.0,"inventoryweight":250.0,"inventoryName":"Rice"}
-{"Rice":{"inventoryprice":50.0,"inventoryweight":250.0,"inventoryName":"Rice"}}
+{
+	"Pulse": {
+		"Price": 20.0,
+		"name": "xyz",
+		"weight": 200.0
+	},
+	"Wheat": {
+		"Price": 35.0,
+		"weight": 450.0,
+		"Name": "abc"
+	},
+	"Rice": {
+		"Price": 220.0,
+		"weight": 1000.0,
+		"Name": "dawat"
+	}
+}

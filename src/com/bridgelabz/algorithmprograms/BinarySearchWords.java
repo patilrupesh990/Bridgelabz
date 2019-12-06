@@ -25,7 +25,7 @@ public class BinarySearchWords
 			
 			AlgorithmPrograms binary=new AlgorithmPrograms();
 			
-			String FileName="E:\\project p\\BinarySearch.txt";
+			String FileName="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/datastructureprograms/BinarySearch.txt";
 			binary.ReadFile(FileName);
 			
 			wordsarray=binary.ReadFile(FileName);

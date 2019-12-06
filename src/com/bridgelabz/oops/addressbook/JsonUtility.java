@@ -9,18 +9,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 
 
 public class JsonUtility 
 {
 	private static ObjectMapper mapper;
-	
 	static
 	{
 		mapper=new ObjectMapper();	
+		
 	}
 	
 	public static String ConverJavaToJson(Object object)
@@ -46,6 +48,10 @@ public class JsonUtility
 		return jsonResult;
 	}
 	
+	
+
+	
+	
 	public static <T>T converJsonToJava(String jsonstring,Class<T> cls)
 	{
 		String result=null;
@@ -55,9 +61,7 @@ public class JsonUtility
 			
 
 		} 
-		catch (JsonParseException e) {
-			System.out.println("Exceptionoccured while converting JSON object to java object");
-		}
+		
 		catch (JsonMappingException e) {
 			System.out.println("Exceptionoccured while converting JSON object to java object");
 		}
@@ -67,6 +71,8 @@ public class JsonUtility
 		return (T) result;
 		
 	}
+	
+	
 	
 	
 	public static String readFile(String fileName) throws FileNotFoundException {
