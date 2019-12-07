@@ -1,6 +1,7 @@
 package com.bridgelabz.util;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 import com.bridgelabz.util.Utility;
 /*************************************************************************************
@@ -173,6 +174,8 @@ public class DataStructure
 	}//end startcounter
 	
 	
+	
+	
 	public static int addPeople(int size)
 	{
 		System.out.println("Enter the number of people");
@@ -308,45 +311,27 @@ public class DataStructure
 			for(int i=0;i<primes.length;i++)
 			{
 				if(primes[i]>0&&primes[i]<100)
-				{
 					result[0][a++]=primes[i];
-				}
 				else if(primes[i]>101&&primes[i]<200)
-				{
 					result[1][b++]=primes[i];
-				}
 				else if(primes[i]>201&&primes[i]<300)
-				{
 					result[2][c++]=primes[i];
-				}
 				else if(primes[i]>301&&primes[i]<400)
-				{
 					result[3][d++]=primes[i];
-				}
 				else if(primes[i]>401&&primes[i]<500)
-				{
 					result[4][e++]=primes[i];
-				}else if(primes[i]>501&&primes[i]<600)
-				{
+				else if(primes[i]>501&&primes[i]<600)
 					result[5][f++]=primes[i];
-				}
 				else if(primes[i]>601&&primes[i]<700)
-				{
 					result[6][g++]=primes[i];
-				}
 				else if(primes[i]>701&&primes[i]<800)
-				{
 					result[7][h++]=primes[i];
-				}
 				else if(primes[i]>801&&primes[i]<900)
-				{
 					result[8][j++]=primes[i];
-				}
 				else if(primes[i]>901&&primes[i]<1000)
-				{
 					result[9][k++]=primes[i];
-				}
 			}//for
+			
 			return result;
 		}//end primenumbers
 		
@@ -471,14 +456,17 @@ public class DataStructure
 		        int d = (day + x + (31*m)/12) % 7;
 		        return d;
 		    }
-		 public static boolean isLeap(int year)
-		 {
-			 if((year%4==0&&year%100!=0)||year%400==0)
-				 return true;
-			 else
-			 return false;
-		 }
+		 
+		 
+		 /**************************************************************************************************** 
+			*   Purpose:Takes year as input and returns true if year is Leap Year
+			*   @param int year
+			*   @return boolean
+			******************************************************************************************************/			
+		 Predicate<Integer>p=year->((year%4==0&&year%100!=0)||year%400==0);
 
+		 
+	
 	
 	
 }

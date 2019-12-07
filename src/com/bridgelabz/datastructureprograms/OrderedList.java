@@ -50,7 +50,7 @@ public class OrderedList
 		File file;
 		file=new File(FileName);
 		FileReader filereader=null;
-		BufferedReader b_reader;
+		BufferedReader buffer_reader;
 		String temp= "";
 		String line="";
 		
@@ -60,15 +60,14 @@ public class OrderedList
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			b_reader=new BufferedReader(filereader);
+			buffer_reader=new BufferedReader(filereader);
 	
 		try {
-			while((temp=b_reader.readLine())!=null)
+			while((temp=buffer_reader.readLine())!=null)
 			{
 				line+=temp;
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -81,7 +80,7 @@ public class OrderedList
 		 }
 		//List word=new List();
 		try {
-			b_reader.close();
+			buffer_reader.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

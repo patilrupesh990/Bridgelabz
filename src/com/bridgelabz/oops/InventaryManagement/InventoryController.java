@@ -14,6 +14,6 @@ public class InventoryController
 {
 	public static void main(String[] args) 
 	{
-		InventoryService.mainMenu();
+		Inventory.mainMenu();
 	}
 }

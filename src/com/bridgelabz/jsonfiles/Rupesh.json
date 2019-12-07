@@ -1,0 +1,13 @@
+{
+	"Person": {
+		"firstName": "Rupesh",
+		"lastName": "Patil",
+		"address": {
+			"city": "Surat",
+			"street": "LaxmiNagar",
+			"pinCode": 394305,
+			"state": "Gujarat"
+		},
+		"phNo": 9558062808
+	}
+}

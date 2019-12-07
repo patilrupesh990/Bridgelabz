@@ -25,6 +25,7 @@ public class PrimeNoRange
 		System.out.println();
 		System.out.println("---------------------------------------");
 		System.out.println("Colums:prime numbers Rows:limits 0-100,100-200,200-300 so on");
+		
 		for (int i = 0; i < 10; i++) {
 			System.out.print(k + "-" + l + ":==>  ");
 			for (int j = 0; j < 25; j++) {

@@ -18,10 +18,9 @@ import com.bridgelabz.util.Utility;
 public class AddressBook
 {
 	static ObjectMapper objectmapper=new ObjectMapper();
-	static File[] arrayOfFiles = new File(System.getProperty("user.dir","user.home")).listFiles();
 	static List<PersonDetails> persondetails=new ArrayList<PersonDetails>();
 	static AddressBook addressbook = new AddressBook();
-	static String originbook="/home/user/Documents/FellowShip/Bridgelabz/src/com/bridgelabz/oops/addressbook/";
+	static String originbook="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/jsonfiles/";
 	static private String bookName=null;
 
 	
@@ -41,7 +40,7 @@ public class AddressBook
 		{
 		int choice=0;
 		System.out.println("Eneter your choice");
-		System.out.println("1.New Book  2.Open Book  3.Save Book  4.close Book 5.Quite");
+		System.out.println("1.New Book  2.Open Book   3.close Book 4.Quite");
 		try{
 		choice=Utility.InputInt();
 		}catch (NumberFormatException ne) {
@@ -63,14 +62,11 @@ public class AddressBook
 						openBook();
 						break;
 						
-			case 3:		
-						//Save Book
-						break;
 			
-			case 4:
-						//close Book
+			case 3:
+						closeFile();
 						break;
-			case 5:
+			case 4:
 						System.exit(0);
 			
 			default:
@@ -93,17 +89,21 @@ public class AddressBook
 			else
 			System.out.println("The Name of that book is already exists pls create new book");
 	}
-	
+
+	static String filenameclose;
 	public static void openBook()
 	{
 		System.out.println("The books are Available:");
-		for(File file:arrayOfFiles)
-		{
-			if(file.getName().endsWith(".json"))
-			{
-				System.out.println(file.getName().toString());
-			}
-		}
+		
+		
+		 File directory = new File(originbook);
+
+	        //get all the files from a directory
+	        File[] arrayOfFiles = directory.listFiles();
+	        for (File file : arrayOfFiles){
+	        	System.out.println(file.getName());
+	        }
+	    
 		System.out.println("Choose the File and Eter Name of file");
 		String bookName=Utility.InputString();
 		AddressBook.setBookName(bookName);
@@ -111,46 +111,29 @@ public class AddressBook
 		for (File file : arrayOfFiles) 
 		{
 			String filename = file.getName();
-			if (bookName.equals(filename)) 
-			{
-					if (file.length() > 0) 
+			filenameclose=filename;
+					if (bookName.equals(filename)) 
 					{
-								System.out.println("Add Details");
-								String string="";
-								try {
-									string = JsonUtility.readFile(filename);
-								} catch (FileNotFoundException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								try {
-									persondetails = objectmapper.readValue(string, new TypeReference<List<PersonDetails>>() {
-									});
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								AddressBook.setpersondetails(persondetails);
-								AddressBookMenu(filename);
-					}
-					else 
-					{
-						System.out.println("Address Book is empty");
+			
 						System.out.println("Add new data onto the Address Book");
 						AddressBookMenu(filename);
 					}
 				flag=1;
-			}//end if
-		}//end for
+			}//end for loop
+
 		if(flag==0)
 			System.out.println("File doesnot exist or u have not given extention(.json)");
 		
 	}//
 	
-	 public static void setpersondetails(List<PersonDetails> persondetails) {
+	public static void setpersondetails(List<PersonDetails> persondetails) {
 	        AddressBook.persondetails = persondetails;
 	    }//
 	 
+	public static void closeFile()
+	{
+		System.out.println(filenameclose+"File closed");
+	}
 	 
 	 
 	 //////////////////////////////////////////////////////////////////////////
@@ -159,36 +142,42 @@ public class AddressBook
 	 public static void AddressBookMenu(String filename)  //use whene book open
 		{
 			int choice=0;
-			System.out.println("Select the Option");
-			System.out.println("1.Add New Person 2.Delete Person 3.Show All Entry 4.Search Person 5.MainMenu 6.exit");
-			try{
-			 choice=Utility.InputInt();
-			}
-			catch (NumberFormatException ne) {
-				// TODO: handle exception
-				System.out.println("invalid input");
-			}
-			switch(choice)
+			while(true)
 			{
-				case 1:
-							AddressBookPerson.addNewPeson(filename);
-							break;
-				case 2:
-							AddressBookPerson.deletePerson(fileName);
-							break;
-				case 3:
-							AddressBookPerson.printEntries();
-							break;
-				case 4:
-								AddressBookPerson.searchPerson();
-								break;
-				case 5:
-							mainMenu();
-							break;
-				case 6:
-							System.exit(0);
-				default:
-						System.out.println("Invalid choice");
+						System.out.println("Select the Option");
+						System.out.println("1.Add New Person 2.Delete Person 3.Show All Entry 4.Search Person 5.save File 6.MainMenu 7.exit");
+						try{
+						 choice=Utility.InputInt();
+						}
+						catch (NumberFormatException ne) {
+							// TODO: handle exception
+							System.out.println("invalid input");
+						}
+						switch(choice)
+						{
+							case 1:
+										AddressBookPerson.addNewPeson(filename);
+										break;
+							case 2:
+										AddressBookPerson.deletePerson(fileName);
+										break;
+							case 3:
+										AddressBookPerson.printEntries();
+										break;
+							case 4:
+											AddressBookPerson.searchPerson();
+											break;
+							case 5:
+										AddressBookPerson.Save();
+										break;
+							case 6:
+										mainMenu();
+										break;
+							case 7:
+										System.exit(0);
+							default:
+									System.out.println("Invalid choice");
+						}
 			}
 		}
 		

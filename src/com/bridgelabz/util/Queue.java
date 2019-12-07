@@ -110,6 +110,7 @@ public class Queue<T>
 	 * @param no param
 	 * @return boolean
 	 **********************************************************************************/
+	
 	public static boolean isEmpty()
 	{
 		if(count==-1)
