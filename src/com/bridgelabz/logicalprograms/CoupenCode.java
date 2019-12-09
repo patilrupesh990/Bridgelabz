@@ -15,9 +15,9 @@ public class CoupenCode
 	public static void main(String[] args) 
 	{
 
-		LogicalProgram coupencode=new LogicalProgram();
 		System.out.println("How many numbers you want?");
 		int max=Utility.InputInt();
-		coupencode.GenerateCode(max);
+		String code=LogicalProgram.GenerateCode(max);
+		System.out.println("Coupen Code:"+code);
 	}
 }

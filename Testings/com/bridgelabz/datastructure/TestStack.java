@@ -16,7 +16,7 @@ public class TestStack {
 
 	/**To test Stack size,push pop module**/
 	@Test
-	public void TestStackSize()
+	public void Test_when_sizeis_three_after_insertElement_shold_full_StackSize()
 	{
 		assertTrue(Stack.isEmpty()==true);
 		Stack.setStackSize(3);
@@ -25,20 +25,17 @@ public class TestStack {
 		Stack.push(30);
 		assertTrue(Stack.isFull()==true);
 		assertTrue(Stack.isEmpty()==false);
-		Stack.pop();
-		Stack.pop();
-		Stack.pop();
 	}
 	
 
 	/**To test Stack isEmpty or not module**/
 	@Test
-	public void TestStackIsEmpty()
+	public void Test_when_all_element_poped_stack_shold_Empty()
 	{
-		assertTrue(Stack.isEmpty()==true);	
-		Stack.push(30);
-		assertTrue(Stack.isEmpty()==false);	
 		Stack.pop();
+		Stack.pop();
+		Stack.pop();
+		assertTrue(Stack.isEmpty()==true);	
 	}
 
 }

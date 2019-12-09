@@ -1,5 +1,7 @@
 package com.bridgelabz.oops.addressbook;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,10 +9,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
-import org.json.simple.JSONObject;
+import org.json.JSONException;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.json.simple.JSONObject;
 
 import com.bridgelabz.util.Utility;
 
@@ -19,16 +23,15 @@ public class AddressBookPerson
 	static List<PersonDetails> personDetails=new ArrayList<PersonDetails>();
 	static List<AddressDetails> addressDetails=new ArrayList<AddressDetails>();
 	static HashMap<String, PersonDetails> personMap=new HashMap<>();
-	static HashMap<String,AddressDetails> addressMap=new HashMap<>();
-	static JSONObject personjson=new JSONObject();
+	
 	static JSONObject personaddressjson=new JSONObject();
 	static JSONObject personList=new JSONObject();
-	
+	static JSONObject mainobject=new JSONObject();
 	static PersonDetails person=null;
 	static String originbook="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/jsonfiles/";
 
 	
-	public static void addNewPeson(String filename)
+	public static void addNewPeson(String filename) throws JSONException
 	{
 		person=new PersonDetails();
 
@@ -110,10 +113,11 @@ public class AddressBookPerson
 			return address;
 
 	}
-	
 	@SuppressWarnings("unchecked")
-	public static void addNewPesonToJsonFile()
+	public static void addNewPesonToJsonFile() throws JSONException
 	{
+		JSONObject personjson=new JSONObject();
+		mainobject=JsonUtility.readFile2(originbook+AddressBook.getBookName());
 		String firstName=person.getFirstName();
 		System.out.println(firstName);
 		String lastName=person.getLastName();
@@ -135,21 +139,30 @@ public class AddressBookPerson
 		personaddressjson.put("pinCode", pinCode);
 		
 		personjson.put("address", personaddressjson);
-		personList.put("Person",personjson);
+		mainobject.put("Person",personjson);
+		
 	
 	}
-	public static void Save()
+	@SuppressWarnings("unchecked")
+	public static void Save() throws JSONException
 	{
-		System.out.println(AddressBook.getBookName());
-		System.out.println("hello");
-		String temporary=personList.toJSONString();
-		System.out.println(temporary);
-		JsonUtility.WriteinFile(temporary, originbook+AddressBook.getBookName());
+		//System.out.println(AddressBook.getBookName());
+		//System.out.println("hello");
+		
+        File file = new File(AddressBook.getBookName());
+        System.out.println(AddressBook.getBookName());
+        System.out.println(file.length());
+		
+			String temporary=mainobject.toString();
+			System.out.println(temporary);
+		JsonUtility.writeToFile(originbook+AddressBook.getBookName(), mainobject);
+		
+		
 	}
 	
 	
 	
-	public static void deletePerson(String fileName)
+	public static void deletePerson(String fileName) throws JSONException
 	{
 		System.out.println("Enter the Fist Name the person who's want to Remve..");
 		String fname=Utility.InputString();
@@ -169,54 +182,9 @@ public class AddressBookPerson
 		}
 	}
 	
-	public static void addToMap()
-	{
-		Object obj = null;
-		try {
-			obj = new JSONParser().parse(new FileReader(originbook+AddressBook.getBookName()));
-		} catch (IOException | ParseException e) {
-			e.printStackTrace();
-		} 
-          
-        // typecasting obj to JSONObject 
-        JSONObject jo = (JSONObject) obj; 
-        // getting address 
-        Map person = ((Map)jo.get("Person")); 
-        PersonDetails persondetail=null;
-        AddressDetails addressdetail=null;
-        Iterator<Map.Entry> itr1 = person.entrySet().iterator(); 
-        while (itr1.hasNext()) { 
-            Map.Entry pair = itr1.next(); 
-            if(pair.getKey().equals("firstName"))
-            	persondetail.setFirstName((String)pair.getValue());
-            if(pair.getKey().equals("lastName"))
-            	System.out.println("LastName:"+(String)pair.getValue());	
-            if(pair.getKey().equals("phNo:"))
-            	System.out.println("phNo:"+(String)pair.getValue());	
-        }
-        
-       
-        
-      
-	        // getting address 
-	        Map address = (Map) ((Map)jo.get("Person")).get("address"); 
-	        
-	        Iterator<Map.Entry> itr2 = address.entrySet().iterator(); 
-	        while (itr2.hasNext()) { 
-            Map.Entry pair2 = itr2.next(); 
-        if(pair2.getKey().equals("street"))
-        	System.out.println("street:"+(String)pair2.getValue());
-        if(pair2.getKey().equals("city"))
-        	System.out.println("city:"+(String)pair2.getValue());
-        if(pair2.getKey().equals("state"))
-        	System.out.println("state:"+(String)pair2.getValue());
-        if(pair2.getKey().equals("pinCode"))
-        	System.out.println("pinCode:"+(Long)pair2.getValue());
-    } 
-	}
-
 	
-	public static void printEntries() 
+	
+	public static void printEntries() throws JSONException 
 	{
 		
 		  Object obj = null;
@@ -263,6 +231,7 @@ public class AddressBookPerson
   	        System.out.println("================================================================================================================");
 	        
 	}
+	
 	
 	
 	public static void searchPerson()

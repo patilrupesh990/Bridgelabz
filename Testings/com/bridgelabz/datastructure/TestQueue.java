@@ -14,7 +14,7 @@ public class TestQueue
 {
 	/**To test Queue size module**/
 	@Test
-	public void TestQueuesize()
+	public void Test_when_size_Five_after_insert_element_Queue_shouldnot_Empty ()
 	{
 		Queue.setSize(5);
 		Queue.insert(10);
@@ -28,8 +28,9 @@ public class TestQueue
 
 	/**To test Queue isFull or not module**/
 	@Test
-	public void TestIsFull()
+	public void Test_when_size_Five_after_insert_element_Queue_should_Full()
 	{
+		Queue.reset();
 		Queue.setSize(5);
 		Queue.insert(10);
 		Queue.insert(20);
@@ -41,19 +42,7 @@ public class TestQueue
 		
 	}
 	
-	/**To test isEmpty Queue or not module**/
-	public void TestIsEmpty()
-	{
-		Queue.reset();
-		Queue.insert(10);
-		Queue.insert(20);
-		Queue.insert(30);
-		assertTrue(Queue.isEmpty()==false);
-		Queue.detete();
-		Queue.detete();
-		Queue.detete();
-		assertTrue(Queue.isEmpty()==true);
-	}
+
 	
 	
 }

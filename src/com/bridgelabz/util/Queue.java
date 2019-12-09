@@ -100,7 +100,7 @@ public class Queue<T>
 	 *****************************************************************************/
 	public static boolean isFull()
 	{
-		if(count==size-1)
+		if(count==size)
 		return true;
 		else
 		return false;				
@@ -113,7 +113,7 @@ public class Queue<T>
 	
 	public static boolean isEmpty()
 	{
-		if(count==-1)
+		if(count==0)
 			return true;
 		return false;
 	}

@@ -14,7 +14,7 @@ public class TestPrimeNo {
 
 /**To test prime numbers in min and max range**/
 	@Test
-	public void TestPrime_No_Range()
+	public void Test_PrimeNo_when_input_zeroTOten_Rang_output_Sholdbe_two_three_five_seven()
 	{
 		
 		int result[]=DataStructure.PrimesInRange(0, 10);

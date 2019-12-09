@@ -37,11 +37,11 @@ public class Calender
 		
 		int day=DataStructure.day(month, 1, year);
 		
-		for (int i = 0; i < day; i++)
+		for (int index = 0; index < day; index++)
 	            System.out.print("\t");
-	        for (int i = 1; i <= days[month-1]; i++) {
-	            System.out.print(i+"\t");
-	            if (((i + day) % 7 == 0) || (i == days[month-1])) 
+	        for (int index = 1; index <= days[month-1]; index++) {
+	            System.out.print(index+"\t");
+	            if (((index + day) % 7 == 0) || (index == days[month-1])) 
 	            	System.out.println();   	
 	            
 	        }

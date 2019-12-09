@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
+import org.json.JSONException;
 
 import com.bridgelabz.util.Utility;
 
@@ -34,7 +34,7 @@ public class AddressBook
 	}
 
 
-	public static void mainMenu()
+	public static void mainMenu() throws JSONException
 	{
 		while(true)
 		{
@@ -91,7 +91,7 @@ public class AddressBook
 	}
 
 	static String filenameclose;
-	public static void openBook()
+	public static void openBook() throws JSONException
 	{
 		System.out.println("The books are Available:");
 		
@@ -139,7 +139,7 @@ public class AddressBook
 	 //////////////////////////////////////////////////////////////////////////
 	 
 		static String fileName="/home/user/Documents/FellowShip/Bridgelabz/src/com/bridgelabz/oops/addressbook/AddressBook.json";
-	 public static void AddressBookMenu(String filename)  //use whene book open
+	 public static void AddressBookMenu(String filename) throws JSONException  //use whene book open
 		{
 			int choice=0;
 			while(true)
@@ -162,11 +162,11 @@ public class AddressBook
 										AddressBookPerson.deletePerson(fileName);
 										break;
 							case 3:
-										AddressBookPerson.printEntries();
+										//AddressBookPerson.Print();;
 										break;
 							case 4:
-											AddressBookPerson.searchPerson();
-											break;
+										AddressBookPerson.searchPerson();
+										break;
 							case 5:
 										AddressBookPerson.Save();
 										break;

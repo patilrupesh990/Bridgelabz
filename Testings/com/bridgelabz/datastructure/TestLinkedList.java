@@ -22,13 +22,13 @@ public class TestLinkedList
 
 	/**To test LinkedList isEmpty module**/
 	@Test
-	public void testLinkedListisEmpty() {
+	public void Test_initially_linkedlist_shold_Empty() {
 		assertTrue(list.isEmpty());
 	}
 
 	/**To test LinkedList Searching element module**/
 	@Test
-	public void testLinkedListSearch() {
+	public void Test_After_inseted10_20_30_search_50_shold_false_and_search_20_shold_true() {
 		list.add(10);
 		list.add(20);
 		list.add(30);
@@ -39,7 +39,7 @@ public class TestLinkedList
 
 	/**To test LinkedList Rmove elements from Linkedlist module**/
 	@Test
-	public void testRemoveData()
+	public void Test_after_remove_50_node_search_shold_False_and_search_80_sould_true()
 	{
 		list.add(100);
 		list.add(80);
@@ -52,7 +52,7 @@ public class TestLinkedList
 
 	/**To test LinkedList GetNext module**/
 	@Test
-	public void testGetIndex()
+	public void After_elements_element_search_for_80_index_value_1_and_7_shold_false()
 	{
 		list.removeNode(10);
 		list.removeNode(20);

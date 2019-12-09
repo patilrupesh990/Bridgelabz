@@ -7,12 +7,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+
+import com.jn.langx.classpath.scanner.core.Scanner;
 
 
 
@@ -119,7 +124,8 @@ public class JsonUtility
             // Open given file in append mode. 
             BufferedWriter out = new BufferedWriter( 
                    new FileWriter(filename, true)); 
-            out.write(String.valueOf(string)); 
+            out.append(String.valueOf(string));
+          //  out.write(String.valueOf(string)); 
             out.newLine();
             out.close(); 
         }catch (FileNotFoundException e) {
@@ -131,8 +137,59 @@ public class JsonUtility
 		} 
 		
 	}
+
 	
-	
+	public static void clearFile(String fileName){
+	    //go through and do this every time in order to delete previous crap
 		
+		FileWriter fwOb=null;
+		try {
+			fwOb = new FileWriter(fileName, false);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+        PrintWriter pwOb = new PrintWriter(fwOb, false);
+        pwOb.flush();
+        pwOb.close();
+        try {
+			fwOb.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	} 
+	
+	public static JSONObject readFile2(String filePath)
+	{
+		JSONObject mainArrayObject = new JSONObject();
+		try(FileReader fileReader = new FileReader(filePath))
+		{
+			JSONParser parser = new JSONParser();
+			mainArrayObject = (JSONObject) parser.parse(fileReader);
+			fileReader.close();
+			return mainArrayObject;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}	
+	
+	
+	public static void writeToFile(String filePath, JSONObject mainArrayObject)
+	{
+		try(FileWriter fileWriter = new FileWriter(filePath))
+		{
+			fileWriter.write(mainArrayObject.toJSONString());
+			fileWriter.flush();
+			fileWriter.close();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
 	
 }

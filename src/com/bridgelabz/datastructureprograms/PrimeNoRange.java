@@ -21,21 +21,21 @@ public class PrimeNoRange
 
 		int primes[] = DataStructure.PrimesInRange(min, max);
 		int result[][] = DataStructure.primesinlimit(primes);
-		int k = 0, l = 100;
+		int minimum = 0, maximum = 100;
 		System.out.println();
 		System.out.println("---------------------------------------");
 		System.out.println("Colums:prime numbers Rows:limits 0-100,100-200,200-300 so on");
 		
-		for (int i = 0; i < 10; i++) {
-			System.out.print(k + "-" + l + ":==>  ");
-			for (int j = 0; j < 25; j++) {
-				if (result[i][j] > 0) {
-					System.out.print(result[i][j] + " ");
+		for (int index1 = 0; index1 < 10; index1++) {
+			System.out.print(minimum + "-" + maximum + ":==>  ");
+			for (int index2 = 0; index2 < 25; index2++) {
+				if (result[index1][index2] > 0) {
+					System.out.print(result[index1][index2] + " ");
 				}
 			}
 			System.out.println();
-			k = k + 100;
-			l = l + 100;
+			minimum = minimum + 100;
+			maximum = maximum + 100;
 		}
 		int anagrams[] = DataStructure.primeAnagrams3(primes);
 		DataStructure.AddAnagramLinkedList(anagrams);

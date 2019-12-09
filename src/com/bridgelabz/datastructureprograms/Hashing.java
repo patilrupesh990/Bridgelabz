@@ -30,9 +30,9 @@ public class Hashing
 	{
 		int[] list=OrderedList.ReadFile(filename);
 		
-		for(int i:list)
+		for(int index:list)
 		{
-			hashing.put(i);
+			hashing.put(index);
 		}
 		
 		System.out.println("Enter the Number you want to search");
@@ -40,18 +40,18 @@ public class Hashing
 		SearchElement(search);
 	}
 	
-	public static void SearchElement(int ele)
+	public static void SearchElement(int element)
 	{
-		boolean result=hashing.search(ele);
+		boolean result=hashing.search(element);
 		if(result)
 		{
-			System.out.println(ele+"Element is found and removed successfully");
-			hashing.removeElement(ele);
+			System.out.println(element+"Element is found and removed successfully");
+			hashing.removeElement(element);
 		}
 		else
 		{
 			System.out.println("Element not found and added to file");
-			Utility.WriteinFile(ele, filename);
+			Utility.WriteinFile(element, filename);
 		}
 	}
 }

@@ -17,7 +17,7 @@ public class LogicalProgram
 	 * @return void
 	**/
 	
-	public void GenerateCode(int max)
+	public static String GenerateCode(int max)
 	{
 		
 		String s="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
@@ -31,7 +31,8 @@ public class LogicalProgram
 		}
 
 		String couponCode=sb.toString();
-		System.out.println("Coupon Code: "+couponCode);	
+		//System.out.println("Coupon Code: "+couponCode);	
+		return couponCode;
 	
 	}//end GenerateCode
 	

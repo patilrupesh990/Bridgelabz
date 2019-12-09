@@ -81,22 +81,22 @@ public class DataStructure
 	******************************************************************************/
 	public static String BalanaceParenthes(String expr)
 	{
-		char[] c=expr.toCharArray();
-		for(char i:c)
+		char[] character=expr.toCharArray();
+		for(char index:character)
 		{
-			if(i=='('||i=='{'||i=='[') 
+			if(index=='('||index=='{'||index=='[') 
 			{
 				try {
-			  Stack.push(i);	
+			  Stack.push(index);	
 				}
 				catch (Exception e) {
 					// TODO: handle exception
 					System.out.println();
 				}
 			}
-			else if(i==')'||i=='}'||i==']')
+			else if(index==')'||index=='}'||index==']')
 			{
-				char last=i;
+				char last=index;
 				String x=Stack.peek();
 				char first=x.charAt(0);
 				if(first=='{'&&last=='}'||first=='['&&last==']'||first=='('&&last==')')
@@ -123,14 +123,14 @@ public class DataStructure
 	*   @param no param
 	*   @return void
 	*************************************************************************************/
-	public static void StartCounter()
+	public static void StartCounter(int number)
 	{
-		int size=4;
+		int size=number;
 		double cash=2000000.00;
 		Queue.setSize(size);
-		for(int i=1;i<=size;i++)
+		for(int index=1;index<=size;index++)
 		{
-			Queue.insert(i);
+			Queue.insert(index);
 		}
 		while(true)
 		{
@@ -149,7 +149,8 @@ public class DataStructure
 								}
 								else
 								{
-									System.out.println("please add people in queue");
+									System.out.println("===========================================================================================");
+									System.out.println(" Queue is Empty please add people in queue");
 									size=DataStructure.addPeople(size);
 								}
 								break;
@@ -179,13 +180,13 @@ public class DataStructure
 	public static int addPeople(int size)
 	{
 		System.out.println("Enter the number of people");
-		int x=Utility.InputInt()+size;
-		Queue.setSize(x);
-		for(int i=0;i<x;i++)
+		int number=Utility.InputInt()+size;
+		Queue.setSize(number);
+		for(int index=0;index<number;index++)
 		{
-			Queue.insert(i);
+			Queue.insert(index);
 		}
-		return x;
+		return number;
 	}
 	
 	/**************************************************************************************************** 
@@ -203,8 +204,8 @@ public class DataStructure
 		System.out.println("Enter the Input:");
 		System.out.println("Token No:"+token);token++;
 		System.out.println (" 1.Deposite  2.Withdraw ");
-		int ch=Utility.InputInt();
-		switch(ch)
+		int input=Utility.InputInt();
+		switch(input)
 		{
 		case 1:
 				cash=deposite(cash);
@@ -279,20 +280,20 @@ public class DataStructure
 	{
 		int index=0;
 		int primes[]=new int[700]; 
-		for(int i=min;i<=max;i++)
+		for(int count2=min;count2<=max;count2++)
 		{
 			int count=0;
-			for(int j=1;j<=i;j++)
+			for(int count3=1;count3<=count2;count3++)
 			{
-				if(i%j==0)
+				if(count2%count3==0)
 				{
 					count++;
 				}
 			}
 			if(count==2)
 			{
-				primes[index++]=i;
-				System.out.print(i+" ");
+				primes[index++]=count2;
+				System.out.print(count2+" ");
 			}
 		}
 		return primes;
@@ -350,12 +351,12 @@ public class DataStructure
 				// logic to check prime numbers are anagram or not
 			int temp[]=new int[1000];
 			int count=0;
-			for (int k = 0; k < primes.length; k++) {
-					for (int j = k + 1; j < primes.length; j++) {
-						if (Utility.isAnagram(primes[k], primes[j]) && (primes[k] != 0 && primes[j] != 0)) {
-							System.out.println(primes[k] + " " + primes[j]);
-							temp[count++]=primes[k];
-							temp[count++]=primes[j];
+			for (int index = 0; index < primes.length; index++) {
+					for (int index2 = index + 1; index2 < primes.length; index2++) {
+						if (Utility.isAnagram(primes[index], primes[index2]) && (primes[index] != 0 && primes[index2] != 0)) {
+							System.out.println(primes[index] + " " + primes[index2]);
+							temp[count++]=primes[index];
+							temp[count++]=primes[index2];
 						}
 					}
 				}
@@ -366,27 +367,29 @@ public class DataStructure
 
 		
 		
-		
-			
-			
-		
-			
-		public static int dividedigit(int n)
+		/**************************************************************************************************** 
+		*   Date: 26/11/2019
+		*   Purpose:To Divedigit for given Number
+		*   @param int Number
+		*   @return int
+		******************************************************************************************************/		
+				
+		public static int dividedigit(int number)
 			{
-				int d=n;
+				int tempNumber=number;
 				int sum[]=new int[3];
-				int x=0;
-				while(d>0)
+				int tempvariable=0;
+				while(tempNumber>0)
 				{
-					int rem=d%10;
-					sum[x++]=rem;
-					d=d/10;
+					int rem=tempNumber%10;
+					sum[tempvariable++]=rem;
+					tempNumber=tempNumber/10;
 				}
 				Arrays.sort(sum);
 				int sorted=0;
-				for(int i=0;i<x;i++)
+				for(int count=0;count<tempvariable;count++)
 				{
-					sorted+=(10*sorted)+sum[i];
+					sorted+=(10*sorted)+sum[count];
 				}
 				
 				return sorted;
@@ -406,40 +409,40 @@ public class DataStructure
 			String stackanag[]=new String[anagram.length];
 			Stack.setStackSize(anagram.length);
 			
-			for(int i=0;i<anagram.length;i++)
+			for(int index=0;index<anagram.length;index++)
 			{
 				LinkedListiml<Integer> linklist=new LinkedListiml<Integer>();
-				linklist.add(anagram[i]);
+				linklist.add(anagram[index]);
 				linklist.add2Stack();
-				stackanag[i]=Stack.peek().toString();
+				stackanag[index]=Stack.peek().toString();
 			}
 			System.out.println();
 			System.out.println("stack anagrams entry");
 			
-			for(int j=stackanag.length-1;j>=0;j--)
+			for(int index2=stackanag.length-1;index2>=0;index2--)
 			{
-				if(!stackanag[j].equals("0"))
-				System.out.print(stackanag[j]+" ");
+				if(!stackanag[index2].equals("0"))
+				System.out.print(stackanag[index2]+" ");
 			}
 			
 			//add in queue using linkedlist
 			String queueanag[]=new String[anagram.length];
 			Queue.setSize(anagram.length);
 			
-			for(int i=0;i<anagram.length;i++)
+			for(int index3=0;index3<anagram.length;index3++)
 			{
 				LinkedListiml<Integer> linklist2=new LinkedListiml<Integer>();
-				linklist2.add(anagram[i]);
+				linklist2.add(anagram[index3]);
 				linklist2.add2Queue();
-				queueanag[i]=Queue.detete().toString();
+				queueanag[index3]=Queue.detete().toString();
 			}
 			System.out.println();
 			System.out.println("Queue anagrams entry");
 			
-			for(int j=0;j<queueanag.length;j++)
+			for(int index4=0;index4<queueanag.length;index4++)
 			{
-				if(!queueanag[j].equals("0"))
-				System.out.print(queueanag[j]+" ");
+				if(!queueanag[index4].equals("0"))
+				System.out.print(queueanag[index4]+" ");
 			}
 			
 		}//end whole primes operations

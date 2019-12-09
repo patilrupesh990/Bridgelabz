@@ -27,7 +27,7 @@ public class TestDequeue {
 
 	/**To test dequeue size**/
 	@Test
-	public void TestDequeimpl_data() {
+	public void Test_After_insert_one_element_size_shold_one_and_after_insert_two_size_shold_three() {
 		deque.addRear(21);
 		assertEquals(1, deque.size());
 		deque.addRear(2);
@@ -36,7 +36,7 @@ public class TestDequeue {
 	}
 	/**To test dequeue Remove element from rear**/
 	@Test
-	public void TestRmoveRear() {
+	public void Test_After_inserted_element_and_called_removeRear_last_inserted_element_shold_result() {
 		deque.addRear(22);
 		deque.addRear(21);
 		deque.addRear(23);
@@ -45,7 +45,7 @@ public class TestDequeue {
 	
 	/**To test Remove element from frontside**/
 	@Test
-	public void TestRmovefront() {
+	public void Test_After_inserted_element_and_called_removFront_First_inserted_element_shold_result() {
 		deque.addRear(22);
 		deque.addRear(23);
 		assertEquals(22, deque.removeFront());
