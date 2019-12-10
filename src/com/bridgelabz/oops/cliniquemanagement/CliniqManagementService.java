@@ -7,97 +7,124 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.bridgelabz.algorithmprograms.PermutationOfString;
 import com.bridgelabz.oops.addressbook.JsonUtility;
 import com.bridgelabz.util.LogicalProgram;
 import com.bridgelabz.util.Utility;
 
-public class CliniqManagementService 
+
+/***************************************************************************
+* Author: RupeshPatil
+* Date: 10/12/2019
+* Purpose:This Program is used to manage a list of Doctors associated with the clinic. This also manages the list of patients who use the clinic. 
+* It manages Doctors by Name, Id, Specialization and Availability (AM or PM) . It manages Patients by Name, ID, Mobile Number and Age. The Program allows
+* users to search Doctor by name, id, Specialization or Availability. Also the programs allows users to search patient by name, mobile number or id.
+* The programs allows patients to take appointment with the doctor. A doctor at any availability time can see only 5 patients. If exceeded the user can 
+* take appointment for patient at different date or availability time.
+* 
+* Users:
+* 			-Doctor
+* 			-Patient
+***************************************************************************/
+
+public class CliniqManagementService implements CliniqManagement
 {
-	static HashMap<String,DoctorDetails> doctorMap=new HashMap<String,DoctorDetails>();
-	static HashMap<String,PatientDetails> patientMap=new HashMap<String,PatientDetails>();
+	 HashMap<String,DoctorDetails> doctorMap=new HashMap<String,DoctorDetails>();
+	 HashMap<String,PatientDetails> patientMap=new HashMap<String,PatientDetails>();
+	 HashMap<String,AppontmentDetails> appoinmentMAp=new HashMap<String,AppontmentDetails>();
+	
 	static JSONObject doctorjson=new JSONObject();
 	static JSONObject patientjson=new JSONObject();
+	static JSONObject appointmentjson=new JSONObject();
 	static DoctorDetails doctorDetails=new DoctorDetails();
 	static PatientDetails patientDetails=new PatientDetails();
 	static String doctorFile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/cliniquemanagement/Doctors.json";
 	static String patientFile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/cliniquemanagement/Patient.json";
+	static String appointmentFile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/cliniquemanagement/AppointMent.json";
 	
-		public static void mainMenu() throws JSONException
+	static int count;
+	
+	
+		public void mainMenu() 
 		{
 			int choice = 0;
-			System.out.println("Enter your Choice");
-			System.out.println("1.Doctor  2.Patient");
-			try{
-			 choice=Utility.InputInt();
-			}catch (NumberFormatException e) {
-				System.out.println("");
-			}
-			if(choice==1)
+			while(true)
 			{
-				doctorMenu();
-			}
-			else if(choice==2)
-			{
-				patientRegister();
-			}
-			else
-			{
-				System.out.println("Invalid Input you have Entered");
-				mainMenu();
+					System.out.println("Enter your Choice");
+					System.out.println("1.Doctor  2.Patient 3.exit");
+					try{
+						
+					 choice=Utility.InputInt();
+					 
+					}catch (NumberFormatException e) 
+					{
+						System.out.println("invalid input");
+					}
+					try {
+					if(choice==1)
+						
+							CliniqManagement.doctorMenu();
+						
+					else if(choice==2)
+						this.patientMenu();
+					else if(choice==3)
+						System.exit(0);
+					
+					else
+					{
+						System.out.println("Invalid Input you have Entered");
+						mainMenu();
+					}
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			}
 		}
 		
 		
-		public static void doctorMenu() throws JSONException
-		{
-			System.out.println("Press 1 For Cotinue");
-			System.out.println("Are You New ?? press 2 for Register");
-			int input=Utility.InputInt();
-			if(input==1)
-			{
-				getPatientList();
-			}
-			else if(input==2)
-			{
-				register();
-			}
-			else
-			{
-				System.out.println("Invalid Input");
-				doctorMenu();
-			}
-		}
+	
 		
-		public static void patientMenu() throws JSONException
+		public  void patientMenu() throws JSONException
 		{
+			System.out.println("============================>>WellCome To Clinic Management<<==========================\n\n\n");
+			System.out.println("If you are New Doctor Sir Please Register press 1 for registration");
 			System.out.println("press 1 for continue");
 			System.out.println("New User?? press 2 for register");
-			int input=Utility.InputInt();
+			int input=0;
+			try{
+				input=Utility.InputInt();
+			}catch (NumberFormatException e) {
+					System.out.println("Invalid input please Enter Valid input");
+					CliniqManagement.doctorMenu();
+			}
 			if(input==1)
 			{
-				System.out.println("press 1.Get AppointMent 2.Search Doctor 3.All DoctorList");
+				System.out.println("press 1.Get AppointMent 2.Search Doctor 3.All DoctorList 4.Main Menu");
 				int choice=Utility.InputInt();
 				switch(choice)
 				{
 					case 1:
-							//get appointmrnt
+							getAppointment();
 							break;
 					case 2:
 							//search appoinment
+							
+							
+							//getAppointment();
 							break;
 					case 3:
-							getDoctorDetails();
+							this.getDoctorDetails();
+							break;
+					case 4: 
+							mainMenu();
 							break;
 					default:
 							System.out.println("invalid choice");
-				
 				}
 			}
 			else if(input==2)
 			{
-				patientRegister();
+				CliniqManagement.patientRegister();
 			}
 			else
 			{
@@ -106,90 +133,110 @@ public class CliniqManagementService
 			}
 		}
 		
-		public static void register() throws JSONException
-		{
-			System.out.println("Enter Your Id");
-			String id=Utility.InputString();
-			doctorDetails.setDoctorId(id);
-			doctorjson.put("Doctor id", id);
-			
-			System.out.println("Enter your Name");
-			String name=Utility.InputString();
-			doctorDetails.setDoctorName(name);
-			doctorjson.put("Doctor name", name);
-			
-			System.out.println("Enter your Specialization");
-			String specialization=Utility.InputString();
-			doctorDetails.setSpecialization(specialization);
-			doctorjson.put("specialization", specialization);
-			
-			System.out.println("Enter Your Availablity For Patient");
-			String availablity=Utility.InputString();
-			doctorDetails.setAvailablity(availablity);
-			doctorjson.put("availablity", availablity);
-			
-			JsonUtility.WriteinFile(doctorjson.toString(), doctorFile);
-
-			
-		}
 		
-		public static void patientRegister() throws JSONException
-		{
-			
-			System.out.println("Enter Your Name");
-			String name=Utility.InputString();
-			patientDetails.setPatientName(name);
-			patientjson.put("Patient Name", name);
-
-			String id=LogicalProgram.GenerateCode(10);
-			patientDetails.setPatientId(id);
-			patientjson.put("Patient Id", id);
-
-			
-			System.out.println("Enter your age");
-			String age=Utility.InputString();
-			patientDetails.setAge(age);
-			patientjson.put("Patient Age", age);
-
-			
-			System.out.println("Enter your Mobile Number");
-			String mobNo=Utility.InputString();
-			patientDetails.setMoNumber(mobNo);
-			patientjson.put("Patient Mob No:", mobNo);
-			JsonUtility.WriteinFile(patientjson.toString(), patientFile);
-		}
 		
-		static String json = "...";
-		public static void getPatientList() throws JSONException
+		public void getAppointment() throws JSONException
 		{
-			String jsonData = "";
-			BufferedReader br = null;
 			try {
-				String line;
-				br = new BufferedReader(new FileReader(patientFile));
-				while ((line = br.readLine()) != null) {
-					jsonData = line + "\n";
-					JSONObject obj = new JSONObject(jsonData);
-					System.out.println();
-					
-					System.out.println("Patient Name: " + obj.getString("Patient Name"));
-					System.out.println("Patient Id: " + obj.getString("Patient Id"));
-					System.out.println("Patient Age: " + obj.getString("Patient Age"));
-					System.out.println("Patient Mob No: " + obj.getString("Patient Mob No:"));
-				}
-			} catch (IOException e) {
+				searchDoctor();
+			} catch (JSONException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					if (br != null)
-						br.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
 			}
+
+			System.out.println("Enter The Doctor Name or id from Given List");
+			String id=Utility.InputString();
+			
+			System.out.println("Are you Confirm?? press 1 for book Appointment");
+			int input=Utility.InputInt();
+			if(input==1)
+			{
+				System.out.println("Enter your mob no");
+				long phno=Utility.inputLong();
+				
+				
+				
+				AppontmentDetails search=searchPatient(phno);
+				if(search!=null)
+				{
+							DoctorDetails appointment=bookAppointMent(id);
+							String name=appointment.getDoctorName();
+							search.setDoctoreName(name);
+							search.setDoctorSpecialization(appointment.getSpecialization());
+							search.setTime(appointment.getAvailablity());
+							appoinmentMAp.put(search.getAppointmentId(),search);
+							appointmentjson.put("Patient Name", search.getPatientName());
+							appointmentjson.put("doctor Name",search.getDoctoreName());
+							appointmentjson.put("doctor specialization",search.getDoctorSpecialization());
+							appointmentjson.put("time",search.getTime());
+							appointmentjson.put("Token No",search.getCount());
+							if(AppointmentCount(appointment.getDoctorName())==5)
+							{
+								System.out.println("Doctor is Not Availale For Today Please book for tommorow or search for another doctor");
+							}
+							else
+							{
+								JsonUtility.WriteinFile(appointmentjson.toString(), appointmentFile);
+								System.out.println("your appointment is suucessfully booked");
+							}
+				}
+				else
+				{
+					System.out.println("You are Not registered For this Number please Register First");
+				}
+
+				
+			}
+			else
+			{
+				System.out.println("Invalid Input please Enter Valid Input");
+			}
+			
 		}
 		
-		public static void getDoctorDetails() throws JSONException
+		public DoctorDetails bookAppointMent(String name) throws JSONException
+		{
+		     DoctorDetails doctorappoint=new DoctorDetails();
+			
+		     String jsonData = "";
+				BufferedReader br = null;
+				try {
+					String line;
+					br = new BufferedReader(new FileReader(doctorFile));
+					while ((line = br.readLine()) != null) {
+						jsonData = line + "\n";
+						JSONObject obj = new JSONObject(jsonData);
+						System.out.println();
+						if(obj.getString("Doctor name").equals(name) || obj.getString("Doctor id").equals(name))
+						{
+						doctorappoint.setDoctorName(obj.getString("Doctor name"));
+						doctorappoint.setDoctorId(obj.getString("Doctor id"));
+						doctorappoint.setAvailablity(obj.getString("availablity"));
+						doctorappoint.setSpecialization(obj.getString("specialization"));
+						}
+						else
+						{
+							System.out.println("Invalid input or Not available ");
+							this.patientMenu();
+						}
+
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (br != null)
+							br.close();
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+				}
+				return doctorappoint;
+		}
+		
+		
+	
+		
+		public void getDoctorDetails() throws JSONException
 		{
 			String jsonData = "";
 			BufferedReader br = null;
@@ -199,17 +246,12 @@ public class CliniqManagementService
 				while ((line = br.readLine()) != null) {
 					jsonData = line + "\n";
 					JSONObject obj = new JSONObject(jsonData);
-					System.out.println();
-					DoctorDetails details=new DoctorDetails();
+					System.out.println("===============================>>All Doctors List<<=============================");
 					System.out.println("Doctor name: " + obj.getString("Doctor name"));
-					details.setAvailablity(obj.getString("Doctor name"));
-					System.out.println("Doctor name: " + obj.getString("Doctor id"));
-					details.setAvailablity(obj.getString("Doctor id"));
+					System.out.println("Doctor id: " + obj.getString("Doctor id"));
 					System.out.println("availablity: " + obj.getString("availablity"));
-					details.setAvailablity(obj.getString("availablity"));
 					System.out.println("specialization: " + obj.getString("specialization"));
-					details.setAvailablity(obj.getString("specialization"));
-					doctorMap.put(obj.getString("specialization"), details);
+
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -222,5 +264,135 @@ public class CliniqManagementService
 				}
 			}
 		}
+		
+		
+		
+		public  DoctorDetails searchDoctor() throws JSONException
+		{
+			String jsonData = "";
+			BufferedReader br = null;
+			DoctorDetails doctor=new DoctorDetails();
+			System.out.println("Enter The Specialization of Doctor?");
+			String specialization=Utility.InputString();
+			try {
+				String line;
+				br = new BufferedReader(new FileReader(doctorFile));
+				while ((line = br.readLine()) != null) {
+					jsonData = line + "\n";
+					JSONObject obj = new JSONObject(jsonData);
+					System.out.println();
+					if(obj.getString("specialization").equals(specialization))
+					{
+					System.out.println("Doctor name: " + obj.getString("Doctor name"));
+					doctor.setDoctorName(obj.getString("Doctor name"));
+					System.out.println("Doctor name: " + obj.getString("Doctor id"));
+					System.out.println("availablity: " + obj.getString("availablity"));
+					System.out.println("specialization: " + obj.getString("specialization"));
+					doctor.setSpecialization(obj.getString("specialization"));
+					}
+					else
+					{
+						System.out.println("Invalid input or Not available specialized Doctor for: "+specialization);
+						this.patientMenu();
+					}
+					System.out.println("===============================>>Specialist for "+specialization+"<<=============================");
+
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (br != null)
+						br.close();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+			return doctorDetails;
+		}
+		
+		
+		
+		
+		public AppontmentDetails searchPatient(long phNo) throws JSONException
+		{
+			
+			String jsonData = "";
+			BufferedReader br = null;
+			
+			try {
+				String line;
+				br = new BufferedReader(new FileReader(patientFile));
+				while ((line = br.readLine()) != null) {
+					jsonData = line + "\n";
+					JSONObject obj = new JSONObject(jsonData);
+					System.out.println();
+					long contact=Long.parseLong(obj.getString("Patient Mob No:"));
+					//count=Integer.parseInt(obj.getString("Token No"));
+					if(contact==phNo)
+					{
+						AppontmentDetails appointment=new AppontmentDetails();
+						String appoinmentid=LogicalProgram.GenerateCode(5);
+						appointment.setAppointmentId(appoinmentid);
+						appointment.setCount(++count);
+						appointment.setPatientName(obj.getString("Patient Name"));
+						return appointment;
+						
+					}
+					
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (br != null)
+						br.close();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+			return null;
+		}
+		
+		
+
+		
+		public  int AppointmentCount(String DoctorName) throws JSONException
+		{
+			String jsonData = "";
+			BufferedReader br = null;
+			int result=0;
+			try {
+				String line;
+				br = new BufferedReader(new FileReader(appointmentFile));
+				while ((line = br.readLine()) != null) {
+					jsonData = line + "\n";
+					JSONObject obj = new JSONObject(jsonData);
+					System.out.println();
+					if(obj.getString("doctor Name").equals(DoctorName))
+					{
+						String count=obj.getString("Token No");
+						
+						if(Integer.parseInt(count)==5)
+						{
+							result=Integer.parseInt(count);
+							return result;
+						}
+					}
+					
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (br != null)
+						br.close();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+			return result;
+		}
+		
 		
 }
