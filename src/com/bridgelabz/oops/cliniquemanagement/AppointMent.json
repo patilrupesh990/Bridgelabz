@@ -1,5 +1,7 @@
 {"Patient Name":"Rinkesh","Token No":1,"doctor specialization":"cardiologist","time":"11AM-6PM","doctor Name":"Rakesh"}
 {"Patient Name":"Rinkesh","Token No":2,"doctor specialization":"cardiologist","time":"11AM-6PM","doctor Name":"Rakesh"}
 {"Patient Name":"Rinkesh","Token No":3,"doctor specialization":"cardiologist","time":"11AM-6PM","doctor Name":"Rakesh"}
-{"Patient Name":"Rinkesh","Token No":4,"doctor specialization":"cardiologist","time":"11AM-6PM","doctor Name":"Rakesh"}
-{"Patient Name":"Rinkesh","Token No":5,"doctor specialization":"cardiologist","time":"11AM-6PM","doctor Name":"Rakesh"}
+{"Patient Name":"Rahul","Token No":4,"doctor specialization":"cardiologist","time":"11AM-6PM","doctor Name":"Rakesh"}
+{"Patient Name":"Rahul","Token No":5,"doctor specialization":"cardiologist","time":"11AM-6PM","doctor Name":"Rakesh"}
+{"Patient Name":"Rinkesh","Token No":1,"doctor specialization":"Pathologists","time":"7AM-12PM","doctor Name":"Rushikesh"}
+{"Patient Name":"Rinkesh","Token No":1,"doctor specialization":"Family","time":"11AM-9PM","doctor Name":"Hardik"}

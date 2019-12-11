@@ -31,13 +31,14 @@ public interface CliniqManagement
 	static JSONObject patientjson=new JSONObject();
 	static String doctorFile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/cliniquemanagement/Doctors.json";
 	static String patientFile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/cliniquemanagement/Patient.json";
+	static String appointmentFile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/cliniquemanagement/AppointMent.json";
 	static CliniqManagementService clinic=new CliniqManagementService();
 	
 	public static void doctorMenu() throws JSONException
 	{
 		System.out.println("============================>>WellCome To Clinic Management<<==========================\n\n\n");
 		System.out.println("If you are New Doctor Sir Please Register press 1 for registration");
-		System.out.println("Press 2 for Continue......");
+		System.out.println("1.Register  2.Continue");
 		int input=0;
 		try{
 				input=Utility.InputInt();
@@ -52,6 +53,7 @@ public interface CliniqManagement
 		else if(input==2)
 		{
 			System.out.println("press 1 For Search Patient press 2 for all patient List");
+			System.out.println("1.Search Patient 2.All Patient List");
 			int input2=0;
 			try{
 					input2=Utility.InputInt();
@@ -202,6 +204,44 @@ public interface CliniqManagement
 			}
 		}
 	
+	}
+	
+	public static int getCount(String doctorName)
+	{
+		int count=0;
+		String jsonData = "";
+		BufferedReader br = null;
+		try {
+			String line;
+			br = new BufferedReader(new FileReader(appointmentFile));
+			while ((line = br.readLine()) != null) {
+				jsonData = line + "\n";
+				JSONObject obj;
+				try {
+					obj = new JSONObject(jsonData);
+				
+				System.out.println();
+				if(obj.getString("doctor Name").equals(doctorName))
+				{
+					count=obj.getInt("Token No");
+				}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return ++count;
 	}
 	
 	public void mainMenu(); 

@@ -75,7 +75,6 @@ public class CliniqManagementService implements CliniqManagement
 						mainMenu();
 					}
 					} catch (JSONException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 			}
@@ -87,15 +86,15 @@ public class CliniqManagementService implements CliniqManagement
 		public  void patientMenu() throws JSONException
 		{
 			System.out.println("============================>>WellCome To Clinic Management<<==========================\n\n\n");
-			System.out.println("If you are New Doctor Sir Please Register press 1 for registration");
-			System.out.println("press 1 for continue");
+			System.out.println("If you are New Patient Sir Please Register press 2 for registration");
+			System.out.println("1. continue  2.Register");
 			System.out.println("New User?? press 2 for register");
 			int input=0;
 			try{
 				input=Utility.InputInt();
 			}catch (NumberFormatException e) {
 					System.out.println("Invalid input please Enter Valid input");
-					CliniqManagement.doctorMenu();
+					//CliniqManagement.doctorMenu();
 			}
 			if(input==1)
 			{
@@ -138,7 +137,12 @@ public class CliniqManagementService implements CliniqManagement
 		public void getAppointment() throws JSONException
 		{
 			try {
-				searchDoctor();
+				Object result=searchDoctor();
+				if(result==null)
+				{
+					System.out.println("Doctor Not Avialable For this Speciality");
+					patientMenu();
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -155,7 +159,7 @@ public class CliniqManagementService implements CliniqManagement
 				
 				
 				
-				AppontmentDetails search=searchPatient(phno);
+				AppontmentDetails search=searchPatient(phno,id);
 				if(search!=null)
 				{
 							DoctorDetails appointment=bookAppointMent(id);
@@ -206,19 +210,13 @@ public class CliniqManagementService implements CliniqManagement
 						jsonData = line + "\n";
 						JSONObject obj = new JSONObject(jsonData);
 						System.out.println();
-						if(obj.getString("Doctor name").equals(name) || obj.getString("Doctor id").equals(name))
+						if(obj.getString("Doctor name").equals(name))
 						{
 						doctorappoint.setDoctorName(obj.getString("Doctor name"));
 						doctorappoint.setDoctorId(obj.getString("Doctor id"));
 						doctorappoint.setAvailablity(obj.getString("availablity"));
 						doctorappoint.setSpecialization(obj.getString("specialization"));
 						}
-						else
-						{
-							System.out.println("Invalid input or Not available ");
-							this.patientMenu();
-						}
-
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -283,19 +281,17 @@ public class CliniqManagementService implements CliniqManagement
 					System.out.println();
 					if(obj.getString("specialization").equals(specialization))
 					{
-					System.out.println("Doctor name: " + obj.getString("Doctor name"));
-					doctor.setDoctorName(obj.getString("Doctor name"));
-					System.out.println("Doctor name: " + obj.getString("Doctor id"));
-					System.out.println("availablity: " + obj.getString("availablity"));
-					System.out.println("specialization: " + obj.getString("specialization"));
-					doctor.setSpecialization(obj.getString("specialization"));
+						System.out.println("Doctor name: " + obj.getString("Doctor name"));
+						doctor.setDoctorName(obj.getString("Doctor name"));
+						System.out.println("Doctor name: " + obj.getString("Doctor id"));
+						System.out.println("availablity: " + obj.getString("availablity"));
+						System.out.println("specialization: " + obj.getString("specialization"));
+						doctor.setSpecialization(obj.getString("specialization"));
+						System.out.println("===============================>>Specialist for "+specialization+"<<=============================");
+
+						return doctorDetails;
 					}
-					else
-					{
-						System.out.println("Invalid input or Not available specialized Doctor for: "+specialization);
-						this.patientMenu();
-					}
-					System.out.println("===============================>>Specialist for "+specialization+"<<=============================");
+					
 
 				}
 			} catch (IOException e) {
@@ -308,25 +304,24 @@ public class CliniqManagementService implements CliniqManagement
 					ex.printStackTrace();
 				}
 			}
-			return doctorDetails;
+			return null;
 		}
 		
 		
 		
 		
-		public AppontmentDetails searchPatient(long phNo) throws JSONException
+		public AppontmentDetails searchPatient(long phNo,String name) throws JSONException
 		{
 			
 			String jsonData = "";
 			BufferedReader br = null;
-			
+			System.out.println();
 			try {
 				String line;
 				br = new BufferedReader(new FileReader(patientFile));
 				while ((line = br.readLine()) != null) {
 					jsonData = line + "\n";
 					JSONObject obj = new JSONObject(jsonData);
-					System.out.println();
 					long contact=Long.parseLong(obj.getString("Patient Mob No:"));
 					//count=Integer.parseInt(obj.getString("Token No"));
 					if(contact==phNo)
@@ -334,7 +329,7 @@ public class CliniqManagementService implements CliniqManagement
 						AppontmentDetails appointment=new AppontmentDetails();
 						String appoinmentid=LogicalProgram.GenerateCode(5);
 						appointment.setAppointmentId(appoinmentid);
-						appointment.setCount(++count);
+						appointment.setCount(CliniqManagement.getCount(name));
 						appointment.setPatientName(obj.getString("Patient Name"));
 						return appointment;
 						
@@ -353,10 +348,7 @@ public class CliniqManagementService implements CliniqManagement
 			}
 			return null;
 		}
-		
-		
-
-		
+	
 		public  int AppointmentCount(String DoctorName) throws JSONException
 		{
 			String jsonData = "";
@@ -371,11 +363,11 @@ public class CliniqManagementService implements CliniqManagement
 					System.out.println();
 					if(obj.getString("doctor Name").equals(DoctorName))
 					{
-						String count=obj.getString("Token No");
+						count=obj.getInt("Token No");
 						
-						if(Integer.parseInt(count)==5)
+						if(count==5)
 						{
-							result=Integer.parseInt(count);
+							result=count;
 							return result;
 						}
 					}
@@ -393,6 +385,9 @@ public class CliniqManagementService implements CliniqManagement
 			}
 			return result;
 		}
+		
+		
+		
 		
 		
 }
