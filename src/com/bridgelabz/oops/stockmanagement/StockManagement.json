@@ -1,0 +1,17 @@
+{
+	"Cheverolet": {
+		"Company Name": "Cheverolet",
+		"stock value": 700.0,
+		"stock unit": 1200
+	},
+	"eclairs": {
+		"Company Name": "eclairs",
+		"stock value": 1200.0,
+		"stock unit": 230
+	},
+	"Oddi": {
+		"Company Name": "Oddi",
+		"stock value": 4560.0,
+		"stock unit": 120
+	}
+}
