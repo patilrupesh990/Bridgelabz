@@ -1,19 +1,18 @@
 package com.bridgelabz.oops.addressbook;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Set;
 
 import org.json.JSONException;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.bridgelabz.util.Utility;
@@ -23,15 +22,16 @@ public class AddressBookPerson
 	static List<PersonDetails> personDetails=new ArrayList<PersonDetails>();
 	static List<AddressDetails> addressDetails=new ArrayList<AddressDetails>();
 	static HashMap<String, PersonDetails> personMap=new HashMap<>();
-	
 	static JSONObject personaddressjson=new JSONObject();
 	static JSONObject personList=new JSONObject();
-	static JSONObject mainobject=new JSONObject();
+	JSONObject mainobject=new JSONObject();
 	static PersonDetails person=null;
 	static String originbook="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/jsonfiles/";
+	public JSONParser parser = new JSONParser();
+
 
 	
-	public static void addNewPeson(String filename) throws JSONException
+	public  void addNewPeson(String filename) throws JSONException
 	{
 		person=new PersonDetails();
 
@@ -59,11 +59,11 @@ public class AddressBookPerson
 		try{
 		person.setPhoneNo(Utility.inputLong());
 		}catch (NumberFormatException e) {
-			// TODO: handle exception
 			System.out.println("Digits not allowed");
 		}
 		personDetails.add(person);
-		AddressBookPerson.addNewPesonToJsonFile();
+		
+		this.addNewPesonToJsonFile();
 		
 				
 	}// End AddPers   on
@@ -78,7 +78,6 @@ public class AddressBookPerson
 			String street=Utility.InputString();
 			address.setstreet(street);
 			}catch (NumberFormatException e) {
-				// TODO: handle exception
 				System.out.println("Digits not allowed");
 			}
 			
@@ -87,7 +86,6 @@ public class AddressBookPerson
 			String city=Utility.InputString();
 			address.setCity(city);
 			}catch (NumberFormatException e) {
-				// TODO: handle exception
 				System.out.println("Digits not allowed");
 			}
 			
@@ -96,7 +94,6 @@ public class AddressBookPerson
 			String state=Utility.InputString();
 			address.setState(state);
 			}catch (NumberFormatException e) {
-				// TODO: handle exception
 				System.out.println("Digits not allowed");
 			}
 			
@@ -106,18 +103,19 @@ public class AddressBookPerson
 			address.setPinCode(pinCode);
 			}
 			catch (NumberFormatException e) {
-				// TODO: handle exception
 				System.out.println("Digits only allowed");
 			}		
 			addressDetails.add(address);
 			return address;
-
 	}
+	
+	
 	@SuppressWarnings("unchecked")
-	public static void addNewPesonToJsonFile() throws JSONException
+	public  void addNewPesonToJsonFile() throws JSONException
 	{
 		JSONObject personjson=new JSONObject();
 		mainobject=JsonUtility.readFile2(originbook+AddressBook.getBookName());
+		System.out.println(mainobject.toJSONString());
 		String firstName=person.getFirstName();
 		System.out.println(firstName);
 		String lastName=person.getLastName();
@@ -139,12 +137,11 @@ public class AddressBookPerson
 		personaddressjson.put("pinCode", pinCode);
 		
 		personjson.put("address", personaddressjson);
-		mainobject.put("Person",personjson);
-		
-	
+		mainobject.put(firstName, personjson);
 	}
-	@SuppressWarnings("unchecked")
-	public static void Save() throws JSONException
+	
+	
+	public  void Save() 
 	{
 		//System.out.println(AddressBook.getBookName());
 		//System.out.println("hello");
@@ -155,14 +152,73 @@ public class AddressBookPerson
 		
 			String temporary=mainobject.toString();
 			System.out.println(temporary);
-		JsonUtility.writeToFile(originbook+AddressBook.getBookName(), mainobject);
-		
-		
+		JsonUtility.writeToFile(originbook+AddressBook.getBookName(), mainobject);	
 	}
 	
 	
+	@SuppressWarnings("unchecked")
+	public void readFromJSON()
+	{
+		System.out.println("\n************************View Details of User:************************\n");
+
+		JSONObject PersonObject = null;
+		//Iterating through ArrayObjects
+		try 
+		{
+			String fileRead = JsonUtility.readFile(originbook+AddressBook.getBookName());
+			PersonObject = (JSONObject) parser.parse(fileRead);
+
+			System.out.println("     Available Uers:");
+			System.out.println("=====================================================================");
+			Set<?> s =  PersonObject.keySet(); 	//Using the HASHMAP property to list each object's KEY
+
+			Iterator<?> i = s.iterator();
+			do{
+				String k = i.next().toString();
+				System.out.println("\t"+k);
+
+			}while(i.hasNext());
+
+			System.out.println();
+			System.out.print("You want To know More ?");
+			System.out.println("Enter Person Name");
+			String firstName = Utility.InputString();
+
+			JSONArray arrayItems = new JSONArray();
+			arrayItems.add(PersonObject.get(firstName));
+			Iterator<?> iterator = arrayItems.iterator();
+
+			System.out.println("\n["+firstName+"'s Address]\n");
+			while (iterator.hasNext()) //Iterating thorugh JSONObjectso
+			{
+				JSONObject jsonObject = (JSONObject) iterator.next();
+				String fname = (String) jsonObject.get("firstName");
+				String lname = (String) jsonObject.get("lastName");
+				long phNo = (long) jsonObject.get("phNo");
+				JSONObject addr=(JSONObject) jsonObject.get("address");
+				String city=(String) addr.get("city");
+				
+				String street = (String) addr.get("street");
+				String state = (String) addr.get("state");
+				long zip = (long)addr.get("pinCode");
+				
+
+				System.out.println("Name: " + (fname+" "+lname));
+				System.out.println("Address: " + street + "\nCity: " + city + "\nState : " + state);
+				System.out.println("Contact No: " + phNo);
+				System.out.println("Pin Code: " + zip);
+				System.out.println();
+			}
+			System.out.println("===============================================================================");
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
 	
-	public static void deletePerson(String fileName) throws JSONException
+	
+	public  void deletePerson(String fileName) throws JSONException
 	{
 		System.out.println("Enter the Fist Name the person who's want to Remve..");
 		String fname=Utility.InputString();
@@ -173,7 +229,7 @@ public class AddressBookPerson
 			if(personDetails.equals(fname)&&personDetails.equals(lname))
 			{
 				personDetails.remove(p);
-				AddressBookPerson.addNewPesonToJsonFile();
+				this.addNewPesonToJsonFile();
 			}
 			else
 			{
@@ -183,87 +239,101 @@ public class AddressBookPerson
 	}
 	
 	
-	
-	public static void printEntries() throws JSONException 
-	{
-		
-		  Object obj = null;
-			try {
-				obj = new JSONParser().parse(new FileReader(originbook+AddressBook.getBookName()));
-			} catch (IOException | ParseException e) {
-				e.printStackTrace();
-			} 
-	          
-	        // typecasting obj to JSONObject 
-	        JSONObject jo = (JSONObject) obj; 
-	        // getting address 
-	        Map person = ((Map)jo.get("Person")); 
-	        
-	        Iterator<Map.Entry> itr1 = person.entrySet().iterator(); 
-	        while (itr1.hasNext()) { 
-	            Map.Entry pair = itr1.next(); 
-	            if(pair.getKey().equals("firstName"))
-	            	System.out.println("FirstName:"+(String)pair.getValue());
-	            if(pair.getKey().equals("lastName"))
-	            	System.out.println("LastName:"+(String)pair.getValue());	
-	            if(pair.getKey().equals("phNo:"))
-	            	System.out.println("phNo:"+(String)pair.getValue());	
-	        }
-	        
-	       
-	        
-	      
-  	        // getting address 
-  	        Map address = (Map) ((Map)jo.get("Person")).get("address"); 
-  	        
-  	        Iterator<Map.Entry> itr2 = address.entrySet().iterator(); 
-  	        while (itr2.hasNext()) { 
-	            Map.Entry pair2 = itr2.next(); 
-            if(pair2.getKey().equals("street"))
-            	System.out.println("street:"+(String)pair2.getValue());
-            if(pair2.getKey().equals("city"))
-            	System.out.println("city:"+(String)pair2.getValue());
-            if(pair2.getKey().equals("state"))
-            	System.out.println("state:"+(String)pair2.getValue());
-            if(pair2.getKey().equals("pinCode"))
-            	System.out.println("pinCode:"+(Long)pair2.getValue());
-        } 
-  	        System.out.println("================================================================================================================");
-	        
-	}
-	
-	
-	
-	public static void searchPerson()
-	{
-		System.out.println("Enter the firstname");
-		String fname=Utility.InputString();
-		System.out.println("Enter the lastname");
-		String lname=Utility.InputString();
-		
-		int flag=0;
-		for(PersonDetails p:personDetails)
-		{
-			System.out.println();
-			if(p.getFirstName().equals(fname)&&p.getLastName().equals(lname))
+		@SuppressWarnings("unchecked")
+		public void sortByName() throws FileNotFoundException, ParseException
+		{		
+			JSONObject personSort=null;
+			
+			String fileRead = JsonUtility.readFile(originbook+AddressBook.getBookName());
+			personSort = (JSONObject) parser.parse(fileRead);
+			String temp[]=new String[50];
+			long zipsort[]=null;
+			int count=0;
+			Set<?> sort =  personSort.keySet(); 	//Using the HASHMAP property to list each object's KEY
+
+			Iterator<?> iterator = sort.iterator();
+			do{
+				String name=iterator.next().toString();
+				temp[count++]=name;
+			}while(iterator.hasNext());
+			
+			String sortList[]=new String[count];
+			sortList=temp;
+			//Arrays.sort(sortList);
+			zipsort=new long[count];
+			count=0;
+			JSONArray arrayItems = new JSONArray();
+			arrayItems.add(personSort.get(sortList));
+			Iterator<?> iterat = arrayItems.iterator();
+
+			while (iterat.hasNext()) //Iterating thorugh JSONObjectso
 			{
-				System.out.print("Fisrt Name:");
-				System.out.println(p.getFirstName());
+				JSONObject jsonObject = (JSONObject) iterat.next();
+				JSONObject addr=(JSONObject) jsonObject.get("address");
+				long zip = (long)addr.get("pinCode");
+				zipsort[count++]=zip;
+				Arrays.sort(zipsort);
+				System.out.println();
+
+				System.out.println("1.sort by Fisrt name 2.sort by zip");
+				int choice=Utility.InputInt();
 				
-				System.out.print("Last Name:");
-				System.out.println(p.getLastName());
-				AddressDetails address=(AddressDetails) p.getAddress();
-				System.out.print("address:");
-				System.out.println("street"+address.getstreet());
-				System.out.println("city"+address.getCity());
-				System.out.println("state"+address.getState());
-				System.out.println("pincode"+address.getPinCode());
-				flag=1;
+				if(choice==1)
+				{
+					JSONArray arrayItem = new JSONArray();
+					arrayItems.add(personSort.get(sortList));
+					Iterator<?> iterate = arrayItems.iterator();
+
+					while (iterat.hasNext()) //Iterating thorugh JSONObjectso
+					{
+						JSONObject jsonObj = (JSONObject) iterat.next();
+						String firsname = (String) jsonObj.get("firstName");
+						String lastname = (String) jsonObj.get("lastName");
+						long phoneNo = (long) jsonObj.get("phNo");
+						JSONObject address=(JSONObject) jsonObj.get("address");
+						String citi=(String) addr.get("city");
+						
+						String street2 = (String) addr.get("street");
+						String state2 = (String) addr.get("state");
+						long zip2 = (long)addr.get("pinCode");
+				System.out.println("Name: " + (firsname+" "+lastname));
+				System.out.println("Address: " + street2 + "\nCity: " + citi + "\nState : " + state2);
+				System.out.println("Contact No: " + phoneNo);
+				System.out.println("Pin Code: " + zip2);
+				System.out.println();
+				}
+				}
+				else if(choice==2)
+				{
+					JSONArray arrayItem = new JSONArray();
+					arrayItems.add(personSort.get(zipsort));
+					Iterator<?> iterate = arrayItems.iterator();
+
+					while (iterat.hasNext()) //Iterating thorugh JSONObjectso
+					{
+						JSONObject jsonObj = (JSONObject) iterat.next();
+						String firsname = (String) jsonObj.get("firstName");
+						String lastname = (String) jsonObj.get("lastName");
+						long phoneNo = (long) jsonObj.get("phNo");
+						JSONObject address=(JSONObject) jsonObj.get("address");
+						String citi=(String) addr.get("city");
+						
+						String street2 = (String) addr.get("street");
+						String state2 = (String) addr.get("state");
+						long zip2 = (long)addr.get("pinCode");
+				System.out.println("Name: " + (firsname+" "+lastname));
+				System.out.println("Address: " + street2 + "\nCity: " + citi + "\nState : " + state2);
+				System.out.println("Contact No: " + phoneNo);
+				System.out.println("Pin Code: " + zip2);
+				System.out.println();
+				}
 			}
+			System.out.println("===============================================================================");
 		}
-		if(flag==0)
-		{
-			System.out.println("invalid names or Data Not available");
+		
+		
+	
+	
 		}
-	}
+	
 }

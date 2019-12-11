@@ -39,15 +39,12 @@ public class JsonUtility
 		}
 		catch (JsonGenerationException e) {
 			
-			// TODO: handle exception
 			System.out.println("Exceptionoccured while converting java object to JSON object");
 		}
 		catch (JsonMappingException e) {
-			// TODO: handle exception
 			System.out.println("Exceptionoccured while converting java object to JSON object");
 		}
 		catch (IOException e) {
-			// TODO: handle exception
 			System.out.println("Exceptionoccured while converting java object to JSON object");
 		}
 		return jsonResult;
@@ -111,7 +108,6 @@ public class JsonUtility
 		try {
 			b_reader.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return line;
@@ -124,12 +120,12 @@ public class JsonUtility
             // Open given file in append mode. 
             BufferedWriter out = new BufferedWriter( 
                    new FileWriter(filename, true)); 
+           
             out.append(String.valueOf(string));
-          //  out.write(String.valueOf(string)); 
+           out.write(String.valueOf(string)); 
             out.newLine();
             out.close(); 
         }catch (FileNotFoundException e) {
-			// TODO: handle exception
         	System.out.println("File Does Not Exist");
 		}
 		catch (IOException e) {
@@ -146,7 +142,6 @@ public class JsonUtility
 		try {
 			fwOb = new FileWriter(fileName, false);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
         PrintWriter pwOb = new PrintWriter(fwOb, false);
@@ -155,7 +150,6 @@ public class JsonUtility
         try {
 			fwOb.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	} 
@@ -178,11 +172,11 @@ public class JsonUtility
 	}	
 	
 	
-	public static void writeToFile(String filePath, JSONObject mainArrayObject)
+	public static void writeToFile(String filePath, JSONObject mainObject)
 	{
 		try(FileWriter fileWriter = new FileWriter(filePath))
 		{
-			fileWriter.write(mainArrayObject.toJSONString());
+			fileWriter.write(mainObject.toJSONString());
 			fileWriter.flush();
 			fileWriter.close();
 		} 
