@@ -59,9 +59,6 @@ public class JsonUtility
 		String result=null;
 		try {
 			result=(String) mapper.readValue(jsonstring, cls);
-
-			
-
 		} 
 		
 		catch (JsonMappingException e) {

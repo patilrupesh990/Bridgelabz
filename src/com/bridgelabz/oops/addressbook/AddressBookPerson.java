@@ -213,6 +213,7 @@ public class AddressBookPerson
 		}
 		catch (Exception e) 
 		{
+			System.out.println("File Reading Error");
 			e.printStackTrace();
 		}
 	}
