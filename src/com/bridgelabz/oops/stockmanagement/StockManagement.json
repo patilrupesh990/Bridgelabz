@@ -1,17 +1,1 @@
-{
-	"Cheverolet": {
-		"Company Name": "Cheverolet",
-		"stock value": 700.0,
-		"stock unit": 1200
-	},
-	"eclairs": {
-		"Company Name": "eclairs",
-		"stock value": 1200.0,
-		"stock unit": 230
-	},
-	"Oddi": {
-		"Company Name": "Oddi",
-		"stock value": 4560.0,
-		"stock unit": 120
-	}
-}
+{"HCL":{"Company Name":"HCL","stock value":"45","stock unit":"2313.0"},"BMW":{"Company Name":"BMW","stock value":"234","stock unit":"700"},"Oddi":{"Company Name":"Oddi","stock value":"546","stock unit":"678"}}
