@@ -14,7 +14,7 @@ public class TestQueue
 {
 	/**To test Queue size module**/
 	@Test
-	public void Test_when_size_Five_after_insert_element_Queue_shouldnot_Empty ()
+	public void Test_when_inputSizeFive_then_after_insert_element_Queue_shouldnot_Empty ()
 	{
 		Queue.setSize(5);
 		Queue.insert(10);
@@ -28,7 +28,7 @@ public class TestQueue
 
 	/**To test Queue isFull or not module**/
 	@Test
-	public void Test_when_size_Five_after_insert_element_Queue_should_Full()
+	public void Test_when_inputsizeFive_then_after_insert_element_Queue_shouldnot_Full()
 	{
 		Queue.reset();
 		Queue.setSize(5);
@@ -39,7 +39,6 @@ public class TestQueue
 		Queue.insert(40);
 		Queue.insert(50);
 		assertTrue(Queue.isFull()==true);
-		
 	}
 	
 

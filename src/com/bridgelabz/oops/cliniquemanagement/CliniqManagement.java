@@ -58,7 +58,6 @@ public interface CliniqManagement
 			try{
 					input2=Utility.InputInt();
 			}catch (Exception e) {
-				// TODO: handle exception
 				System.out.println("inavalid input");
 			}
 			
@@ -226,7 +225,6 @@ public interface CliniqManagement
 					count=obj.getInt("Token No");
 				}
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -243,7 +241,6 @@ public interface CliniqManagement
 		}
 		return ++count;
 	}
-	
 	public void mainMenu(); 
 
 }

@@ -24,7 +24,7 @@ public class Hashing
 	static int size;
 	static HashingFunction hashing=new HashingFunction();
 	
-	static String filename="G:\\Bridgelabz\\Bridgelabz\\src\\com\\bridgelabz\\DataStructurePrograms\\OrderList.txt";
+	static String filename="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/datastructureprograms/OrderList.txt";
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException 
 	{

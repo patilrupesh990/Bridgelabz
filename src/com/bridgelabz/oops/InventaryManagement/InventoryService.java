@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import com.bridgelabz.oops.addressbook.AddressBook;
 import com.bridgelabz.oops.addressbook.JsonUtility;
 import com.bridgelabz.util.Utility;
 
@@ -24,14 +26,11 @@ public class InventoryService extends InventoryManagerImplementation implements 
 	//Initilization for InventoryService
 	
 	static String fileName="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/InventaryManagement/InventoryDetails.json";
-	static HashMap<String, InventoryDetails> invetorymap=new HashMap<String, InventoryDetails>();
 	InventoryDetails details=new InventoryDetails();
 
 	static JSONArray arrayObject=new JSONArray();	
-	static JSONObject inventoryObject=new JSONObject();
-	static JSONObject inventoryrice=new JSONObject();
-	static JSONObject inventorywheat=new JSONObject();
-	static JSONObject inventorypulse=new JSONObject();
+	 JSONObject inventoryObject=new JSONObject();
+	 
 		
 	
 	@Override
@@ -70,15 +69,15 @@ public class InventoryService extends InventoryManagerImplementation implements 
 		}
 		
 		if(input==1)
-		InventoryService.ConverJavaToJsonAll(details,"Rice" ,name,weight,price);
+					this.ConverJavaToJsonAll(details,"Rice" ,name,weight,price);
 		else if(input==2)
-			InventoryService.ConverJavaToJsonAll(details,"Pulse" ,name,weight,price);
+					this.ConverJavaToJsonAll(details,"Pulse" ,name,weight,price);
 		else if(input==3)
-			InventoryService.ConverJavaToJsonAll(details,"Wheat" ,name,weight,price);
+					this.ConverJavaToJsonAll(details,"Wheat" ,name,weight,price);
 		else if(input==4)
 		{
-			String jsonObject=inventoryObject.toJSONString();
-			JsonUtility.WriteinFile(jsonObject, fileName);
+			//String jsonObject=inventoryObject.toJSONString();
+			JsonUtility.writeToFile(fileName,inventoryObject);
 		}
 		else
 		{
@@ -87,7 +86,6 @@ public class InventoryService extends InventoryManagerImplementation implements 
 		}
 		
 //		String string=JsonUtility.ConverJavaToJson(details);
-		invetorymap.put(name, details);
 		
 		
 	}
@@ -107,23 +105,15 @@ public class InventoryService extends InventoryManagerImplementation implements 
 		}
 		System.out.println(jsonobject);
 		
-		
-		System.out.println("in java object:");
-	
-		System.out.println("------------------------------------------------------------------------------------------------------------------------");
-		invetorymap.forEach((p,q)->
-		{
-			InventoryDetails inventory=(InventoryDetails)q;
-			
-			System.out.println("Name:"+inventory.getInventoryName());
-			System.out.println("Price:"+inventory.getInventoryprice());
-		});
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static JSONArray ConverJavaToJsonAll(Object object,String input,String name,double weight,double price)
+	public  JSONArray ConverJavaToJsonAll(Object object,String input,String name,double weight,double price)
 	{
-		
+		JSONObject inventoryrice=new JSONObject();
+		 JSONObject inventorywheat=new JSONObject();
+		 JSONObject inventorypulse=new JSONObject();
+		 inventoryObject=JsonUtility.readFile2(fileName);
 		
 		if(input.equals("Rice"))
 		{	

@@ -3,23 +3,18 @@ package com.bridgelabz.oops.stockmanagement;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Iterator;
-
-import javax.swing.text.html.HTMLEditorKit.Parser;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import com.bridgelabz.oops.addressbook.AddressBook;
 import com.bridgelabz.oops.addressbook.JsonUtility;
 import com.bridgelabz.util.Utility;
 
-public class StockAccount 
+public class StockAccount implements Stock
 {
 	static StockDetails stock=new StockDetails();
-	static HashMap<String, StockDetails> stockmap=new HashMap<String, StockDetails>();
-	JSONObject individualstocks=new JSONObject();
+	JSONObject individualStocks=new JSONObject();
+	JSONObject accountHolder=new JSONObject();
 	static JSONParser parser=new JSONParser();
 	static String fileName="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/StockManagement.json";
 	
@@ -57,31 +52,30 @@ public class StockAccount
 						break;
 			}
 		}
-		JSONObject stockread=new JSONObject();
+		
+		
+		JSONObject stockRead=new JSONObject();
 		@SuppressWarnings("unchecked")
 		public  void addStock()
 		{
-			stockread=JsonUtility.readFile2(fileName);
+			stockRead=JsonUtility.readFile2(fileName);
 			System.out.println("Enter the Name Of stock:");
 			String stockName=Utility.InputString();
 			stock.setStockName(stockName);
-			individualstocks.put("Company Name", stockName);
+			individualStocks.put("Company Name", stockName);
 			
 			System.out.println("Enter the Value of stock");
 			double value=Utility.InputDouble();
 			stock.setStockValue(value);
-			individualstocks.put("stock value", value);
+			individualStocks.put("stock value", value);
 
 			
 			System.out.println("Enter the Number of stocks?");
 			int quantity=Utility.InputInt();
 			stock.setStockQuantity(quantity);
-			individualstocks.put("stock unit", quantity);
-
-			stockmap.put(stockName, stock);
-			
-			stockread.put(stockName, individualstocks);
-			JsonUtility.writeToFile(fileName, stockread);	
+			individualStocks.put("stock unit", quantity);			
+			stockread.put(stockName, individualStocks);
+			JsonUtility.writeToFile(fileName, stockRead);	
 			System.out.println(stockName+"Added SucessFully to database..");
 		}
 		
@@ -117,9 +111,37 @@ public class StockAccount
 				return (value*unit);
 		}
 		
-		public static void main(String[] args) {
-			StockAccount object=new StockAccount();
-			object.mainMenu();
+		JSONObject accounts=new JSONObject();
+		@Override
+		public void StockAccount()
+		{
+			System.out.println("Enter Your Name");
+			String name=Utility.InputString();
+			accountHolder.put("Name",name);
+			
+			System.out.println("Enter your city");
+			String city=Utility.InputString();
+			accountHolder.put("City",city);
+
+			
+			
+			System.out.println("Enter your state");
+			String state=Utility.InputString();
+			accountHolder.put("State",state);
+
+			
+			System.out.println("Enter your contact no");
+			long  phNo=Utility.inputLong();
+			accountHolder.put("Contact",phNo);
+
+			
+			System.out.println("Enter Your password");
+			String password=Utility.InputString();
+			accountHolder.put("Password",password);
+
+			
+			
 		}
+		
 		
 }

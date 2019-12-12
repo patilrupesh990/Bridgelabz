@@ -1,13 +1,46 @@
 {
-	"Person": {
-		"firstName": "Roshan",
-		"lastName": "lalu",
+	"Sagar": {
+		"firstName": "Sagar",
+		"lastName": "aanand",
 		"address": {
-			"city": "sds",
-			"street": "shh",
-			"pinCode": 445454,
-			"state": "ffggf"
+			"city": "saras",
+			"street": "ssnagar",
+			"pinCode": 3784738,
+			"state": "jammu"
 		},
-		"phNo": 2323232
+		"phNo": 45543543
+	},
+	"akhil": {
+		"firstName": "akhil",
+		"lastName": "chitram",
+		"address": {
+			"city": "daman",
+			"street": "asas",
+			"pinCode": 122123,
+			"state": "daman"
+		},
+		"phNo": 4343564564
+	},
+	"Rupesh": {
+		"firstName": "Rupesh",
+		"lastName": "Patil",
+		"address": {
+			"city": "Surat",
+			"street": "lanagar",
+			"pinCode": 744787,
+			"state": "Gujarat"
+		},
+		"phNo": 565434433
+	},
+	"Rajat": {
+		"firstName": "Rajat",
+		"lastName": "sharma",
+		"address": {
+			"city": "mujjafarpur",
+			"street": "faldtad",
+			"pinCode": 3989,
+			"state": "UP"
+		},
+		"phNo": 33324242
 	}
 }

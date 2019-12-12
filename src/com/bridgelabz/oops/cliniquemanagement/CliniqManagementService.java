@@ -29,8 +29,6 @@ import com.bridgelabz.util.Utility;
 public class CliniqManagementService implements CliniqManagement
 {
 	 HashMap<String,DoctorDetails> doctorMap=new HashMap<String,DoctorDetails>();
-	 HashMap<String,PatientDetails> patientMap=new HashMap<String,PatientDetails>();
-	 HashMap<String,AppontmentDetails> appoinmentMAp=new HashMap<String,AppontmentDetails>();
 	
 	static JSONObject doctorjson=new JSONObject();
 	static JSONObject patientjson=new JSONObject();
@@ -44,44 +42,41 @@ public class CliniqManagementService implements CliniqManagement
 	static int count;
 	
 	
-		public void mainMenu() 
+	public void mainMenu()
+	{
+		int choice = 0;
+		while(true)
 		{
-			int choice = 0;
-			while(true)
-			{
-					System.out.println("Enter your Choice");
-					System.out.println("1.Doctor  2.Patient 3.exit");
-					try{
-						
-					 choice=Utility.InputInt();
-					 
-					}catch (NumberFormatException e) 
-					{
-						System.out.println("invalid input");
-					}
-					try {
-					if(choice==1)
-						
-							CliniqManagement.doctorMenu();
-						
-					else if(choice==2)
-						this.patientMenu();
-					else if(choice==3)
-						System.exit(0);
+				System.out.println("Enter your Choice");
+				System.out.println("1.Doctor  2.Patient 3.exit");
+				try{
 					
-					else
-					{
-						System.out.println("Invalid Input you have Entered");
-						mainMenu();
-					}
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-			}
+				 choice=Utility.InputInt();
+				 
+				}catch (NumberFormatException e) 
+				{
+					System.out.println("invalid input");
+				}
+				try {
+				if(choice==1)
+					
+						CliniqManagement.doctorMenu();
+					
+				else if(choice==2)
+					this.patientMenu();
+				else if(choice==3)
+					System.exit(0);
+				
+				else
+				{
+					System.out.println("Invalid Input you have Entered");
+					this.mainMenu();
+				}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 		}
-		
-		
-	
+	}
 		
 		public  void patientMenu() throws JSONException
 		{
@@ -167,7 +162,6 @@ public class CliniqManagementService implements CliniqManagement
 							search.setDoctoreName(name);
 							search.setDoctorSpecialization(appointment.getSpecialization());
 							search.setTime(appointment.getAvailablity());
-							appoinmentMAp.put(search.getAppointmentId(),search);
 							appointmentjson.put("Patient Name", search.getPatientName());
 							appointmentjson.put("doctor Name",search.getDoctoreName());
 							appointmentjson.put("doctor specialization",search.getDoctorSpecialization());

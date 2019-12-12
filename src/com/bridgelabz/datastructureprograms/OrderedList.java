@@ -22,7 +22,7 @@ public class OrderedList
 	
 	public static <T> void main(String[] args) throws FileNotFoundException, IOException 
 	{
-		String filename="G:\\Bridgelabz\\Bridgelabz\\src\\com\\bridgelabz\\DataStructurePrograms\\OrderList.txt";
+		String filename="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/datastructureprograms/OrderList.txt";
 				
 		 int numbers[]=OrderedList.ReadFile(filename);
 		 
@@ -34,7 +34,7 @@ public class OrderedList
 		 System.out.println("Enter The Number you want to search");
 		 int number=Utility.InputInt();
 		 
-		 DataStructure.SearchWord(number, list);
+		 OrderedList.SearchWord(number, list);
 	}
 	
 	/*****************************************************************************
@@ -87,4 +87,26 @@ public class OrderedList
 		}
 		return words;
 	}
+	
+	
+
+	public static <T>void SearchWord(T word, LinkedListiml<T> list) throws FileNotFoundException 
+	{
+		if(!list.searchNode((T) word))
+		{
+			list.add((T) word);
+			System.out.println(word+" Not Present in list and now added to list");
+			
+			Utility.WriteinFile(word,"/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/datastructureprograms/OrderList.txt");
+			
+		}
+		else
+		{
+			list.removeNode((T) word);
+			System.out.println(word+" it was alrady in lIST and Removed from List");
+			Utility.DeleteFromeFile("/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/datastructureprograms/UnorderFile.txt", word);;
+		}
+		list.Display();
+	}
+	
 }

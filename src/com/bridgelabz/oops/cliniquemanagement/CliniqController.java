@@ -18,7 +18,7 @@ public class CliniqController
 {
 	public static void main(String args[]) throws JSONException
 	{
-		CliniqManagementService clinic=new CliniqManagementService();
+		CliniqManagement clinic=new CliniqManagementService();
 		clinic.mainMenu();
 	}
 }

@@ -34,10 +34,14 @@ public class InventoryManagerImplementation extends InventoryManager{
 		        // iterating address Map
 		        double price=0;
 		        double weight=0;
-		
+		        String inventoryname="";
 		        Iterator<Map.Entry> itr1 = rice.entrySet().iterator(); 
 		        while (itr1.hasNext()) { 
 		            Map.Entry pair = itr1.next(); 
+		            if(pair.getKey().equals("Name"))
+		            {
+		            	inventoryname=(String) pair.getValue();
+		            }
 		            if(pair.getKey().equals("Price"))
 		            {
 		            	price=(double) pair.getValue();
@@ -47,12 +51,14 @@ public class InventoryManagerImplementation extends InventoryManager{
 		            	weight=(double) pair.getValue();
 		
 		            }
-		            
+			      
 		        } 
-		        double total=price*weight;
+	            double total=price*weight;
+		        System.out.println("Name of Rice /kg-->"+inventoryname);
 		        System.out.println("Price of Rice /kg-->"+price);
 		        System.out.println("weight of Rice is-->"+weight+"kg");
 		        System.out.println("Total Value of Rice is-->"+total); 
+		        System.out.println("--------------------");
 			}
 			else if(name.equals("wheat"))
 			{
@@ -72,10 +78,14 @@ public class InventoryManagerImplementation extends InventoryManager{
 			        // iterating address Map
 			        double price=0;
 			        double weight=0;
-		
+			        String inventoryname="";
 					Iterator<Map.Entry> itr1 = wheat.entrySet().iterator(); 
 			        while (itr1.hasNext()) { 
 			            Map.Entry pair = itr1.next(); 
+			            if(pair.getKey().equals("Name"))
+			            {
+			            	inventoryname=(String) pair.getValue();
+			            }
 			            if(pair.getKey().equals("Price"))
 			            {
 			            	price=(double) pair.getValue();
@@ -86,6 +96,7 @@ public class InventoryManagerImplementation extends InventoryManager{
 			            }
 			        } 		
 		            double total=price*weight;
+			        System.out.println("Name of Rice /kg-->"+inventoryname);
 		            System.out.println("Price of Wheat /kg-->"+price);
 		            System.out.println("weight of Wheat is-->"+weight+"kg");
 		            System.out.println("Total Value of Wheat is-->"+total); 
@@ -110,10 +121,14 @@ public class InventoryManagerImplementation extends InventoryManager{
 			        // iterating address Map
 			        double price=0;
 			        double weight=0;
-		
+			        String inventoryname="";
 					Iterator<Map.Entry> itr1 = pulse.entrySet().iterator(); 
 			        while (itr1.hasNext()) { 
 			            Map.Entry pair = itr1.next(); 
+			            if(pair.getKey().equals("Name"))
+			            {
+			            	inventoryname=(String) pair.getValue();
+			            }
 			            if(pair.getKey().equals("price"))
 			            {
 			            	price=(double) pair.getValue();
@@ -125,6 +140,7 @@ public class InventoryManagerImplementation extends InventoryManager{
 			           
 			        } 		
 			        double total=price*weight;
+			        System.out.println("Name of Rice /kg-->"+inventoryname);
 		            System.out.println("Price of Pulse /kg-->"+price);
 		            System.out.println("weight of Pulse is-->"+weight+"kg");
 		            System.out.println("Total Value of Pulse is-->"+total);

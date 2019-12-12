@@ -28,7 +28,7 @@ public class TestLinkedList
 
 	/**To test LinkedList Searching element module**/
 	@Test
-	public void Test_After_inseted10_20_30_search_50_shold_false_and_search_20_shold_true() {
+	public void Test_when_input_Integers_search_ouput_should_Be_true() {
 		list.add(10);
 		list.add(20);
 		list.add(30);
@@ -39,7 +39,7 @@ public class TestLinkedList
 
 	/**To test LinkedList Rmove elements from Linkedlist module**/
 	@Test
-	public void Test_after_remove_50_node_search_shold_False_and_search_80_sould_true()
+	public void test_when_input_searchNode_50_should_false_and_search_80_sould_true()
 	{
 		list.add(100);
 		list.add(80);
@@ -52,7 +52,7 @@ public class TestLinkedList
 
 	/**To test LinkedList GetNext module**/
 	@Test
-	public void After_elements_element_search_for_80_index_value_1_and_7_shold_false()
+	public void test_when_integers_inputs_after_removeNode_ouput_index_should_7_and_1()
 	{
 		list.removeNode(10);
 		list.removeNode(20);

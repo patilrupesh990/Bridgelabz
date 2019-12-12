@@ -57,14 +57,14 @@ public class DataStructure
 			list.add((T) word);
 			System.out.println(word+" Not Present in list and now added to list");
 			
-			Utility.WriteinFile(word,"E:\\project p\\BinarySearch.txt");
+			Utility.WriteinFile(word,"/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/datastructureprograms/UnorderFile.txt");
 			
 		}
 		else
 		{
 			list.removeNode((T) word);
 			System.out.println(word+" it was alrady in lIST and Removed from List");
-			Utility.DeleteFromeFile("E:\\project p\\BinarySearch.txt", word);;
+			Utility.DeleteFromeFile("/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/datastructureprograms/UnorderFile.txt", word);;
 		}
 		list.Display();
 	}
