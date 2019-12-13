@@ -1,7 +1,6 @@
 package com.bridgelabz.oops.stockmanagement;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,17 +14,26 @@ public class StockAccount implements Stock
 	static StockDetails stock=new StockDetails();
 	JSONObject individualStocks=new JSONObject();
 	JSONObject accountHolder=new JSONObject();
-	JSONObject accountbuy=new JSONObject();
+	JSONObject accounttransaction=null;
+
 	
 	static JSONParser parser=new JSONParser();
 	static String stockfile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/StockManagement.json";
 	static String accountfile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/StockHoldersAccounts.json";
 	static String stockbuyfile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/StockPurchased.json";
+		
+	
+		
+		
 		public  void mainMenu()
 		{
+			String symbol;
+			int amount;
 			System.out.println("Enter Your choice");
-			System.out.println("1.Add New Stock  2.All Stock List 3.Values of Stocks 4 Stock Report");
+			System.out.println("1.Add New Stock \n 2.All Stock List \n 3.Values of Stocks \n 4.Purchase Stock \n 5.Sell Stock \n 6. Stock Report");
 			int choice =Utility.InputInt();
+			System.out.println();
+			
 			switch(choice)
 			{
 				case 1:
@@ -41,7 +49,7 @@ public class StockAccount implements Stock
 						
 				case 2:
 							//all stock list
-						break;
+							break;
 				case 3:
 							System.out.println("Enter Stock Name");
 							String stockName=Utility.InputString();
@@ -49,7 +57,19 @@ public class StockAccount implements Stock
 							System.out.println(stockName+" total value is::"+result);
 							break;
 				case 4:
-						//stock report
+						
+						System.out.println("Enter StockNAme");
+						symbol=Utility.InputString();
+						System.out.println("Enter Amount");
+						amount=Utility.InputInt();
+						this.buy(amount, symbol);
+						break;
+				case 5:
+						System.out.println("Enter StockNAme");
+						symbol=Utility.InputString();
+						System.out.println("Enter Amount");
+						amount=Utility.InputInt();
+						this.sell(amount, symbol);
 						break;
 				default:
 						break;
@@ -153,23 +173,27 @@ public class StockAccount implements Stock
 		 @SuppressWarnings("unchecked")
 		public void buy(int amount,String symbol) 
 		 {
-				//	 purchaseObject=JsonUtility.readFile2(stockbuyfile);
+			 		accounttransaction=new JSONObject();
+					 purchaseObject=JsonUtility.readFile2(stockbuyfile);
 					 System.out.print("Enter Your Mobile No:");
 					 String contact=Utility.InputString();			 
 					 System.out.println("Enter your password:");
 					 String password=Utility.InputString();
 					 if(Authentication(contact,password))
 					 {
-						 accountbuy.put("Stock Name", symbol);
+						 JSONObject temp=new JSONObject();
+						 accounttransaction.put("Stock Name", symbol);
+						 accounttransaction.put("Account Holder Name", StockAccount.getStockHolderName());
 						 double unit=getStockunitBasedOnAmount(amount, symbol);
-						 accountbuy.put("Unit",Double.toString(unit));
-						 accountbuy.put("Date&Time",java.time.LocalDateTime.now());
-						 purchaseObject.put(contact,accountbuy);
-						 
-						 
-						 JsonUtility.writeToFile(stockbuyfile, purchaseObject);	
+						 accounttransaction.put("Unit",Double.toString(unit));
+						 accounttransaction.put("Date&Time",java.time.LocalDateTime.now().toString());
+						 accounttransaction.put("Status", "Stock Purchased");
+						 purchaseObject.put(contact,accounttransaction);
+
+						 temp.put("Purchase"+contact, purchaseObject);
+						 JsonUtility.writeToFile(stockbuyfile, temp);	
 						 System.out.println("Purchessed Successfully....");
-						 updateFile(stockfile, symbol, unit);
+						 updateFileAfterPurchased(stockfile, symbol, unit);
 					 }
 					 else {
 						try {
@@ -209,11 +233,12 @@ public class StockAccount implements Stock
 					value= (String)jsonObject.get("stock value");
 				} 
 				unit=amount/Double.parseDouble(value);
-				 accountbuy.put("Total Value:",unit*Integer.parseInt(value));
+				accounttransaction.put("Stock Value", value);
+				accounttransaction.put("Total Value:",Double.toString(unit*Integer.parseInt(value)));
 			return unit;		
 		 }
 		 
-		 @SuppressWarnings("unchecked")
+		 static String StockHolderName;
 		public static boolean Authentication(String contact,String password)
 		 {
 			 
@@ -232,6 +257,7 @@ public class StockAccount implements Stock
 						e.printStackTrace();
 				}
 				JSONObject temp=(JSONObject) stockJson.get(contact);
+				StockHolderName=(String) temp.get("Name");
 				if(temp.get("Password").equals(password))
 				{
 					return true;
@@ -239,20 +265,22 @@ public class StockAccount implements Stock
 
 				return false;
 		 }
+		public static String getStockHolderName()
+		{
+			return StockHolderName;
+		}
+		
+		
 		 
 		 @SuppressWarnings("unchecked")
-		public static void updateFile(String fileName,String StockName,double unitbuy)
+		public static void updateFileAfterPurchased(String fileName,String StockName,double unitbuy)
 		 {
-			 JSONObject stockJson=null;
-			 JSONObject temp=null;
+			 
+			 	JSONObject stockJson=null;
+			 	JSONObject temp=null;
 				String fileData=null;
 				temp=JsonUtility.readFile2(fileName);
-
-				try {
-					 fileData=JsonUtility.readFile(fileName);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
+				fileData=temp.toString();
 				try {
 					stockJson = (JSONObject) parser.parse(fileData);
 				} catch (ParseException e) 
@@ -269,7 +297,7 @@ public class StockAccount implements Stock
 				{
 					jsonObject=(JSONObject) iterator.next();
 					unit= (String) jsonObject.get("stock unit");
-					 result=Integer.parseInt(unit)-unitbuy;
+					 result=Double.parseDouble(unit)-unitbuy;
 					jsonObject.replace("stock unit", Double.toString(result));
 					//jsonObject.remove(StockName);
 				} 
@@ -282,6 +310,109 @@ public class StockAccount implements Stock
 		 {
 			 
 		 }
+		 
+		 
+		 @SuppressWarnings("unchecked")
+		public void sell(int amount,String symbol)
+		 {
+			 accounttransaction=new JSONObject();
+			 System.out.print("Enter Your Mobile No:");
+			 String contact=Utility.InputString();			 
+			 System.out.println("Enter your password:");
+			 String password=Utility.InputString();
+			 if(Authentication(contact,password))
+			 {
+				 accounttransaction.put("Stock Name", symbol);
+				// double unit=getStockunitBasedOnAmount(amount,stockbuyfile );
+				// accounttransaction.put("Unit", Double.toString(unit));
+				 accounttransaction.put("Date&Time",java.time.LocalDateTime.now());
+				 purchaseObject.put(contact,accounttransaction);
+				 
+			//	 JsonUtility.writeToFile(stockbuyfile, purchaseObject);	
+				 System.out.println("you transaction succesfull....");
+				 UpdateFilesAfterSell(amount, symbol,contact); 
+			 }
+			 else
+			 {
+				 try {
+						throw new StockMngmtExcpetion("invalid UserName or passord");
+					} catch (StockMngmtExcpetion e) {
+						System.out.println(e);
+					}
+			 }
+		 }
+		 
+		 
+		 @SuppressWarnings("unchecked")
+		public static void UpdateFilesAfterSell(int amount,String StockName,String key) 
+		 {
+			 JSONObject stockJson=null;
+			 JSONObject temp=JsonUtility.readFile2(stockbuyfile);
+			 String fileData=temp.toString();			
+			 try {
+				stockJson=(JSONObject) parser.parse(fileData);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 if(stockJson.get("Sold"+key)!=null)
+			 {
+			 JSONObject temp2=(JSONObject) stockJson.get("Sold"+key);
+			 String value=  (String) temp2.get("Stock Value");
+			 String unit=(String) temp2.get("Unit");
+			 int sellUnit=amount/Integer.parseInt(value);
+			 double result=Double.parseDouble(unit)-sellUnit;
+			 double totalValue=Integer.parseInt(value)*result;
+			 temp2.replace("Unit", Double.toString(result));
+			 temp2.replace("Total Value:", totalValue);
+			 
+			 temp2.put("Status", "Stock Sold");
+			 temp.put("Sold"+key,temp2);
+			 JsonUtility.writeToFile(stockbuyfile, temp);
+			 System.out.println("You have now "+result+"Stocks Available");
+			 }
+			 else
+			 {
+				 JSONObject temp2=(JSONObject) stockJson.get("Purchase"+key);
+				 String value=  (String) temp2.get("Stock Value");
+				 String unit=(String) temp2.get("Unit");
+				 int sellUnit=amount/Integer.parseInt(value);
+				 double result=Double.parseDouble(unit)-sellUnit;
+				 double totalValue=Integer.parseInt(value)*result;
+				 temp2.replace("Unit", Double.toString(result));
+				 temp2.replace("Total Value:", totalValue);
+				 
+				 temp2.put("Status", "Stock Sold");
+				 temp.put("Sold"+key,temp2);
+				 JsonUtility.writeToFile(stockbuyfile, temp);
+				 System.out.println("You have now "+result+"Stocks Available");
+				 
+			 }
+		 }
+
+		 
+
+		@Override
+		public double ValueOf() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+
+		@Override
+		public void printReport() 
+		{
+			JSONObject stockJson=null;
+			 JSONObject temp=JsonUtility.readFile2(stockbuyfile);
+			 String fileData=temp.toString();			
+			 try {
+				stockJson=(JSONObject) parser.parse(fileData);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+						 
+		}
 
 		
 }

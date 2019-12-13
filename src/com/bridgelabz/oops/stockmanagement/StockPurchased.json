@@ -1,8 +1,20 @@
 {
-	"9558062808": {
-		"Total Value:": 90.0,
-		"Unit": "2.0",
-		"Stock Name": "HCL",
-		"Date&Time": 2019-12-12T18:33:07.040
+	"Purchase9558062808": {
+		"9558062808": {
+			"Status": "Stock Purchased",
+			"Stock Value": "234",
+			"Total Value:": "1842.0",
+			"Unit": "7.871794871794871",
+			"Stock Name": "BMW",
+			"Date&Time": "2019-12-13T15:27:04.221"
+		},
+		"Sold9558062808": {
+			"Status": "Stock Sold",
+			"Stock Value": "45",
+			"Total Value:": "225.0",
+			"Unit": "5.0",
+			"Stock Name": "HCL",
+			"Date&Time": "2019-12-13T15:12:46.258"
+		}
 	}
 }

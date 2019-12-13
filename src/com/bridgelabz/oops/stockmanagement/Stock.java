@@ -6,6 +6,8 @@ public interface Stock
 	 double ValueOf();//reamaining
 	 void buy(int amount,String symbol);  
 	 void sell(int amount,String symbol);
-	
 	 void printReport();
+	 
+     void mainMenu();
+
 }
