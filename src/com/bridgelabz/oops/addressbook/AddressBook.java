@@ -70,7 +70,12 @@ public class AddressBook
 						System.exit(0);
 			
 			default:
-						System.out.println("Invalid Option");
+			try {
+				throw new AddressBookException("please Enter valid input");
+			} catch (AddressBookException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 						break;
 		}//end mainMenu
 	}
@@ -85,9 +90,13 @@ public class AddressBook
 		boolean newjason = file.createNewFile();
 		if (newjason) {
 			System.out.println("Book is succesfully created and add to the file");
-		}
-			else
-			System.out.println("The Name of that book is already exists pls create new book");
+		} else
+			try {
+				throw new AddressBookException("The Name of that book is already exists pls create new book");
+			} catch (AddressBookException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	static String filenameclose;
@@ -127,7 +136,12 @@ public class AddressBook
 			}//end for loop
 
 		if(flag==0)
-			System.out.println("File doesnot exist or u have not given extention(.json)");
+			try {
+				throw new AddressBookException("File doesnot exist or u have not given extention(.json)");
+			} catch (AddressBookException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 	}//
 	
@@ -184,7 +198,12 @@ public class AddressBook
 										System.out.println("Thank you visist  again:");
 										System.exit(0);
 							default:
-									System.out.println("Invalid choice");
+								try {
+									throw new AddressBookException("Invalid choice");
+								} catch (AddressBookException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 						}
 			}
 		}
