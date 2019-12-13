@@ -9,6 +9,17 @@ import org.json.simple.parser.ParseException;
 import com.bridgelabz.oops.addressbook.JsonUtility;
 import com.bridgelabz.util.Utility;
 
+/***********************************************************************************************************
+ * @author Rupeshp007
+ * date:11/12/2019
+ * @version 1.0
+ * Purpose:Controller for manage Inventory Program 
+ * Operations:
+ * 1.add inventory
+ * 2.get price of value
+ * 3.get total value of inventories 
+ **********************************************************************************************************/
+
 public class StockAccount implements Stock
 {
 	static StockDetails stock=new StockDetails();
@@ -323,12 +334,10 @@ public class StockAccount implements Stock
 			 if(Authentication(contact,password))
 			 {
 				 accounttransaction.put("Stock Name", symbol);
-				// double unit=getStockunitBasedOnAmount(amount,stockbuyfile );
-				// accounttransaction.put("Unit", Double.toString(unit));
+				
 				 accounttransaction.put("Date&Time",java.time.LocalDateTime.now());
 				 purchaseObject.put(contact,accounttransaction);
 				 
-			//	 JsonUtility.writeToFile(stockbuyfile, purchaseObject);	
 				 System.out.println("you transaction succesfull....");
 				 UpdateFilesAfterSell(amount, symbol,contact); 
 			 }
@@ -405,6 +414,9 @@ public class StockAccount implements Stock
 			JSONObject stockJson=null;
 			 JSONObject temp=JsonUtility.readFile2(stockbuyfile);
 			 String fileData=temp.toString();			
+			 System.out.println("Enter phNo of Person");
+			 String phNo=Utility.InputString();
+			 
 			 try {
 				stockJson=(JSONObject) parser.parse(fileData);
 			} catch (ParseException e) {
