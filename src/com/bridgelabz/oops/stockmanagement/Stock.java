@@ -77,7 +77,7 @@ public interface Stock
 								stock.sell(amount, symbol);
 								break;
 						case 7:
-							stock.printReport();
+								stock.printReport();
 									break;
 						case 8:
 								System.exit(0);

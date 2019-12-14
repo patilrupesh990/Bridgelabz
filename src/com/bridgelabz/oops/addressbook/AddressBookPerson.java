@@ -171,7 +171,6 @@ public class AddressBookPerson
 			System.out.println("     Available Uers:");
 			System.out.println("=====================================================================");
 			Set<?> s =  PersonObject.keySet(); 	//Using the HASHMAP property to list each object's KEY
-
 			Iterator<?> i = s.iterator();
 			do{
 				String k = i.next().toString();

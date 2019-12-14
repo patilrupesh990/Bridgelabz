@@ -48,7 +48,6 @@ public class AddressBookimplementation implements AddressBook
 		try {
 			newjason = file.createNewFile();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		if (newjason) {
@@ -57,7 +56,6 @@ public class AddressBookimplementation implements AddressBook
 			try {
 				throw new AddressBookException("The Name of that book is already exists pls create new book");
 			} catch (AddressBookException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}
@@ -92,11 +90,9 @@ public class AddressBookimplementation implements AddressBook
 							try {
 								AddressBookMenu(filename);
 							} catch (JSONException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						} catch (FileNotFoundException | ParseException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -107,7 +103,6 @@ public class AddressBookimplementation implements AddressBook
 			try {
 				throw new AddressBookException("File doesnot exist or u have not given extention(.json)");
 			} catch (AddressBookException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		
@@ -167,7 +162,6 @@ public class AddressBookimplementation implements AddressBook
 								try {
 									throw new AddressBookException("Invalid choice");
 								} catch (AddressBookException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 						}
