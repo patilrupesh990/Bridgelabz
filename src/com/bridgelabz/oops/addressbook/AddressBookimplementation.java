@@ -16,14 +16,15 @@ import org.json.simple.parser.ParseException;
 
 import com.bridgelabz.util.Utility;
 
-public class AddressBook
+public class AddressBookimplementation implements AddressBook
 {
 	static ObjectMapper objectmapper=new ObjectMapper();
 	static List<PersonDetails> persondetails=new ArrayList<PersonDetails>();
-	static AddressBook addressbook = new AddressBook();
+	static AddressBookimplementation addressbook = new AddressBookimplementation();
 	static String originbook="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/jsonfiles/";
+	static String fileName="/home/user/Documents/FellowShip/Bridgelabz/src/com/bridgelabz/oops/addressbook/AddressBook.json";
 	static private String bookName=null;
-	AddressBookPerson personacsess=new AddressBookPerson();
+	static AddressBookPerson personacsess=new AddressBookPerson();
 
 	
 	public static String getBookName() {
@@ -32,62 +33,24 @@ public class AddressBook
 
 
 	public static void setBookName(String bookName) {
-		AddressBook.bookName = bookName;
+		AddressBookimplementation.bookName = bookName;
 	}
 
 
-	public void mainMenu() throws JSONException
-	{
-		while(true)
-		{
-		int choice=0;
-		System.out.println("Eneter your choice");
-		System.out.println("1.New Book  2.Open Book   3.close Book 4.Quite");
-		try{
-		choice=Utility.InputInt();
-		}catch (NumberFormatException ne) {
-			System.out.println("Invalid input");
-		}
-		switch(choice)
-		{
-			case 1:
-						try {
-							createBook(originbook);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					break;
-			
-			case 2:		
-						this.openBook();
-						break;
-						
-			
-			case 3:
-						closeFile();
-						break;
-			case 4:
-						System.exit(0);
-			
-			default:
-			try {
-				throw new AddressBookException("please Enter valid input");
-			} catch (AddressBookException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-						break;
-		}//end mainMenu
-	}
-	}
 	
 
-	public static void createBook(String originbook) throws IOException {
+	public  void createBook(String originbook) {
 		//AddressDetails addressBook=null;
 		System.out.println("Enter the name of the book in (.json) extention (eg:file.json)");
 		String book = Utility.InputString();
 		File file = new File(originbook + book);
-		boolean newjason = file.createNewFile();
+		boolean newjason=false;
+		try {
+			newjason = file.createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		if (newjason) {
 			System.out.println("Book is succesfully created and add to the file");
 		} else
@@ -100,7 +63,7 @@ public class AddressBook
 	}
 
 	static String filenameclose;
-	public  void openBook() throws JSONException
+	public  void openBook() 
 	{
 		System.out.println("The books are Available:");
 		
@@ -115,7 +78,7 @@ public class AddressBook
 	    
 		System.out.println("Choose the File and Eter Name of file");
 		String bookName=Utility.InputString();
-		AddressBook.setBookName(bookName);
+		AddressBookimplementation.setBookName(bookName);
 		int flag=0;
 		for (File file : arrayOfFiles) 
 		{
@@ -126,7 +89,12 @@ public class AddressBook
 			
 						System.out.println("Add new data onto the Address Book");
 						try {
-							this.AddressBookMenu(filename);
+							try {
+								AddressBookMenu(filename);
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						} catch (FileNotFoundException | ParseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -146,18 +114,16 @@ public class AddressBook
 	}//
 	
 	public static void setpersondetails(List<PersonDetails> persondetails) {
-	        AddressBook.persondetails = persondetails;
+	        AddressBookimplementation.persondetails = persondetails;
 	    }//
 	 
-	public static void closeFile()
+	public  void closeFile()
 	{
 		System.out.println(filenameclose+"File closed");
 	}
 	 
 	 	 
-		static String fileName="/home/user/Documents/FellowShip/Bridgelabz/src/com/bridgelabz/oops/addressbook/AddressBook.json";
-	 public  void AddressBookMenu(String filename) throws JSONException  //use whene book open
-, FileNotFoundException, ParseException
+	 public static  void AddressBookMenu(String filename) throws JSONException,FileNotFoundException, ParseException
 		{
 			int choice=0;
 			while(true)
@@ -192,7 +158,7 @@ public class AddressBook
 									personacsess.Save();
 										break;
 							case 7:
-										addressbook.mainMenu();
+										AddressBook.mainMenu();
 										break;
 							case 8:
 										System.out.println("Thank you visist  again:");
@@ -225,8 +191,7 @@ public class AddressBook
 	            	out.write(String.valueOf(iter.next())); 
 	            	out.newLine();
 	            }
-	            out.close();
-	            
+	            out.close();          
 	        }catch (FileNotFoundException e) {
 	        	System.out.println("File Does Not Exist");
 			}

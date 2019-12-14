@@ -3,8 +3,6 @@ package com.bridgelabz.oops.cliniquemanagement;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.bridgelabz.oops.addressbook.JsonUtility;
@@ -28,7 +26,6 @@ import com.bridgelabz.util.Utility;
 
 public class CliniqManagementService implements CliniqManagement
 {
-	 HashMap<String,DoctorDetails> doctorMap=new HashMap<String,DoctorDetails>();
 	
 	static JSONObject doctorjson=new JSONObject();
 	static JSONObject patientjson=new JSONObject();
@@ -41,7 +38,17 @@ public class CliniqManagementService implements CliniqManagement
 	
 	static int count;
 	
-	
+	/*********************************************************************************
+	 * Override Method From CliniqManagement  its works as MainMenu For the Whole Program there is
+	 * multiple choice for different operations like,
+	 * -Doctor
+	 * -Patient
+	 * @param no param
+	 * @return void
+	 *  
+	 *******************************************************************************/	
+
+	@Override
 	public void mainMenu()
 	{
 		int choice = 0;
@@ -77,7 +84,15 @@ public class CliniqManagementService implements CliniqManagement
 				}
 		}
 	}
-		
+	
+	/************************************************************************************************
+	 * To Display Menu Options For the User Patient there is multiple choice options user can select
+	 * @param no param
+	 * @return void
+	 *  
+	 *  	logic:If user is alrady register then user can continue if new Then Need To Register First
+	 *******************************************************************************************/	
+
 		public  void patientMenu() throws JSONException
 		{
 			System.out.println("============================>>WellCome To Clinic Management<<==========================\n\n\n");
@@ -127,7 +142,16 @@ public class CliniqManagementService implements CliniqManagement
 			}
 		}
 		
-		
+		/*************************************************************************************************
+		 * its Method to getAppoinment by the Patient who is alrady registered with and can take appointment
+		 * 
+		 * @param no param
+		 * @return void
+		 *  
+		 *  logic:first will check whether user is registered or not then take doctor details and patient 
+		 *  details and to put in .json objects
+		 *******************************************************************************/	
+
 		
 		public void getAppointment() throws JSONException
 		{

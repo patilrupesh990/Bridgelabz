@@ -114,7 +114,7 @@ public class AddressBookPerson
 	public  void addNewPesonToJsonFile() throws JSONException
 	{
 		JSONObject personjson=new JSONObject();
-		mainobject=JsonUtility.readFile2(originbook+AddressBook.getBookName());
+		mainobject=JsonUtility.readFile2(originbook+AddressBookimplementation.getBookName());
 		System.out.println(mainobject.toJSONString());
 		String firstName=person.getFirstName();
 		System.out.println(firstName);
@@ -146,13 +146,13 @@ public class AddressBookPerson
 		//System.out.println(AddressBook.getBookName());
 		//System.out.println("hello");
 		
-        File file = new File(AddressBook.getBookName());
-        System.out.println(AddressBook.getBookName());
+        File file = new File(AddressBookimplementation.getBookName());
+        System.out.println(AddressBookimplementation.getBookName());
         System.out.println(file.length());
 		
 			String temporary=mainobject.toString();
 			System.out.println(temporary);
-		JsonUtility.writeToFile(originbook+AddressBook.getBookName(), mainobject);	
+		JsonUtility.writeToFile(originbook+AddressBookimplementation.getBookName(), mainobject);	
 	}
 	
 	
@@ -165,7 +165,7 @@ public class AddressBookPerson
 		//Iterating through ArrayObjects
 		try 
 		{
-			String fileRead = JsonUtility.readFile(originbook+AddressBook.getBookName());
+			String fileRead = JsonUtility.readFile(originbook+AddressBookimplementation.getBookName());
 			PersonObject = (JSONObject) parser.parse(fileRead);
 
 			System.out.println("     Available Uers:");
@@ -252,7 +252,7 @@ public class AddressBookPerson
 			
 			String fileRead;
 			try {
-				fileRead = JsonUtility.readFile(originbook+AddressBook.getBookName());		
+				fileRead = JsonUtility.readFile(originbook+AddressBookimplementation.getBookName());		
 				personSort = (JSONObject) parser.parse(fileRead);
 			}
 			 catch (ParseException e) {

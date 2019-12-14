@@ -9,9 +9,27 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * @author Rupeshp007
+ * date:8/12/2019
+ * @version 1.0
+ * Purpose:InventoryManager to manage the inventory. The Inventory Manager will use InventoryFactory 
+ * to create Inventory Object from JSON.The InventoryManager will call each Inventory Object in its 
+ * list to calculate the Inventory Price and then call  Inventory Object to return the JSON String.
+ **********************************************************************************************************/
+
 public class InventoryManagerImplementation extends InventoryManager{
 	
 	static String fileName="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/InventaryManagement/InventoryDetails.json";
+	
+	/*********************************************************************************
+	 * Override Method From Inventory to Count Total Value For Rice,Wheat and Pulse
+	 * like this different Inventory.
+	 *  @param String Name of Inventroy
+	 *  @return void
+	 *  
+	 *  	logic:weight of Inventory * Price Of Inventory per Kg.
+	 *******************************************************************************/	
 	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void totalValue(String name) {

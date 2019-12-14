@@ -1,16 +1,5 @@
 {
-	"Sagar": {
-		"firstName": "Sagar",
-		"lastName": "aanand",
-		"address": {
-			"city": "saras",
-			"street": "ssnagar",
-			"pinCode": 3784738,
-			"state": "jammu"
-		},
-		"phNo": 45543543
-	},
-	"akhil": {
+	"Akhil": {
 		"firstName": "akhil",
 		"lastName": "chitram",
 		"address": {
@@ -20,6 +9,17 @@
 			"state": "daman"
 		},
 		"phNo": 4343564564
+	},
+	"Bhavik": {
+		"firstName": "Bhavik",
+		"lastName": "Patel",
+		"address": {
+			"city": "Hydrabad",
+			"street": "Alsanagar",
+			"pinCode": 547700,
+			"state": "Telangana"
+		},
+		"phNo": 9675638364
 	},
 	"Rupesh": {
 		"firstName": "Rupesh",

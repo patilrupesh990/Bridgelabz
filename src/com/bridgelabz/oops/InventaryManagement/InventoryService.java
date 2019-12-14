@@ -1,15 +1,13 @@
 package com.bridgelabz.oops.InventaryManagement;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.bridgelabz.oops.addressbook.AddressBook;
 import com.bridgelabz.oops.addressbook.JsonUtility;
 import com.bridgelabz.util.Utility;
 
-/**
+/********************************************************************************************************
  * @author Rupeshp007
  * date:6/12/2019
  * @version 1.0
@@ -32,7 +30,14 @@ public class InventoryService extends InventoryManagerImplementation implements 
 	 JSONObject inventoryObject=new JSONObject();
 	 
 		
-	
+	 /***********************************************************************************
+	  * Override Method From Inventory to Display information about Rice,Wheat and Pulse
+	  * like this different Inventory from .Json file 
+	  *  @param no param
+	  *  @return void
+	  *  
+	  ********************************************************************************/	
+
 	@Override
 	public void displayInventory() {
 		String jsonobject="";
@@ -44,6 +49,12 @@ public class InventoryService extends InventoryManagerImplementation implements 
 		System.out.println(jsonobject);
 	}
 	
+	/*********************************************************************************
+	 * Override  method from inventory to add Information about Inventories  and it will be store into the 
+	 * InventoryDetails.json file.
+	 *  @param no param
+	 *  @return void
+	 *******************************************************************************/	
 
 	@Override
 	public void addInventory() 
@@ -90,6 +101,15 @@ public class InventoryService extends InventoryManagerImplementation implements 
 		
 	}
 
+	/*********************************************************************************
+	 * Override Method From Inventory to check Price For Rice,Wheat and Pulse
+	 * like this different Inventory from .json file.
+	 *  @param int number
+	 *  @return void
+	 *  
+	 *  	logic:weight of Inventory * Price Of Inventory per Kg.
+	 *******************************************************************************/	
+
 	@Override
 	public void checkPrice() 
 	{
@@ -107,6 +127,13 @@ public class InventoryService extends InventoryManagerImplementation implements 
 		
 	}
 	
+	/*********************************************************************************
+	 * it will Convert all java object into the .json file
+	 * like this different Inventory from .json file.
+	 *  @param Object object,String input,String name,double weight,double price
+	 *  @return JSONArray
+	 *******************************************************************************/	
+
 	@SuppressWarnings("unchecked")
 	public  JSONArray ConverJavaToJsonAll(Object object,String input,String name,double weight,double price)
 	{
@@ -149,13 +176,17 @@ public class InventoryService extends InventoryManagerImplementation implements 
 		else
 		{
 			System.out.println("Invalid Input please check speling");
+			try {
+				throw new InventoryExcpetion("Invalid Input Please check speling");
+			} catch (InventoryExcpetion e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			inventary.addInventory();
 		}
 		
 		//System.out.println(arrayObject);
-		return arrayObject;
-		
-		
+		return arrayObject;	
 	}
 	
 	
