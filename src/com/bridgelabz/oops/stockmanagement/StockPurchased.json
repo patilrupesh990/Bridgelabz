@@ -1,20 +1,30 @@
 {
-	"Purchase9558062808": {
-		"9558062808": {
+	"Purchase": {
+		"123456": {
 			"Status": "Stock Purchased",
-			"Stock Value": "234",
-			"Total Value:": "1842.0",
-			"Unit": "7.871794871794871",
-			"Stock Name": "BMW",
-			"Date&Time": "2019-12-13T15:27:04.221"
-		},
-		"Sold9558062808": {
-			"Status": "Stock Sold",
-			"Stock Value": "45",
-			"Total Value:": "225.0",
-			"Unit": "5.0",
+			"Account Holder Name": "Vishal",
+			"Stock Value": "100",
+			"Total Value:": "3000.0",
+			"Unit": "30.0",
 			"Stock Name": "HCL",
-			"Date&Time": "2019-12-13T15:12:46.258"
+			"Date&Time": "2019-12-14T14:23:45.973"
+		},
+		"9998570582": {
+			"Status": "Stock Purchased",
+			"Account Holder Name": ,
+			"Total Value:": "10000.0",
+			"Unit": "50.0",
+			"Stock Name": "Essar",
+			"Date&Time": "2019-12-14T14:25:04.545"
 		}
+	},
+	"9998570582": {
+		"Status": "Stock Purchased",
+		"Account Holder Name": "Bhavin",
+		"Stock Value": "200",
+		"Total Value:": "10000.0",
+		"Unit": "40.0",
+		"Stock Name": "Essar",
+		"Date&Time": "2019-12-14T14:25:04.545"
 	}
 }

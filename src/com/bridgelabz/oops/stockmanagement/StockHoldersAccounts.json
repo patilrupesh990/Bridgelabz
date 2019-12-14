@@ -1,4 +1,25 @@
 {
+	"9998570582": {
+		"State": "Daman",
+		"City": "Ahir",
+		"Name": "Bhavin",
+		"Contact": 9998570582,
+		"Password": "454565"
+	},
+	"123456": {
+		"State": "Gujarat",
+		"City": "Patil",
+		"Name": "Vishal",
+		"Contact": 123456,
+		"Password": "123456"
+	},
+	"12345": {
+		"State": "Maharastra",
+		"City": "chaudhary",
+		"Name": "Kunal",
+		"Contact": 12345,
+		"Password": "12345"
+	},
 	"9558062808": {
 		"State": "Gujarat",
 		"City": "Surat",

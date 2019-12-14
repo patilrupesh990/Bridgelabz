@@ -1,17 +1,1 @@
-{
-	"HCL": {
-		"Company Name": "HCL",
-		"stock value": "45",
-		"stock unit": "2295.0"
-	},
-	"BMW": {
-		"Company Name": "BMW",
-		"stock value": "234",
-		"stock unit": "692.1282051282051"
-	},
-	"Oddi": {
-		"Company Name": "Oddi",
-		"stock value": "546",
-		"stock unit": "678"
-	}
-}
+{"HCL":{"Company Name":"HCL","stock value":"100","stock unit":"3381.0"},"Essar":{"Company Name":"Essar","stock value":"200","stock unit":"2054.0"},"BMW":{"Company Name":"BMW","stock value":"234","stock unit":"684.0"},"Oddi":{"Company Name":"Oddi","stock value":"546","stock unit":"675.0"}}
