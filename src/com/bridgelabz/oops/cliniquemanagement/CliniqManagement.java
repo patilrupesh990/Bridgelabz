@@ -87,6 +87,13 @@ public interface CliniqManagement
 		}
 	}
 	
+	/*************************************************************************************************
+	 * static Method to Register Patients who are new.
+	 * 
+	 * @param no param
+	 * @return void
+	 *  @throws JSONException
+	 *******************************************************************************/	
 	
 	public static void patientRegister() throws JSONException
 	{
@@ -114,7 +121,14 @@ public interface CliniqManagement
 		JsonUtility.WriteinFile(patientjson.toString(), patientFile);
 	}
 
-	
+
+	/*************************************************************************************************
+	 * static Method to Register Doctors who are new.
+	 * 
+	 * @param no param
+	 * @return void
+	 *  @exception JSONException
+	 *******************************************************************************/	
 	
 	public static void doctorRegister() throws JSONException
 	{
@@ -141,7 +155,15 @@ public interface CliniqManagement
 		JsonUtility.WriteinFile(doctorjson.toString(), doctorFile);
 	
 	}
-	
+
+	/*************************************************************************************************
+	 * static Method to Search Patients by the doctors and get the details of patients.
+	 * 
+	 * @param no parameters
+	 * @return void
+	 * @exception JSONException
+	 *  
+	 *******************************************************************************/	
 	
 	public static void  searchPatientByDoctor() throws JSONException
 	{
@@ -172,7 +194,13 @@ public interface CliniqManagement
 		}	
 	}
 	
-	
+
+	/*************************************************************************************************
+	 * static Method to gel all Patients list and informations.
+	 * @param no param
+	 * @return void
+	 *  @exception JSONException
+	 *******************************************************************************/	
 	
 	
 	public static void getPatientList() throws JSONException
@@ -204,6 +232,15 @@ public interface CliniqManagement
 		}
 	
 	}
+	
+
+	/*************************************************************************************************
+	 * static Method to count Appointments for perticuler Doctors..
+	 * 
+	 * @param no param
+	 * @return void
+	 *  
+	 *******************************************************************************/	
 	
 	public static int getCount(String doctorName)
 	{

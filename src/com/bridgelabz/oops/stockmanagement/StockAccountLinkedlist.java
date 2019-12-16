@@ -68,6 +68,34 @@ public class StockAccountLinkedlist extends Object
 		}
 	}
 	
+	public void SellStock()
+	{
+		System.out.println("Enter Company name :");
+		String name=Utility.InputString();
+		System.out.println("Enter How many Stocks want to Sell");
+		int unit=Utility.InputInt();
+		
+		StockDetails stocks[]=Stocklist.GetListObject();
+		for(StockDetails object:stocks)
+		{
+			if(object.getStockName().equals(name))
+			{
+				int value=object.getStockValue();
+				int amount=value*unit;
+				int availableunit=object.getStockQuantity();
+				int result=availableunit+unit;
+				object.setStockQuantity(result);
+				Stocklist.removeNode(object);
+				Stocklist.add(object);
+				System.out.println(amount+" You have recieved after sell"+unit+" stocks");
+			}
+			else
+			{
+				System.out.println("invalid company name");
+			}
+		}
+	}
+	
 	public void compnyList()
 	{
 		System.out.println("==============>>>>>compnies available<<<<==============");

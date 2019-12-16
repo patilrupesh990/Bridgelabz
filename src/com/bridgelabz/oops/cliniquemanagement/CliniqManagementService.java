@@ -215,6 +215,15 @@ public class CliniqManagementService implements CliniqManagement
 			
 		}
 		
+		/*********************************************************************************
+		 * To book Patient Appointment with Different Doctors it will take doctor name,id,availablity,specializtion
+		 * from Doctors.json file and return Doctor Details object.
+		 *
+		 * @param no param
+		 * @return void
+		 * @exception JSONException  
+		 *******************************************************************************/
+		
 		public DoctorDetails bookAppointMent(String name) throws JSONException
 		{
 		     DoctorDetails doctorappoint=new DoctorDetails();
@@ -249,7 +258,14 @@ public class CliniqManagementService implements CliniqManagement
 				return doctorappoint;
 		}
 		
-		
+		/*********************************************************************************
+		 * To get All the details of Doctor like. Doctor name,id,availablity..ect will take from doctors.json
+		 * File And print the deatils on consol.
+		 *
+		 * @param no param
+		 * @return void
+		 * @exception JSONException 
+		 *******************************************************************************/
 	
 		
 		public void getDoctorDetails() throws JSONException
@@ -281,7 +297,15 @@ public class CliniqManagementService implements CliniqManagement
 			}
 		}
 		
-		
+		/*********************************************************************************
+		 * To search the doctors from the doctors.json file based on the Doctors Specialization
+		 * using this user can search the doctors based on their Specialization.
+		 * 
+		 * 
+		 * @param no parameter
+		 * @return void
+		 * @exception JSONException  
+		 *******************************************************************************/
 		
 		public  DoctorDetails searchDoctor() throws JSONException
 		{
@@ -327,7 +351,15 @@ public class CliniqManagementService implements CliniqManagement
 		
 		
 		
-		
+		/*********************************************************************************
+		 * To Searh Patients Based on their contact numbers and name.it will be used by doctors
+		 * to search the patients based on their contact or name.
+		 * 
+		 * 
+		 * @param no param
+		 * @return void
+		 * @exception JSONException 
+		 *******************************************************************************/
 		public AppontmentDetails searchPatient(long phNo,String name) throws JSONException
 		{
 			
@@ -367,6 +399,18 @@ public class CliniqManagementService implements CliniqManagement
 			return null;
 		}
 	
+		
+		/*********************************************************************************
+		 * To count the appointments taken by the user for perticuler doctors.
+		 * 
+		 * logic: it will count all all perticuler doctors appointments if it will reached to 5
+		 * it will give message to take appointment for next day or week.
+		 * 
+		 *
+		 * @param no param
+		 * @return void
+		 * @exception JSONException 
+		 *******************************************************************************/
 		public  int AppointmentCount(String DoctorName) throws JSONException
 		{
 			String jsonData = "";
