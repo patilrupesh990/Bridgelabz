@@ -117,7 +117,7 @@ public class StockAccount implements Stock
 		 JSONObject temp=new JSONObject();
 
 		 @SuppressWarnings("unchecked")
-		public void buy(int amount,String symbol) 
+		public void buy(int amount,String symbol)  
 		 {
 					 temp=JsonUtility.readFile2(stockbuyfile);
 					 System.out.println(temp.toString());
