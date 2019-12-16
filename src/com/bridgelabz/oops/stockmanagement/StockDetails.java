@@ -4,7 +4,7 @@ public class StockDetails
 {
 	
 			private  String stockName;
-			private  double stockValue;
+			private  int stockValue;
 			private  int stockQuantity;
 			
 			public String getStockName() {
@@ -13,10 +13,10 @@ public class StockDetails
 			public void setStockName(String stockName) {
 				this.stockName = stockName;
 			}
-			public double getStockValue() {
+			public int getStockValue() {
 				return stockValue;
 			}
-			public void setStockValue(double stockValue) {
+			public void setStockValue(int stockValue) {
 				this.stockValue = stockValue;
 			}
 			public int getStockQuantity() {

@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -363,6 +364,41 @@ public class Utility
             e.printStackTrace();
         }
         
+	}
+	
+	
+	/** To Write contents in file .
+	 * @param T String,String fileName
+	 * @return void 
+	 * **/	
+	public static <T>void WriteAppendinFile(T string,String filename)
+	{
+		
+		try { 
+			  
+            // Open given file in append mode. 
+            BufferedWriter out = new BufferedWriter( 
+                   new FileWriter(filename, true)); 
+            out.write(String.valueOf(string)+","); 
+            out.close(); 
+        }catch (IOException e) {
+			
+		} 
+	}
+	public static void clearFile(String fileName)
+	{
+		FileWriter filewriter = null;
+		try {
+			filewriter = new FileWriter(fileName,false);
+		
+		PrintWriter printwriter=new PrintWriter(filewriter,false);
+		printwriter.flush();
+		printwriter.close();
+		filewriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**To convert Temperature from Celsius to Feranhit

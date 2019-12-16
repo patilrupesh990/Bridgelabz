@@ -31,9 +31,12 @@ public interface Stock
 			int amount;
 			while(true)
 			{
-			System.out.println("Enter Your choice");
+				System.out.println("====================================================================================");
 			System.out.println("1.Add New Stock \n 2.New User Account \n 3.All Stock List \n 4.Values of Stocks \n 5.Purchase Stock \n 6.Sell Stock \n 7. Stock Report \n 8. exit");
+			System.out.println("Enter Your choice");
+
 			int choice =Utility.InputInt();
+
 			System.out.println();
 			
 					switch(choice)

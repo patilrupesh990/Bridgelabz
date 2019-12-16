@@ -11,11 +11,21 @@
 		},
 		"9998570582": {
 			"Status": "Stock Purchased",
-			"Account Holder Name":"Bhavin",
+			"Account Holder Name": "Bhavin",
+			"Stock Value": "234",
 			"Total Value:": "10000.0",
 			"Unit": "50.0",
 			"Stock Name": "Essar",
 			"Date&Time": "2019-12-14T14:25:04.545"
+		},
+		"9558062808": {
+			"Status": "Stock Purchased",
+			"Account Holder Name": "Rupesh",
+			"Stock Value": "234",
+			"Total Value:": "2340.0",
+			"Unit": "10.0",
+			"Stock Name": "BMW",
+			"Date&Time": "2019-12-16T14:01:29.454"
 		}
 	}
 }

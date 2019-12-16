@@ -1,0 +1,20 @@
+{
+	"123456": {
+		"Status": "Stock Purchased",
+		"Account Holder Name": "Vishal",
+		"Stock Value": "100",
+		"Total Value:": "3000.0",
+		"Unit": "20.0",
+		"Stock Name": "HCL",
+		"Date&Time": "2019-12-14T14:23:45.973"
+	},
+	"9998570582": {
+		"Status": "Stock Purchased",
+		"Account Holder Name": "Bhavin",
+		"Stock Value": "234",
+		"Total Value:": "10000.0",
+		"Unit": "41.452991452991455",
+		"Stock Name": "Essar",
+		"Date&Time": "2019-12-14T14:25:04.545"
+	}
+}

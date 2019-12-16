@@ -29,7 +29,8 @@ public class StockAccount implements Stock
 	static StockDetails stock=new StockDetails();
 	JSONObject individualStocks=new JSONObject();
 	JSONObject accountHolder=new JSONObject();
-	JSONObject accounttransaction=null;
+	JSONObject accounttransaction=new JSONObject();
+
 
 	
 	static JSONParser parser=new JSONParser();
@@ -37,7 +38,7 @@ public class StockAccount implements Stock
 	static String accountfile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/StockHoldersAccounts.json";
 	static String stockbuyfile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/StockPurchased.json";
 	static String stocksoldfile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/SoldStock.json";
-	
+	static String totalstockfile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/TotalStocks.json";
 	
 		
 	/*********************************************************************************
@@ -118,25 +119,28 @@ public class StockAccount implements Stock
 		 @SuppressWarnings("unchecked")
 		public void buy(int amount,String symbol) 
 		 {
-			 		accounttransaction=new JSONObject();
 					 temp=JsonUtility.readFile2(stockbuyfile);
+					 System.out.println(temp.toString());
 					 System.out.print("Enter Your Mobile No:");
 					 String contact=Utility.InputString();			 
 					 System.out.println("Enter your password:");
 					 String password=Utility.InputString();
 					 if(Authentication(contact,password))
 					 {
+						 JSONObject temp2=(JSONObject) temp.get("Purchase");
+						 
 						 accounttransaction.put("Stock Name", symbol);
 						 accounttransaction.put("Account Holder Name", StockAccount.getStockHolderName());
 						 double unit=getStockunitBasedOnAmount(amount, symbol);
 						 accounttransaction.put("Unit",Double.toString(unit));
 						 accounttransaction.put("Date&Time",java.time.LocalDateTime.now().toString());
 						 accounttransaction.put("Status", "Stock Purchased");
-						purchaseObject.put(contact,accounttransaction);
-						 temp.put("Purchase", purchaseObject);
+						 temp2.put(contact, accounttransaction);
+						 temp.put("Purchase", temp2);
 						 JsonUtility.writeToFile(stockbuyfile, temp);	
 						 System.out.println("Purchessed Successfully....");
 						 updateFileAfterPurchased(stockfile, symbol, unit);
+						 UpdateTotalStockFilesAfterSell(amount,symbol,contact,1); 
 					 }
 					 else {
 						try {
@@ -177,7 +181,8 @@ public class StockAccount implements Stock
 					value= (String)jsonObject.get("stock value");
 					Unit=(String) jsonObject.get("stock unit");
 				} 
-				if(Integer.parseInt(Unit)<0)
+				double check=Double.parseDouble(Unit);
+				if(check<=0)
 				{
 					System.out.println("There is no Available Stocks of this compnies:");
 					Stock.mainMenu();
@@ -206,19 +211,29 @@ public class StockAccount implements Stock
 				{
 						e.printStackTrace();
 				}
-				JSONObject temp=(JSONObject) stockJson.get(contact);
+				
+				JSONObject temp=null;
+				try{
+				 temp=(JSONObject) stockJson.get(contact);
 				StockHolderName=(String) temp.get("Name");
+				
 				if(temp.get("Password").equals(password))
 				{
 					return true;
 				}
+				
 				else
 				{
 					try {
 						throw new StockMngmtExcpetion("Invalid Username or password");
 					} catch (StockMngmtExcpetion e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					}
+				}
+				}
+				catch (NullPointerException e) {
+					try {
+						throw new StockMngmtExcpetion("Invalid UserName or password");
+					} catch (StockMngmtExcpetion e1) {
 					}
 				}
 
@@ -271,7 +286,6 @@ public class StockAccount implements Stock
 		 }
 		 
 		  JSONObject selljson=new JSONObject();
-		 
 		 @SuppressWarnings("unchecked")
 		public void sell(int amount,String symbol)
 		 {
@@ -283,18 +297,18 @@ public class StockAccount implements Stock
 			 String password=Utility.InputString();
 			 if(Authentication(contact,password))
 			 {
-				 String unit=UpdateFilesAfterSell(amount, symbol,contact); 
+				 UpdateFilesAfterSell(amount, symbol,contact); 
+				 JSONObject temp2=(JSONObject) temp.get("Sold");
 				 selljson.put("Stock Holder Name", StockAccount.getStockHolderName());
 				 selljson.put("stock Name", symbol);
 				 selljson.put("Date&Time",java.time.LocalDateTime.now().toString());
 				 selljson.put("Status", "Stock Sold");
 				 selljson.put("Unit", StockAccount.Unit);
-				 purchaseObject.put(contact,selljson);
-				 temp.put("Sold", purchaseObject);
+				 temp2.put(contact,selljson);
+				 temp.put("Sold", temp2);
 				 JsonUtility.writeToFile(stocksoldfile, temp);	
+				 UpdateTotalStockFilesAfterSell(amount,symbol,contact,2); 
 			//	 System.out.println("Purchessed Successfully....");
-
-				 
 				 System.out.println("you transaction succesfull....");
 			 }
 			 else
@@ -325,10 +339,63 @@ public class StockAccount implements Stock
 			{
 					e.printStackTrace();
 			}
-			JSONObject temporary=(JSONObject) stockJson.get("Purchase");
-
 			JSONArray arrayItems = new JSONArray();
-			arrayItems.add(temporary.get(key));
+			arrayItems.add(stockJson.get(StockName));
+			Iterator<?> iterator = arrayItems.iterator();
+			String unit="";
+			String value="";
+			double result=0;
+			double sell=0;
+			JSONObject jsonObject=null;
+			while(iterator.hasNext())
+			{
+				try{
+				jsonObject=(JSONObject) iterator.next();
+				unit= (String) jsonObject.get("stock unit");
+				value=(String) jsonObject.get("stock value"); 
+				sell=amount/Double.parseDouble(value);
+				 result=Double.parseDouble(unit)+sell;
+				jsonObject.replace("stock unit", Double.toString(result));
+				selljson.put("Unit",Double.toString(sell));
+				selljson.put("Total amount:", Integer.toString(amount));
+				//jsonObject.remove(StockName);
+				}catch (NullPointerException e) {
+					try {
+						throw new StockMngmtExcpetion("Please Enter valid Details");
+					} catch (StockMngmtExcpetion e1) {
+						// TODO Auto-generated catch block
+					}
+				}
+			} 
+			StockAccount.Unit=Double.toString(sell);
+			temp.put(StockName,jsonObject);
+			
+			JsonUtility.writeToFile(stockfile, temp);	
+			return Double.toString(sell);
+		 }
+		 
+		
+		@SuppressWarnings("unchecked")
+		public  void UpdateTotalStockFilesAfterSell(int amount,String StockName,String key,int ch) 
+		 {
+			
+			if(ch==2)
+			{
+			JSONObject stockJson=null;
+		 	JSONObject temp=new JSONObject();
+			String fileData=null;
+			temp=JsonUtility.readFile2(totalstockfile);
+			JSONObject temp2=JsonUtility.readFile2(stockbuyfile);
+			fileData=temp2.toString();
+			try {
+				stockJson = (JSONObject) parser.parse(fileData);
+			} catch (ParseException e) 
+			{
+					e.printStackTrace();
+			}
+			JSONObject object=(JSONObject) stockJson.get("Purchase");
+			JSONArray arrayItems = new JSONArray();
+			arrayItems.add(object.get(key));
 			Iterator<?> iterator = arrayItems.iterator();
 			String unit="";
 			String value="";
@@ -338,77 +405,64 @@ public class StockAccount implements Stock
 			while(iterator.hasNext())
 			{
 				jsonObject=(JSONObject) iterator.next();
-				unit=  (String) jsonObject.get("Unit");
+				unit= (String) jsonObject.get("Unit");
 				value=(String) jsonObject.get("Stock Value"); 
-				 sell=amount/Double.parseDouble(value);
-				selljson.put("Unit",Double.toString(sell));
-				selljson.put("Total amount:", Integer.toString(amount));
+				sell=amount/Double.parseDouble(value);
 				result=Double.parseDouble(unit)-sell;
 				jsonObject.replace("Unit", Double.toString(result));
-				jsonObject.replace("Status", "Sold");
+				
 				//jsonObject.remove(StockName);
 			} 
 			StockAccount.Unit=Double.toString(sell);
 			temp.put(key,jsonObject);
 			
-			JsonUtility.writeToFile(stockbuyfile, temp);	
-			return Double.toString(sell);
+			JsonUtility.writeToFile(totalstockfile, temp);	
+			
+			}
+			else{
+			
+			JSONObject stockJson=null;
+		 	JSONObject temp=new JSONObject();
+			String fileData=null;
+			temp=JsonUtility.readFile2(totalstockfile);
+			JSONObject temp2=JsonUtility.readFile2(stockfile);
+			fileData=temp2.toString();
+			try {
+				stockJson = (JSONObject) parser.parse(fileData);
+			} catch (ParseException e) 
+			{
+					e.printStackTrace();
+			}
+			JSONObject object=(JSONObject) stockJson.get(key);
+			JSONArray arrayItems = new JSONArray();
+			arrayItems.add(stockJson.get(StockName));
+			Iterator<?> iterator = arrayItems.iterator();
+			String unit="";
+			String value="";
+			double result=0;
+			double sell=0;
+			JSONObject jsonObject=null;
+			JSONObject finalobject=new JSONObject();
+			while(iterator.hasNext())
+			{
+				jsonObject=(JSONObject) iterator.next();
+				unit= (String) jsonObject.get("stock unit");
+				value=(String) jsonObject.get("stock value"); 
+				sell=amount/Double.parseDouble(value);
+				jsonObject.replace("stock unit", Double.toString(sell));
+				finalobject.put("Account Holder Name",getStockHolderName());
+				finalobject.put("Stock Value", value);
+				finalobject.put("Total Value:", Double.toString(Double.parseDouble(value)*sell));
+				finalobject.put("Unit", unit);
+				finalobject.put("Stock Name", StockName);
+				finalobject.put("Date&Time", java.time.LocalDateTime.now().toString());
+				//jsonObject.remove(StockName);
+			} 
+			temp.put(key,jsonObject);
+			
+			JsonUtility.writeToFile(totalstockfile, temp);	
+			}
 		 }
-		 
-		 
-		
-		
-		
-		
-//		public  void UpdateSoldFilesAfterSell(int amount,String StockName,String key) 
-//		 {
-//			JSONObject stockJson=null;
-//		 	JSONObject temp=null;
-//			String fileData=null;
-//			temp=JsonUtility.readFile2(stocksoldfile);
-//			fileData=temp.toString();
-//			try {
-//				stockJson = (JSONObject) parser.parse(fileData);
-//			} catch (ParseException e) 
-//			{
-//					e.printStackTrace();
-//			}
-//			JSONObject temporary=(JSONObject) stockJson.get("Sold");
-//
-//			JSONArray arrayItems = new JSONArray();
-//			arrayItems.add(temporary.get(key));
-//			Iterator<?> iterator = arrayItems.iterator();
-//			String unit="";
-//			String value="";
-//			double result=0;
-//			double sell=0;
-//			JSONObject jsonObject=null;
-//			while(iterator.hasNext())
-//			{
-//				jsonObject=(JSONObject) iterator.next();
-//				unit=  (String) jsonObject.get("Unit");
-//				value=(String) jsonObject.get("Stock Value"); 
-//				 sell=amount/Double.parseDouble(value);
-//				selljson.put("Unit",Double.toString(sell));
-//				selljson.put("Total amount:", Integer.toString(amount));
-//				result=Double.parseDouble(unit)-sell;
-//				jsonObject.replace("Unit", Double.toString(result));
-//				jsonObject.replace("Status", "Sold");
-//				//jsonObject.remove(StockName);
-//				
-//				
-//				selljson.put("Stock Holder Name", StockAccount.getStockHolderName());
-//				 selljson.put("stock Name", StockName);
-//				 selljson.put("Date&Time",java.time.LocalDateTime.now().toString());
-//				 selljson.put("Status", "Stock Sold");
-//				 selljson.put("Unit", Double.toString(sell));
-//				 purchaseObject.put(key,selljson);
-//				 temp.put("Sold", purchaseObject);
-//				 JsonUtility.writeToFile(stocksoldfile, temp);	
-//
-//			} 
-//			
-//		 }
 		  
 		 
 		
@@ -423,8 +477,109 @@ public class StockAccount implements Stock
 		public void printReport() 
 		{
 			
-			 		 
+			System.out.println("\n************************Report Of Stock Holder's:************************\n");
+			String contact="";
+			JSONObject accountObject = null;
+			//Iterating through ArrayObjects
+			try 
+			{
+				String fileRead = JsonUtility.readFile(accountfile);
+				accountObject = (JSONObject) parser.parse(fileRead);
+
+				System.out.println("     Available Accounts:");
+				System.out.println("=====================================================================");
+				Set<?> s =  accountObject.keySet(); 	//Using the HASHMAP property to list each object's KEY
+				Iterator<?> i = s.iterator();
+				do{
+					String k = i.next().toString();
+					System.out.println("\t"+k);
+
+				}while(i.hasNext());
+				
+				System.out.println("Enter The ContactNo:");
+				contact=Utility.InputString();
+				
+				JSONObject temp1=JsonUtility.readFile2(stockbuyfile);
+				JSONObject temp2=JsonUtility.readFile2(stocksoldfile);
+				JSONObject temp3=JsonUtility.readFile2(totalstockfile);
+				
+				String filedata1=temp1.toString();
+				String filedata2=temp2.toString();
+				String filedata3=temp3.toString();
+				
+				JSONObject sold=null;
+				JSONObject buy=null;
+				JSONObject total=null;
+				
+				buy = (JSONObject) parser.parse(filedata1);
+				sold=(JSONObject) parser.parse(filedata2);
+				total=(JSONObject) parser.parse(filedata3);
+				
+				
+				JSONObject object1=(JSONObject) buy.get("Purchase");
+				JSONObject object2=(JSONObject) sold.get("Sold");
+
+				
+				JSONArray arrayItems1 = new JSONArray();
+				JSONArray arrayItems2 = new JSONArray();
+				JSONArray arrayItems3 = new JSONArray();
+ 
+				
+				if(object1.containsKey(contact))
+				{
+						System.out.println("------------------------------------");
+						JSONObject jsonObject=(JSONObject) object1.get(contact);
+						System.out.println("Name Of Account Holder: "+jsonObject.get("Account Holder Name"));
+						System.out.println("Status: "+jsonObject.get("Status"));
+						System.out.println("Stock Value: "+jsonObject.get("Stock Value"));
+						System.out.println("Stock Unit: "+jsonObject.get("Unit"));
+						System.out.println("Total Value: "+jsonObject.get("Total Value:"));
+						System.out.println("Stock Name: "+jsonObject.get("Stock Name"));
+						System.out.println("Transaction Time: "+jsonObject.get("Date&Time"));
+					
+				}
+				
+				if(object2.containsKey(contact))
+				{
+					System.out.println("------------------------------------");
+					
+						JSONObject jsonObject2=(JSONObject) object2.get(contact);
+						System.out.println(jsonObject2.toJSONString());
+						System.out.println("Name Of Account Holder: "+jsonObject2.get("Stock Holder Name"));
+						System.out.println("Status: "+jsonObject2.get("Status"));
+						System.out.println("Stock Unit: "+jsonObject2.get("Unit"));
+						System.out.println("Total Value: "+jsonObject2.get("Total amount:"));
+						System.out.println("Stock Name: "+jsonObject2.get("stock Name"));
+						System.out.println("Transaction Time: "+jsonObject2.get("Date&Time"));
+
+					
+				}	
+				
+				if(total.containsKey(contact))
+				{
+					
+					System.out.println("============================Available Stocks======================");
+					
+						JSONObject jsonObject3=(JSONObject) total.get(contact);
+						System.out.println("Name Of Account Holder: "+jsonObject3.get("Account Holder Name"));
+						System.out.println("Status: "+jsonObject3.get("Status"));
+						System.out.println("Stock Unit: "+jsonObject3.get("Unit"));
+						System.out.println("Stock value: "+jsonObject3.get("Stock Value"));
+						System.out.println("Total Value: "+jsonObject3.get("Total Value:"));
+						System.out.println("Stock Name: "+jsonObject3.get("Stock Name"));
+						System.out.println("Transaction Time: "+jsonObject3.get("Date&Time"));
+						
+				}
+				System.out.println("-------------------------------------");
+
+				
+				
+				
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
+			
+	}
 
 		
 }

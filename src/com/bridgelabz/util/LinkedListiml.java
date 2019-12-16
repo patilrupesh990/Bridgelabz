@@ -1,5 +1,6 @@
 package com.bridgelabz.util;
 
+import com.bridgelabz.oops.stockmanagement.StockDetails;
 
 public class LinkedListiml<T>
 {
@@ -167,7 +168,36 @@ public class LinkedListiml<T>
 				Queue.insert(p.data);
 				p=p.nextNode;
 			}
-		}		
+		}	
+		
+		
+		
+		public int[] GetListElements()
+		{
+			int[] elements=new int[size];
+			int count=0;
+			p=root;
+			while(p != null)
+			{
+				elements[count++]=(int) p.data;
+				p=p.nextNode;
+			}
+			return elements;
+		}
+		
+		
+		public StockDetails[] GetListObject()
+		{
+			StockDetails[] elements=new StockDetails[size];
+			int count=0;
+			p=root;
+			while(p != null)
+			{
+				elements[count++]= (StockDetails) p.data;
+				p=p.nextNode;
+			}
+			return elements;
+		}
 			
 			
 				

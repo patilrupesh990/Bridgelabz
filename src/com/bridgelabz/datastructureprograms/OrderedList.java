@@ -19,10 +19,10 @@ import com.bridgelabz.util.Utility;
 public class OrderedList 
 {
 	static LinkedListiml<Integer> list=new LinkedListiml<Integer>();
-	
+	static String filename="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/datastructureprograms/OrderList.txt";
+
 	public static <T> void main(String[] args) throws FileNotFoundException, IOException 
 	{
-		String filename="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/datastructureprograms/OrderList.txt";
 				
 		 int numbers[]=OrderedList.ReadFile(filename);
 		 
@@ -94,17 +94,31 @@ public class OrderedList
 	{
 		if(!list.searchNode((T) word))
 		{
+			
 			list.add((T) word);
-			System.out.println(word+" Not Present in list and now added to list");
-			
-			Utility.WriteinFile(word,"/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/datastructureprograms/OrderList.txt");
-			
+		
+			int elements[]=list.GetListElements();
+				System.out.println(word+" Not Present in list and now added to list");
+				Arrays.sort(elements);
+				Utility.clearFile(filename);
+				for(int data:elements)
+				{
+					Utility.WriteAppendinFile(data,filename);
+				}
 		}
 		else
 		{
 			list.removeNode((T) word);
 			System.out.println(word+" it was alrady in lIST and Removed from List");
-			Utility.DeleteFromeFile("/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/datastructureprograms/UnorderFile.txt", word);;
+			int elements[]=list.GetListElements();
+			System.out.println(word+" Not Present in list and now added to list");
+			Arrays.sort(elements);
+			Utility.clearFile(filename);
+			for(int count=0;count<elements.length;count++)
+			{
+				if(elements[count]!=0)
+				Utility.WriteAppendinFile(elements[count],filename);
+			}
 		}
 		list.Display();
 	}
