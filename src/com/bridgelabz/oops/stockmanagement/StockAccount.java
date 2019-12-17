@@ -9,19 +9,25 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.bridgelabz.oops.addressbook.AddressBookimplementation;
 import com.bridgelabz.oops.addressbook.JsonUtility;
 import com.bridgelabz.util.Utility;
 
 /***********************************************************************************************************
  * @author Rupeshp007
- * date:11/12/2019
+ * date:15/12/2019
  * @version 1.0
- * Purpose:Controller for manage Inventory Program 
+ * Purpose:Stock management Service Class it will do the Operations like To create new Stock user and register 
+ * 		   companies and Buy and sell functions for user ,view all stock companies information..etc. 
+ * 
  * Operations:
- * 1.add inventory
- * 2.get price of value
- * 3.get total value of inventories 
+ * 1.Register New User
+ * 2.Register company
+ * 3.Add Stock
+ * 4.buy Stock(User Operation)
+ * 5.Sell Stock by User
+ * 6.print all companies list and information
+ * 7.print the  Report of buy and sell stock
+ * 8. store all this operations in .json files
  **********************************************************************************************************/
 
 public class StockAccount implements Stock
@@ -41,49 +47,67 @@ public class StockAccount implements Stock
 	static String totalstockfile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/TotalStocks.json";
 	
 		
+	
+		
+		
 	/*********************************************************************************
-	 * it will Convert all java object into the .json file
-	 * like this different Inventory from .json file.
-	 *  @param Object object,String input,String name,double weight,double price
-	 *  @return JSONArray
+	 * To add Companies in list it will take information like Name of stock,value,unit..etc
+	 * and it will store the data in Json String formate in Stockmanagement.json file
+	 * 
+	 *  @param no parameter
+	 *  @return void
 	 *******************************************************************************/	
 
-		
-		
-		
 		JSONObject stockRead=new JSONObject();
 		@SuppressWarnings("unchecked")
 		public  void addStock()
 		{
-			stockRead=JsonUtility.readFile2(stockfile);
-			System.out.println("Enter the Name Of stock:");
-			String stockName=Utility.InputString();
-			stock.setStockName(stockName);
-			individualStocks.put("Company Name", stockName);
+			if((JsonUtility.readFile2(stockfile)!=null))
+			{
+				stockRead=JsonUtility.readFile2(stockfile);
+			}
+				
+				System.out.println("Enter the Name Of stock:");
+				String stockName=Utility.InputString();
+				stock.setStockName(stockName);
+				individualStocks.put("Company Name", stockName);
+				
+				System.out.println("Enter the Value of stock");
+				String value=Utility.InputString();
+				//stock.setStockValue(value);
+				individualStocks.put("stock value", value);
+				
+				System.out.println("Enter the Number of stocks?");
+				String quantity=Utility.InputString();
+				//stock.setStockQuantity(quantity);
+				individualStocks.put("stock unit", quantity);			
+				stockRead.put(stockName, individualStocks);
+				JsonUtility.writeToFile(stockfile, stockRead);	
+				System.out.println(stockName+"Added SucessFully to database..");
+			}
 			
-			System.out.println("Enter the Value of stock");
-			String value=Utility.InputString();
-			//stock.setStockValue(value);
-			individualStocks.put("stock value", value);
-			
-			System.out.println("Enter the Number of stocks?");
-			String quantity=Utility.InputString();
-			//stock.setStockQuantity(quantity);
-			individualStocks.put("stock unit", quantity);			
-			stockRead.put(stockName, individualStocks);
-			JsonUtility.writeToFile(stockfile, stockRead);	
-			System.out.println(stockName+"Added SucessFully to database..");
-		}
+		
 		
 		
 		
 		
 		JSONObject accounts=new JSONObject();
+		
+		/*********************************************************************************
+		 *  To create New UserAccount and register new user it takes user informations like name,address,username 
+		 *  and password finally it will store details in StockHolderAccounts.json file.
+		 *  
+		 *  @param No Parameter
+		 *  @return void
+		 *******************************************************************************/	
 		@SuppressWarnings("unchecked")
 		@Override
 		public void stockAccount()
 		{
+			if((JsonUtility.readFile2(accountfile)!=null))
+			{
 			accounts=JsonUtility.readFile2(accountfile);
+			}
 			System.out.println("Enter Your Name");
 			String name=Utility.InputString();
 			accountHolder.put("Name",name);
@@ -113,13 +137,29 @@ public class StockAccount implements Stock
 			System.out.println(name+"Registered Successfully....");			
 		}
 		
+		
+		
+		
+		
+		/*********************************************************************************
+		 *purpose: buy the Stocks from companies it will take amount and symbol of companies 
+		 *         from user and Authentic the user if user is registered then it will store 
+		 *         the purchase data into the StockPurchase.json file.
+		 * 
+		 *  @param int amount,String Symbol
+		 *  @return void
+		 *******************************************************************************/	
+
 		JSONObject purchaseObject=new JSONObject();
 		 JSONObject temp=new JSONObject();
 
 		 @SuppressWarnings("unchecked")
 		public void buy(int amount,String symbol)  
 		 {
-					 temp=JsonUtility.readFile2(stockbuyfile);
+			 		if((JsonUtility.readFile2(stockbuyfile)!=null))
+			 		{
+			 			temp=JsonUtility.readFile2(stockbuyfile);
+			 		}
 					 System.out.println(temp.toString());
 					 System.out.print("Enter Your Mobile No:");
 					 String contact=Utility.InputString();			 
@@ -151,6 +191,17 @@ public class StockAccount implements Stock
 					}
 		 }
 		 
+		 
+		     /*******************************************************************************
+			 * purpose: to get how much Stock user is buying based on the amount and value of 
+			 *		   each stocks. 
+			 *
+			 *	logic:amount/value of stock;
+			 *
+			 *  @param long amount,String stockName
+			 *  @return double unit purchased
+			 *******************************************************************************/	
+
 		 @SuppressWarnings("unchecked")
 		public double getStockunitBasedOnAmount(long amount,String stockName)
 		 { 
@@ -158,7 +209,10 @@ public class StockAccount implements Stock
 				String fileData=null;
 
 				try {
+					if((JsonUtility.readFile2(stockfile)!=null))
+					{
 					 fileData=JsonUtility.readFile(stockfile);
+					}
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
@@ -193,6 +247,15 @@ public class StockAccount implements Stock
 			return unit;		
 		 }
 		 
+		 
+		 
+		     /*******************************************************************************
+			 * purpose: To Authentic the User Account based on the UserName and password.
+			 *			if username and password valid then user can buy and sell the stock. 
+			 *
+			 *  @param String contact,String password
+			 *  @return boolean
+			 *******************************************************************************/	
 		 static String StockHolderName;
 		public static boolean Authentication(String contact,String password)
 		 {
@@ -201,7 +264,10 @@ public class StockAccount implements Stock
 				String fileData=null;
 				
 				try {
-					 fileData=JsonUtility.readFile(accountfile);
+					if((JsonUtility.readFile2(accountfile)!=null))
+					{
+						fileData=JsonUtility.readFile(accountfile);
+					}
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
@@ -239,12 +305,25 @@ public class StockAccount implements Stock
 
 				return false;
 		 }
+		
+		 /*******************************************************************************
+		 *purpose: To get the user's names
+		 *
+		 *  @param no parameter
+		 *  @return String
+		 *******************************************************************************/	
 		public static String getStockHolderName()
 		{
 			return StockHolderName;
 		}
 		
-		
+		/*******************************************************************************
+		 *purpose: it will update the Stock management.json file after the stock purchased by the user 
+		 *		   stock will debited from companies account and transfer into the user acount. 
+		 *
+		 *  @param String fileName,String StockName,units purchased by the user.
+		 *  @return void 
+		 *******************************************************************************/	
 		 
 		 @SuppressWarnings("unchecked")
 		public static void updateFileAfterPurchased(String fileName,String StockName,double unitbuy)
@@ -253,7 +332,10 @@ public class StockAccount implements Stock
 			 	JSONObject stockJson=null;
 			 	JSONObject temp=null;
 				String fileData=null;
-				temp=JsonUtility.readFile2(fileName);
+				if((JsonUtility.readFile2(fileName)!=null))
+				{
+					temp=JsonUtility.readFile2(fileName);
+				}
 				fileData=temp.toString();
 				try {
 					stockJson = (JSONObject) parser.parse(fileData);
@@ -285,12 +367,23 @@ public class StockAccount implements Stock
 			 
 		 }
 		 
+		 
+		/***********************************************************************************
+	    * purpose: buy the Stocks by the users it will take amount and symbol of companies 
+		*         from user and Authentic the user if user is registered then it will store 
+		*         the sell stocks and store data into the SoldStock.json file.
+	    *
+		*  @param int amount,String symbol
+	    *  @return void
+		************************************************************************************/	
 		  JSONObject selljson=new JSONObject();
 		 @SuppressWarnings("unchecked")
 		public void sell(int amount,String symbol)
 		 {
-			 
+			 if((JsonUtility.readFile2(stocksoldfile)!=null))
+			{
 			 temp=JsonUtility.readFile2(stocksoldfile);
+			}
 			 System.out.print("Enter Your Mobile No:");
 			 String contact=Utility.InputString();			 
 			 System.out.println("Enter your password:");
@@ -325,13 +418,25 @@ public class StockAccount implements Stock
 		 {
 			return Unit; 
 		 }
+		 
+		     /*******************************************************************************
+			 *purpose: To update the stockFile after the selling of the stocks by the user
+			 *			companies stock will be increase after sell the stock by the user
+			 *  @param int amount,String symbol,String key
+			 *  @return void
+			 *******************************************************************************/	
+	
+		 
 		@SuppressWarnings("unchecked")
 		public  String UpdateFilesAfterSell(int amount,String StockName,String key) 
 		 {
 			JSONObject stockJson=null;
 		 	JSONObject temp=null;
 			String fileData=null;
+			if((JsonUtility.readFile2(stockfile)!=null))
+			{
 			temp=JsonUtility.readFile2(stockfile);
+			}
 			fileData=temp.toString();
 			try {
 				stockJson = (JSONObject) parser.parse(fileData);
@@ -363,7 +468,6 @@ public class StockAccount implements Stock
 					try {
 						throw new StockMngmtExcpetion("Please Enter valid Details");
 					} catch (StockMngmtExcpetion e1) {
-						// TODO Auto-generated catch block
 					}
 				}
 			} 
@@ -374,7 +478,13 @@ public class StockAccount implements Stock
 			return Double.toString(sell);
 		 }
 		 
-		
+		 /*******************************************************************************
+		 *purpose: it will update to total remaining stocks after the sell or buy the stocks.
+		 *
+		 *  @param int amount,String symbol,String key,int ch
+		 *  @return void
+		 *******************************************************************************/	
+
 		@SuppressWarnings("unchecked")
 		public  void UpdateTotalStockFilesAfterSell(int amount,String StockName,String key,int ch) 
 		 {
@@ -384,7 +494,10 @@ public class StockAccount implements Stock
 			JSONObject stockJson=null;
 		 	JSONObject temp=new JSONObject();
 			String fileData=null;
+			if((JsonUtility.readFile2(totalstockfile)!=null))
+			{
 			temp=JsonUtility.readFile2(totalstockfile);
+			}
 			JSONObject temp2=JsonUtility.readFile2(stockbuyfile);
 			fileData=temp2.toString();
 			try {
@@ -424,7 +537,10 @@ public class StockAccount implements Stock
 			JSONObject stockJson=null;
 		 	JSONObject temp=new JSONObject();
 			String fileData=null;
-			temp=JsonUtility.readFile2(totalstockfile);
+			if((JsonUtility.readFile2(totalstockfile)!=null))
+			{
+				temp=JsonUtility.readFile2(totalstockfile);
+			}
 			JSONObject temp2=JsonUtility.readFile2(stockfile);
 			fileData=temp2.toString();
 			try {
@@ -433,13 +549,11 @@ public class StockAccount implements Stock
 			{
 					e.printStackTrace();
 			}
-			JSONObject object=(JSONObject) stockJson.get(key);
 			JSONArray arrayItems = new JSONArray();
 			arrayItems.add(stockJson.get(StockName));
 			Iterator<?> iterator = arrayItems.iterator();
 			String unit="";
 			String value="";
-			double result=0;
 			double sell=0;
 			JSONObject jsonObject=null;
 			JSONObject finalobject=new JSONObject();
@@ -471,6 +585,13 @@ public class StockAccount implements Stock
 			// TODO Auto-generated method stub
 			return 0;
 		}
+		 /*******************************************************************************
+		 *purpose: it will print the report of users stock details and selling and buying
+		 *			details and time when perchased
+		 *
+		 *  @param no param
+		 *  @return void
+		 *******************************************************************************/	
 
 
 		@Override
@@ -520,10 +641,7 @@ public class StockAccount implements Stock
 				JSONObject object2=(JSONObject) sold.get("Sold");
 
 				
-				JSONArray arrayItems1 = new JSONArray();
-				JSONArray arrayItems2 = new JSONArray();
-				JSONArray arrayItems3 = new JSONArray();
- 
+				
 				
 				if(object1.containsKey(contact))
 				{
