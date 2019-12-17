@@ -432,6 +432,80 @@ public class AddressBookPerson
 			
 		}
 		
+		@SuppressWarnings("unchecked")
+		public void sortByPinCode()
+		{
+				JSONObject personSort=null;
+			
+			String fileRead;
+			try {
+				fileRead = JsonUtility.readFile(originbook+AddressBookimplementation.getBookName());		
+				personSort = (JSONObject) parser.parse(fileRead);
+			}
+			 catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Set<?> s =  personSort.keySet(); 	//Using the HASHMAP property to list each object's KEY
+			List<String> temp=new ArrayList<String>();
+			Iterator<?> i = s.iterator();
+			do{
+				String k = i.next().toString();
+				temp.add(k);
+			}while(i.hasNext());
+			List<String>sortedList=temp.stream().sorted().collect(Collectors.toList()); 
+			List<Long> temp2=new ArrayList<>();
+
+			for(String list:sortedList)
+			{
+				JSONArray arrayItems = new JSONArray();
+				arrayItems.add(personSort.get(list));
+				Iterator<?> iterator = arrayItems.iterator();
+
+				while (iterator.hasNext()) //Iterating thorugh JSONObjectso
+				{
+					JSONObject jsonObject = (JSONObject) iterator.next();
+					
+					JSONObject addr=(JSONObject) jsonObject.get("address");
+					
+					temp2.add((long)addr.get("pinCode"));
+				}
+			}
+			List<Long>sortedZipList=temp2.stream().sorted().collect(Collectors.toList()); 
+			for(Long list:sortedZipList)
+			{
+				JSONArray arrayItems = new JSONArray();
+				arrayItems.add(personSort.get(list));
+				Iterator<?> iterator = arrayItems.iterator();
+
+				while (iterator.hasNext()) //Iterating thorugh JSONObjectso
+				{
+					JSONObject jsonObject = (JSONObject) iterator.next();
+					String fname = (String) jsonObject.get("firstName");
+					String lname = (String) jsonObject.get("lastName");
+					long phNo = (long) jsonObject.get("phNo");
+					JSONObject addr=(JSONObject) jsonObject.get("address");
+					String city=(String) addr.get("city");
+					
+					String street = (String) addr.get("street");
+					String state = (String) addr.get("state");
+					long zip = (long)addr.get("pinCode");
+					
+
+					System.out.println("Name: " + (fname+" "+lname));
+					System.out.println("Address: " + street + "\nCity: " + city + "\nState : " + state);
+					System.out.println("Contact No: " + phNo);
+					System.out.println("Pin Code: " + zip);
+					System.out.println();
+				}
+			}
+			
+		}
 		
 			
 }

@@ -11,6 +11,7 @@ package com.bridgelabz.oops.InventaryManagement;
 
 abstract public class InventoryManager 
 {
+	/** Abstract method for get Total value of Each Inventory**/
 	 public void totalValue(String name)
 	 {};
 }

@@ -1,5 +1,13 @@
 package com.bridgelabz.oops.cliniquemanagement;
 
+/***********************************************************************************************************
+ * @author Rupeshp007
+ * date:11/12/2019
+ * @version 1.0
+ Purpose:Bean class As model of program to set and get Patient Details
+ * Operations:Setter And Getter Method for PatientName,PatientId,Mobile Number and age of patients.
+ * 
+ **********************************************************************************************************/
 
 public class PatientDetails {
 
@@ -62,7 +70,7 @@ public class PatientDetails {
 	}
 	/** To set PatientAge
 	 * 
-	 * @param String
+	 * @param int
 	 * @return void
 	 * **/
 	public void setAge(int age) {

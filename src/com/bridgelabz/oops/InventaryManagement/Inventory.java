@@ -24,7 +24,11 @@ public interface Inventory
 	 public void checkPrice();
 	 
 	 
-	/** Main Menu For InventoryManagement Program We can use static method inside Interface JAVA 1.8 onwards **/ 
+	/** Main Menu For InventoryManagement Program We can use static method inside Interface JAVA 1.8 onwards 
+	 * @return void
+	 * @param no parameter
+	 * 
+	 * **/ 
 	 public static void mainMenu()
 		{
 			int choice=0;

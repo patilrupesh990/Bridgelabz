@@ -1,8 +1,15 @@
 package com.bridgelabz.oops.InventaryManagement;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import com.bridgelabz.oops.addressbook.JsonUtility;
 import com.bridgelabz.util.Utility;
@@ -110,20 +117,114 @@ public class InventoryService extends InventoryManagerImplementation implements 
 	 *  	logic:weight of Inventory * Price Of Inventory per Kg.
 	 *******************************************************************************/	
 
+	@SuppressWarnings({ "rawtypes" })
 	@Override
 	public void checkPrice() 
 	{
-		System.out.println("Price of All inventory");
-		System.out.println();
-		System.out.println("In json Object");
-		String jsonobject="";
-		try {
-			jsonobject = JsonUtility.readFile(fileName);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		System.out.println("1.Rice  2.Wheat  3.Pulse");
+		String name=Utility.InputString();
+		if(name.equals("rice")||name.equals("Rice"))
+		{
+			 // parsing file "JSONExample.json" 
+	        Object obj = null;
+			try {
+				obj = new JSONParser().parse(new FileReader(fileName));
+			} catch (IOException | ParseException e) {
+				e.printStackTrace();
+			} 
+	          
+	        // typecasting obj to JSONObject 
+	        JSONObject jo = (JSONObject) obj; 
+	         
+	        // getting address 
+			Map rice = ((Map)jo.get("Rice")); 
+	          
+	        // iterating address Map
+	        double price=0;
+			@SuppressWarnings("unchecked")
+			Iterator<Map.Entry> itr1 = rice.entrySet().iterator(); 
+	        while (itr1.hasNext()) { 
+				Map.Entry pair = itr1.next(); 
+	           
+	            if(pair.getKey().equals("Price"))
+	            {
+	            	price=(double) pair.getValue();
+	            }
+	      
+	        } 
+	        System.out.println("Price of Rice /kg-->"+price);
+	        System.out.println("--------------------");
 		}
-		System.out.println(jsonobject);
+		else if(name.equals("wheat")||name.equals("Wheat"))
+		{
+			 Object obj = null;
+				try {
+					obj = new JSONParser().parse(new FileReader(fileName));
+				} catch (IOException | ParseException e) {
+					e.printStackTrace();
+				} 
+		          
+		        // typecasting obj to JSONObject 
+		        JSONObject jo = (JSONObject) obj; 
+		         
+		        // getting address 
+		        Map wheat = ((Map)jo.get("Wheat")); 
+		          
+		        // iterating address Map
+		        double price=0;
+				@SuppressWarnings("unchecked")
+				Iterator<Map.Entry> itr1 = wheat.entrySet().iterator(); 
+		        while (itr1.hasNext()) { 
+		            Map.Entry pair = itr1.next(); 
+		           
+		            if(pair.getKey().equals("Price"))
+		            {
+		            	price=(double) pair.getValue();
+		            }
+		            
+		        } 		
+	            System.out.println("Price of Wheat /kg-->"+price);
+	           
+	
+		}
+		
+		else if(name.equals("Pulse")||name.equals("Pulse"))
+		{
+			 Object obj = null;
+				try {
+					obj = new JSONParser().parse(new FileReader(fileName));
+				} catch (IOException | ParseException e) {
+					e.printStackTrace();
+				} 
+		          
+		        // typecasting obj to JSONObject 
+		        JSONObject jo = (JSONObject) obj; 
+		         
+		        // getting address 
+		        Map pulse = ((Map)jo.get("Pulse")); 
+		          
+		        // iterating address Map
+		        double price=0;
+				@SuppressWarnings("unchecked")
+				Iterator<Map.Entry> itr1 = pulse.entrySet().iterator(); 
+		        while (itr1.hasNext()) { 
+		            Map.Entry pair = itr1.next(); 
+		            
+		            if(pair.getKey().equals("price"))
+		            {
+		            	price=(double) pair.getValue();
+		            }
+		          
+		        } 		
+		      
+	            System.out.println("Price of Pulse /kg-->"+price);
+	           
+		}
+		else
+		{
+			System.out.println("Invalid choice");
+		}
+		
 		
 	}
 	
