@@ -17,6 +17,21 @@ import org.json.simple.JSONObject;
 
 import com.bridgelabz.util.Utility;
 
+/***********************************************************************************************************
+ * @author Rupeshp007
+ * date:13/12/2019
+ * @version 1.0
+ * 
+ * Purpose:it contains Person Details related operations in AddressBook management project it contains
+ * 
+ * - AddNewPerson in Current Open File
+ * - delete Person From file
+ * - AddressDetails
+ * - save file
+ * - read& write in json file
+ * 
+ **********************************************************************************************************/
+
 public class AddressBookPerson 
 {
 	static List<PersonDetails> personDetails=new ArrayList<PersonDetails>();
@@ -29,6 +44,13 @@ public class AddressBookPerson
 	static String originbook="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/jsonfiles/";
 	public JSONParser parser = new JSONParser();
 
+	/*********************************************************************************
+	 * To add New Person In current File it will take details and put data in .json file 
+	 *  
+	 *  @param String FileName
+	 *  @return void
+	 *  @exception JSONException
+	 *******************************************************************************/	
 
 	
 	public  void addNewPeson(String filename) throws JSONException
@@ -68,7 +90,13 @@ public class AddressBookPerson
 				
 	}// End AddPers   on
 	
-	
+	/*********************************************************************************
+	 * It will take Address details from user and add in addressDetails Object
+	 * 
+	 *  @param no parameter
+	 *  @return void
+	 *******************************************************************************/	
+
 	public static AddressDetails addAddress()
 	{
 		AddressDetails address=new AddressDetails();
@@ -109,6 +137,14 @@ public class AddressBookPerson
 			return address;
 	}
 	
+	/*********************************************************************************
+	 * To Store the details of Person and address in current .json File .
+	 * 
+	 *  @param no parameter
+	 *  @return void
+	 *  @exception JSONException
+	 *******************************************************************************/	
+
 	
 	@SuppressWarnings("unchecked")
 	public  void addNewPesonToJsonFile() throws JSONException
@@ -141,6 +177,13 @@ public class AddressBookPerson
 	}
 	
 	
+	/*********************************************************************************
+	 * To Save the changes  made in current .json file Opened.
+	 * 
+	 *  @param no parameter
+	 *  @return void
+	 *******************************************************************************/	
+
 	public  void Save() 
 	{
 		//System.out.println(AddressBook.getBookName());
@@ -156,6 +199,19 @@ public class AddressBookPerson
 	}
 	
 	
+	/*****************************************************************************************
+	 *  purpose:It will Read the details from .json file and give the list of all user.After 
+	 *          that from given list user can input the person name from list and it will print
+	 *          all full details of person like......
+	 * 			
+	 * 			-Name
+	 *  		-Contact
+	 *  		-Address
+	 *  
+	 *  @param no parameter
+	 *  @return void
+	 *******************************************************************************/	
+
 	@SuppressWarnings("unchecked")
 	public void readFromJSON()
 	{
@@ -217,6 +273,15 @@ public class AddressBookPerson
 		}
 	}
 	
+	/*********************************************************************************
+	 * 	Purpose: It will Take Persons FisrtName and LastName as input from user and FileName as arguments and
+	 *  based on details it will remove person details from json file.
+	 *  
+	 *  @param String FileName
+	 *  @return void
+	 *  @exception JSONException
+	 *******************************************************************************/	
+
 	
 	public  void deletePerson(String fileName) throws JSONException
 	{
@@ -243,6 +308,68 @@ public class AddressBookPerson
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void SearchPerson()
+	{
+		JSONObject PersonObject = null;
+		//Iterating through ArrayObjects
+		try 
+		{
+			String fileRead = JsonUtility.readFile(originbook+AddressBookimplementation.getBookName());
+			PersonObject = (JSONObject) parser.parse(fileRead);
+
+			System.out.println();
+			System.out.println("Enter Person Name to Search");
+			String firstName = Utility.InputString();
+			System.out.println("=============================="+firstName+"'s Details============================");
+			JSONArray arrayItems = new JSONArray();
+			arrayItems.add(PersonObject.get(firstName));
+			Iterator<?> iterator = arrayItems.iterator();
+
+			try{
+			while (iterator.hasNext()) //Iterating thorugh JSONObjectso
+			{
+				JSONObject jsonObject = (JSONObject) iterator.next();
+				String fname = (String) jsonObject.get("firstName");
+				String lname = (String) jsonObject.get("lastName");
+				long phNo = (long) jsonObject.get("phNo");
+				JSONObject addr=(JSONObject) jsonObject.get("address");
+				String city=(String) addr.get("city");
+				
+				String street = (String) addr.get("street");
+				String state = (String) addr.get("state");
+				long zip = (long)addr.get("pinCode");
+				
+
+				System.out.println("Name: " + (fname+" "+lname));
+				System.out.println("Address: " + street + "\nCity: " + city + "\nState : " + state);
+				System.out.println("Contact No: " + phNo);
+				System.out.println("Pin Code: " + zip);
+				System.out.println();
+			}
+			}catch (NullPointerException e) {
+				try {
+					throw new AddressBookException("data is Not available for"+firstName);
+				} catch (AddressBookException e1) {
+					System.out.println("Data is Not  Available for "+firstName);
+				}
+			}
+			System.out.println("===============================================================================");
+		}
+		catch (Exception e) 
+		{
+			System.out.println("File Reading Error");
+			e.printStackTrace();
+		}
+	}
+	
+	/*********************************************************************************
+	 * To Sort the Details of Person and print the Details..
+	 * 
+	 *  @param no parameter
+	 *  @return void
+	 *******************************************************************************/	
+
 	
 		@SuppressWarnings("unchecked")
 		public void sortByName() 

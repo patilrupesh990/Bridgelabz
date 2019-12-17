@@ -8,69 +8,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
-
-import com.jn.langx.classpath.scanner.core.Scanner;
 
 
 
 public class JsonUtility 
 {
-	private static ObjectMapper mapper;
-	static
-	{
-		mapper=new ObjectMapper();	
-		
-	}
-	
-	public static String ConverJavaToJson(Object object)
-	{
-		String jsonResult="";
-		try
-		{
-			jsonResult=mapper.writeValueAsString(object);
-		}
-		catch (JsonGenerationException e) {
-			
-			System.out.println("Exceptionoccured while converting java object to JSON object");
-		}
-		catch (JsonMappingException e) {
-			System.out.println("Exceptionoccured while converting java object to JSON object");
-		}
-		catch (IOException e) {
-			System.out.println("Exceptionoccured while converting java object to JSON object");
-		}
-		return jsonResult;
-	}
-	
-	
-
-	
-	
-	public static <T>T converJsonToJava(String jsonstring,Class<T> cls)
-	{
-		String result=null;
-		try {
-			result=(String) mapper.readValue(jsonstring, cls);
-		} 
-		
-		catch (JsonMappingException e) {
-			System.out.println("Exceptionoccured while converting JSON object to java object");
-		}
-		catch (IOException e) {
-			System.out.println("Exceptionoccured while converting JSON object to java object");
-		}
-		return (T) result;
-		
-	}
-	
 	
 	
 	
@@ -151,19 +95,26 @@ public class JsonUtility
 		}
 	} 
 	
+	@SuppressWarnings("unused")
 	public static JSONObject readFile2(String filePath)
 	{
 		JSONObject mainArrayObject = new JSONObject();
 		try(FileReader fileReader = new FileReader(filePath))
 		{
+			if(fileReader==null)
+			{
+				return null;
+			}
+			else{
 			JSONParser parser = new JSONParser();
 			mainArrayObject = (JSONObject) parser.parse(fileReader);
+			
 			fileReader.close();
 			return mainArrayObject;
+			}
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 		}
 		return null;
 	}	

@@ -1,13 +1,10 @@
 package com.bridgelabz.oops.addressbook;
 
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -16,8 +13,23 @@ import org.json.simple.parser.ParseException;
 
 import com.bridgelabz.util.Utility;
 
+/***********************************************************************************************************
+ * @author Rupeshp007
+ * date:12/12/2019
+ * @version 1.0
+ * Purpose:AddressBook management Service class it contains operations like create Book,Open Book,Select Book UpdateFile..etc;
+ * 
+ * Operations:
+ * 1.create File
+ * 2.Open book
+ * 3.Select File
+ * 4.Update File
+ *
+ **********************************************************************************************************/
+
 public class AddressBookimplementation implements AddressBook
 {
+	//initializations 
 	static ObjectMapper objectmapper=new ObjectMapper();
 	static List<PersonDetails> persondetails=new ArrayList<PersonDetails>();
 	static AddressBookimplementation addressbook = new AddressBookimplementation();
@@ -27,10 +39,22 @@ public class AddressBookimplementation implements AddressBook
 	static AddressBookPerson personacsess=new AddressBookPerson();
 
 	
+	/*********************************************************************************
+	 * Purpose: To get name of Current OpenBook.
+	 * 
+	 *  @param no parameter
+	 *  @return String book name
+	 *******************************************************************************/	
+
 	public static String getBookName() {
 		return bookName;
 	}
 
+	/*********************************************************************************
+	 * It will set the name of current open book.
+	 *  @param String bookName
+	 *  @return void
+	 *******************************************************************************/	
 
 	public static void setBookName(String bookName) {
 		AddressBookimplementation.bookName = bookName;
@@ -38,6 +62,13 @@ public class AddressBookimplementation implements AddressBook
 
 
 	
+	/*********************************************************************************
+	 * To create new book for store details of user it will take book name from user and
+	 * create file with (.json) extension.
+	 * 
+	 *  @param String bookName
+	 *  @return void
+	 *******************************************************************************/	
 
 	public  void createBook(String originbook) {
 		//AddressDetails addressBook=null;
@@ -59,6 +90,14 @@ public class AddressBookimplementation implements AddressBook
 				e.printStackTrace();
 			}
 	}
+	
+	/*********************************************************************************************
+	 * it will Open Book based on the user input first it will print all list of available (.json)
+	 *  Files from list user can choose the file and enter book name as input.
+	 * 
+	 *  @param no parameter
+	 *  @return void
+	 *******************************************************************************/	
 
 	static String filenameclose;
 	public  void openBook() 
@@ -108,15 +147,36 @@ public class AddressBookimplementation implements AddressBook
 		
 	}//
 	
-	public static void setpersondetails(List<PersonDetails> persondetails) {
-	        AddressBookimplementation.persondetails = persondetails;
-	    }//
+	/*********************************************************************************
+	 * to close Current Open file 
+	 * 
+	 *  @param no parameter
+	 *  @return void
+	 *******************************************************************************/	
+
 	 
 	public  void closeFile()
 	{
 		System.out.println(filenameclose+"File closed");
 	}
 	 
+	/*********************************************************************************
+	 * Purpose: It show the Menu Options for AddressBook it will give options to user 
+	 * 			like.. 
+	 * 				1.Add New Person 
+	 * 				2.Delete Person
+	 * 				3.Show all entry in book
+	 * 				4.Sort the list
+	 * 				5.Search Person in list
+	 * 				6.Save changes in File
+	 * 				7. mainMenu
+	 * 				8. exit
+	 * 
+	 * 
+	 *  @param no FileName
+	 *  @return void
+	 *  @exception JSONException,FileNotFoundException,parseException
+	 *******************************************************************************/	
 	 	 
 	 public static  void AddressBookMenu(String filename) throws JSONException,FileNotFoundException, ParseException
 		{
@@ -147,7 +207,7 @@ public class AddressBookimplementation implements AddressBook
 								personacsess.sortByName();
 									break;
 							case 5:
-								//personacsess.searchPerson();
+								  personacsess.SearchPerson();
 										break;
 							case 6:
 									personacsess.Save();
@@ -156,7 +216,7 @@ public class AddressBookimplementation implements AddressBook
 										AddressBook.mainMenu();
 										break;
 							case 8:
-										System.out.println("Thank you visist  again:");
+										System.out.println("Thank you visit  again:");
 										System.exit(0);
 							default:
 								try {
@@ -168,48 +228,4 @@ public class AddressBookimplementation implements AddressBook
 			}
 		}
 		
-		
-		
-		
-		
-		public static <T>void UpdateFile(String fileName,ArrayList<String> Lines)
-		{
-			try { 
-				  
-	            // Open given file in append mode. 
-	            BufferedWriter out = new BufferedWriter( 
-	                   new FileWriter(fileName, true));
-	            
-	            Iterator<String> iter = Lines.iterator();
-	            while (iter.hasNext()) {
-	            	out.write(String.valueOf(iter.next())); 
-	            	out.newLine();
-	            }
-	            out.close();          
-	        }catch (FileNotFoundException e) {
-	        	System.out.println("File Does Not Exist");
-			}
-			catch (IOException e) {
-				
-			} 
-		}
-		
-		public static <T>void WriteinFile(T string,String filename)
-		{
-			try { 
-				  
-	            // Open given file in append mode. 
-	            BufferedWriter out = new BufferedWriter( 
-	                   new FileWriter(filename, true)); 
-	            out.write(String.valueOf(string)); 
-	            out.newLine();
-	            out.close(); 
-	        }catch (FileNotFoundException e) {
-	        	System.out.println("File Does Not Exist");
-			}
-			catch (IOException e) {
-				
-			} 
-		}
-
 }
