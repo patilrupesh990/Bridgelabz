@@ -74,12 +74,12 @@ public class StockAccount implements Stock
 				
 				System.out.println("Enter the Value of stock");
 				String value=Utility.InputString();
-				//stock.setStockValue(value);
+				stock.setStockValue(Integer.parseInt(value));
 				individualStocks.put("stock value", value);
 				
 				System.out.println("Enter the Number of stocks?");
 				String quantity=Utility.InputString();
-				//stock.setStockQuantity(quantity);
+				stock.setStockQuantity(Integer.parseInt(quantity));
 				individualStocks.put("stock unit", quantity);			
 				stockRead.put(stockName, individualStocks);
 				JsonUtility.writeToFile(stockfile, stockRead);	
@@ -160,7 +160,6 @@ public class StockAccount implements Stock
 			 		{
 			 			temp=JsonUtility.readFile2(stockbuyfile);
 			 		}
-					 System.out.println(temp.toString());
 					 System.out.print("Enter Your Mobile No:");
 					 String contact=Utility.InputString();			 
 					 System.out.println("Enter your password:");
@@ -168,7 +167,6 @@ public class StockAccount implements Stock
 					 if(Authentication(contact,password))
 					 {
 						 JSONObject temp2=(JSONObject) temp.get("Purchase");
-						 
 						 accounttransaction.put("Stock Name", symbol);
 						 accounttransaction.put("Account Holder Name", StockAccount.getStockHolderName());
 						 double unit=getStockunitBasedOnAmount(amount, symbol);
@@ -489,17 +487,21 @@ public class StockAccount implements Stock
 		public  void UpdateTotalStockFilesAfterSell(int amount,String StockName,String key,int ch) 
 		 {
 			
-			if(ch==2)
+			if(ch==2)   //sell model
 			{
+			JSONObject stockjson2=null;
 			JSONObject stockJson=null;
 		 	JSONObject temp=new JSONObject();
 			String fileData=null;
+			String fileData2=null;
 			if((JsonUtility.readFile2(totalstockfile)!=null))
 			{
 			temp=JsonUtility.readFile2(totalstockfile);
 			}
 			JSONObject temp2=JsonUtility.readFile2(stockbuyfile);
 			fileData=temp2.toString();
+			fileData2=temp.toString();
+			
 			try {
 				stockJson = (JSONObject) parser.parse(fileData);
 			} catch (ParseException e) 
@@ -518,16 +520,25 @@ public class StockAccount implements Stock
 			while(iterator.hasNext())
 			{
 				jsonObject=(JSONObject) iterator.next();
+				
 				unit= (String) jsonObject.get("Unit");
 				value=(String) jsonObject.get("Stock Value"); 
 				sell=amount/Double.parseDouble(value);
 				result=Double.parseDouble(unit)-sell;
 				jsonObject.replace("Unit", Double.toString(result));
 				
+				System.out.println(jsonObject.get("Account Holder Name"));
+				stockjson2.put("Company Name", jsonObject.get("Account Holder Name"));
+				stockjson2.put("stock value", value);
+				stockjson2.put("stock unit", result);
+
 				//jsonObject.remove(StockName);
 			} 
+			//////////////////////////
+			
+			
 			StockAccount.Unit=Double.toString(sell);
-			temp.put(key,jsonObject);
+			temp.put(key,stockjson2);
 			
 			JsonUtility.writeToFile(totalstockfile, temp);	
 			

@@ -18,6 +18,15 @@
 			"Stock Name": "Essar",
 			"Date&Time": "2019-12-14T14:25:04.545"
 		},
+		"12345": {
+			"Status": "Stock Purchased",
+			"Account Holder Name": "Kunal",
+			"Stock Value": "500",
+			"Total Value:": "5000.0",
+			"Unit": "10.0",
+			"Stock Name": "Oddi",
+			"Date&Time": "2019-12-18T18:23:49.314"
+		},
 		"9558062808": {
 			"Status": "Stock Purchased",
 			"Account Holder Name": "Rupesh",

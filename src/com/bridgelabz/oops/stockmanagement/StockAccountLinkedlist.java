@@ -1,11 +1,14 @@
 package com.bridgelabz.oops.stockmanagement;
 
+import org.json.simple.JSONObject;
+
 import com.bridgelabz.util.LinkedListiml;
 import com.bridgelabz.util.Utility;
 
 
 public class StockAccountLinkedlist
 {
+	JSONObject stockJson=new JSONObject();
 	LinkedListiml<StockDetails> Stocklist=new LinkedListiml<>();
 	LinkedListiml<BuyerDetails> BuyerDetails=new LinkedListiml<>();
 	LinkedListiml<BuyerDetails> SellDetails=new LinkedListiml<>();
