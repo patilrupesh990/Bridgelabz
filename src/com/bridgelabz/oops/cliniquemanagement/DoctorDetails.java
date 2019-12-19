@@ -2,7 +2,7 @@ package com.bridgelabz.oops.cliniquemanagement;
 
 
 /***************************************************************************
-* Author: RupeshPatil
+* Author: Rupesh Patil
 * Date: 10/12/2019
 * Purpose:contains Doctors details and a Bean class as MOdel for Clinic management System.
 * 

@@ -11,7 +11,7 @@ import com.bridgelabz.util.Utility;
 
 
 /***************************************************************************
-* Author: RupeshPatil
+* Author: Rupesh Patil
 * Date: 10/12/2019
 * Purpose:This Program is used to manage a list of Doctors associated with the clinic. This also manages the list of patients who use the clinic. 
 * It manages Doctors by Name, Id, Specialization and Availability (AM or PM) . It manages Patients by Name, ID, Mobile Number and Age. The Program allows

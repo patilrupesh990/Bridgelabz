@@ -1,7 +1,7 @@
 package com.bridgelabz.oops.cliniquemanagement;
 
 /***********************************************************************************************************
- * @author Rupeshp007
+ * @author Rupesh Patil
  * @since 14/12/2019
  * @version 1.0
  * Purpose:Bean class As model of program to set and get Appointment Details

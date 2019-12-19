@@ -1,15 +1,4 @@
 {
-	"Akhil": {
-		"firstName": "akhil",
-		"lastName": "chitram",
-		"address": {
-			"city": "daman",
-			"street": "asas",
-			"pinCode": 122123,
-			"state": "daman"
-		},
-		"phNo": 4343564564
-	},
 	"Bhavik": {
 		"firstName": "Bhavik",
 		"lastName": "Patel",

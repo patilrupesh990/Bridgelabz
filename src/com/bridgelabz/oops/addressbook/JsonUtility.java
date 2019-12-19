@@ -130,7 +130,6 @@ public class JsonUtility
 		} 
 		catch (Exception e) 
 		{
-			e.printStackTrace();
 		}
 	}
 	

@@ -18,7 +18,7 @@ import org.json.simple.JSONObject;
 import com.bridgelabz.util.Utility;
 
 /***********************************************************************************************************
- * @author Rupeshp007
+ * @author Rupesh Patil
  * date:13/12/2019
  * @version 1.0
  * 
@@ -283,30 +283,51 @@ public class AddressBookPerson
 	 *******************************************************************************/	
 
 	
+	@SuppressWarnings("unchecked")
 	public  void deletePerson(String fileName) throws JSONException
 	{
-		System.out.println("Enter the Fist Name the person who's want to Remve..");
-		String fname=Utility.InputString();
-		System.out.println("Last Name");
-		String lname=Utility.InputString();
-		for(PersonDetails p:personDetails)
-		{
-			if(personDetails.equals(fname)&&personDetails.equals(lname))
+		
+		 JSONObject personSort = null;
+			
+			String fileRead = null;
+			try {
+					if(JsonUtility.readFile(originbook+AddressBookimplementation.getBookName())!=null)
+					{
+							fileRead = JsonUtility.readFile(originbook+AddressBookimplementation.getBookName());
+					}
+					personSort = (JSONObject) parser.parse(fileRead);			
+				}
+			 catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			personSort.keySet().forEach(key -> System.out.println(key));
+			System.out.println("Enter the Persons Name whom want to delete:");
+			String name=Utility.InputString();
+			if(personSort.containsKey(name))
 			{
-				personDetails.remove(p);
-				this.addNewPesonToJsonFile();
+				personSort.remove(name);
+				System.out.println("Removed Successfully");
 			}
 			else
 			{
 				try {
-					throw new AddressBookException("The Book is Empty");
+					throw new AddressBookException("No Person Found");
 				} catch (AddressBookException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
+			JsonUtility.writeToFile(originbook+AddressBookimplementation.getBookName(), personSort);	
+
 		}
-	}
+			
+		
+	
 	
 	@SuppressWarnings("unchecked")
 	public void SearchPerson()
@@ -479,6 +500,7 @@ public class AddressBookPerson
 			List<Long>sortedZipList=temp2.stream().sorted().collect(Collectors.toList()); 
 			for(Long list:sortedZipList)
 			{
+				
 				JSONArray arrayItems = new JSONArray();
 				arrayItems.add(personSort.get(list));
 				Iterator<?> iterator = arrayItems.iterator();

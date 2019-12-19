@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.bridgelabz.oops.addressbook.AddressBookimplementation;
 import com.bridgelabz.oops.addressbook.JsonUtility;
 import com.bridgelabz.util.Utility;
 
@@ -25,10 +26,30 @@ public interface Stock
 	 void sell(int amount,String symbol);
 	 void printReport();
 	 
-	 public static  void mainMenu()
+	 @SuppressWarnings("unchecked")
+	public static  void mainMenu()
 		{
 			String symbol;
 			int amount;
+			 JSONObject stocks = null;
+				
+				String fileRead = null;
+				try {
+						if(JsonUtility.readFile(stockfile)!=null)
+						{
+								fileRead = JsonUtility.readFile(stockfile);
+						}
+						stocks = (JSONObject) parser.parse(fileRead);			
+					}
+				 catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 			while(true)
 			{
 				System.out.println("====================================================================================");
@@ -55,10 +76,15 @@ public interface Stock
 									break;
 								
 						case 3:
-									//all stock list
+									System.out.println("==================>>Available Stocks<<==================");
+									stocks.keySet().forEach(key -> System.out.println("             "+key));
+									System.out.println("-------------------------------");
 									break;
 						case 4:
-									System.out.println("Enter Stock Name");
+									System.out.println("==================>>Available Stocks<<==================");
+									stocks.keySet().forEach(key -> System.out.println("             "+key));
+									System.out.println("-------------------------------");
+									System.out.println("Enter Stock Name For get Total value of compny");
 									String stockName=Utility.InputString();
 									double result=Stock.calculateTotalValue(stockName);
 									System.out.println(stockName+" total value is::"+result);
@@ -66,7 +92,11 @@ public interface Stock
 									break;
 						case 5:
 								
-								System.out.println("Enter StockNAme");
+								System.out.println("==================>>Available Stocks<<==================");
+								
+								stocks.keySet().forEach(key -> System.out.println("             "+key));
+								System.out.println("-------------------------------");
+								System.out.println("Enter Stock Name:");
 								symbol=Utility.InputString();
 								System.out.println("Enter Amount");
 								amount=Utility.InputInt();

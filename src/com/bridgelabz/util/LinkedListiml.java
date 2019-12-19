@@ -1,5 +1,8 @@
 package com.bridgelabz.util;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.bridgelabz.oops.stockmanagement.BuyerDetails;
 import com.bridgelabz.oops.stockmanagement.StockDetails;
 
@@ -186,6 +189,7 @@ public class LinkedListiml<T>
 		}
 		
 		
+		@SuppressWarnings("unchecked")
 		public StockDetails[] GetListObject()
 		{
 			StockDetails[] elements=new StockDetails[size];
@@ -197,6 +201,25 @@ public class LinkedListiml<T>
 				p=p.nextNode;
 			}
 			return elements;
+		}
+		
+		
+		@SuppressWarnings("unchecked")
+		public JSONObject[] getJsonObjects()
+		{
+			JSONObject[] jsonObjects=new JSONObject[size];
+			p=root;
+			int count=0;
+			while(p!= null)
+			{
+				System.out.println(p.data);
+//				jsonObjects.add(p.data);
+				jsonObjects[count++]=(JSONObject) p.data;
+				System.out.println(p.data);
+				
+				p=p.nextNode;
+			}
+			return jsonObjects;
 		}
 		
 		

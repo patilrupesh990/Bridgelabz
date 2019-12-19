@@ -1,5 +1,4 @@
-{
-	"Purchase": {
+{"Purchase": {
 		"123456": {
 			"Status": "Stock Purchased",
 			"Account Holder Name": "Vishal",
@@ -21,11 +20,11 @@
 		"12345": {
 			"Status": "Stock Purchased",
 			"Account Holder Name": "Kunal",
-			"Stock Value": "500",
-			"Total Value:": "5000.0",
+			"Stock Value": "200",
+			"Total Value:": "2000.0",
 			"Unit": "10.0",
-			"Stock Name": "Oddi",
-			"Date&Time": "2019-12-18T18:23:49.314"
+			"Stock Name": "Essar",
+			"Date&Time": "2019-12-19T16:23:15.940"
 		},
 		"9558062808": {
 			"Status": "Stock Purchased",
@@ -35,6 +34,14 @@
 			"Unit": "10.0",
 			"Stock Name": "BMW",
 			"Date&Time": "2019-12-16T14:01:29.454"
+		},
+		"7829328684": {
+			"Status": "Stock Purchased",
+			"Account Holder Name": "Ritesh",
+			"Stock Value": "100",
+			"Total Value:": "500.0",
+			"Unit": "5.0",
+			"Stock Name": "HCL",
+			"Date&Time": "2019-12-19T16:13:56.916"
 		}
-	}
-}
+	}}

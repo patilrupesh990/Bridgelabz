@@ -1,8 +1,19 @@
 {
-	
+	"12345": {
+		"stock value": "200",
+		"Account Holder Name": "Kunal",
+		"stock unit": "5.0",
+		"Stock name": "Essar"
+	},
 	"9558062808": {
 		"Company Name": "HCL",
 		"stock value": "100",
 		"stock unit": "10.0"
+	},
+	"7829328684": {
+		"stock value": "100",
+		"Account Holder Name": "Ritesh",
+		"stock unit": "3.0",
+		"Stock name": "HCL"
 	}
 }

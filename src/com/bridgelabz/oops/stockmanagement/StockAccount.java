@@ -52,7 +52,7 @@ public class StockAccount implements Stock
 		
 	/*********************************************************************************
 	 * To add Companies in list it will take information like Name of stock,value,unit..etc
-	 * and it will store the data in Json String formate in Stockmanagement.json file
+	 * and it will store the data in Json String format in Stockmanagement.json file
 	 * 
 	 *  @param no parameter
 	 *  @return void
@@ -177,6 +177,7 @@ public class StockAccount implements Stock
 						 temp.put("Purchase", temp2);
 						 JsonUtility.writeToFile(stockbuyfile, temp);	
 						 System.out.println("Purchessed Successfully....");
+						 System.out.println("You Purchased "+symbol+" 's "+unit+" Stocks ...");
 						 updateFileAfterPurchased(stockfile, symbol, unit);
 						 UpdateTotalStockFilesAfterSell(amount,symbol,contact,1); 
 					 }
@@ -401,6 +402,7 @@ public class StockAccount implements Stock
 				 UpdateTotalStockFilesAfterSell(amount,symbol,contact,2); 
 			//	 System.out.println("Purchessed Successfully....");
 				 System.out.println("you transaction succesfull....");
+				 System.out.println("You Sold"+symbol+"'s"+StockAccount.getUnit()+"units..");
 			 }
 			 else
 			 {
@@ -483,13 +485,13 @@ public class StockAccount implements Stock
 		 *  @return void
 		 *******************************************************************************/	
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({ "unchecked","unused" })
 		public  void UpdateTotalStockFilesAfterSell(int amount,String StockName,String key,int ch) 
 		 {
 			
 			if(ch==2)   //sell model
 			{
-			JSONObject stockjson2=null;
+			JSONObject stockjson2=new JSONObject();
 			JSONObject stockJson=null;
 		 	JSONObject temp=new JSONObject();
 			String fileData=null;
@@ -525,17 +527,16 @@ public class StockAccount implements Stock
 				value=(String) jsonObject.get("Stock Value"); 
 				sell=amount/Double.parseDouble(value);
 				result=Double.parseDouble(unit)-sell;
+				String stock=(String) jsonObject.get("Stock Name");
+				String name=(String) jsonObject.get("Account Holder Name");
 				jsonObject.replace("Unit", Double.toString(result));
 				
-				System.out.println(jsonObject.get("Account Holder Name"));
-				stockjson2.put("Company Name", jsonObject.get("Account Holder Name"));
+				stockjson2.put("Account Holder Name", name);
 				stockjson2.put("stock value", value);
-				stockjson2.put("stock unit", result);
+				stockjson2.put("stock unit", Double.toString(result));
+				stockjson2.put("Stock name", stock);
 
-				//jsonObject.remove(StockName);
 			} 
-			//////////////////////////
-			
 			
 			StockAccount.Unit=Double.toString(sell);
 			temp.put(key,stockjson2);
@@ -543,9 +544,9 @@ public class StockAccount implements Stock
 			JsonUtility.writeToFile(totalstockfile, temp);	
 			
 			}
-			else{
+			else{   //Purchase
 			
-			JSONObject stockJson=null;
+			JSONObject stockJson=new JSONObject();
 		 	JSONObject temp=new JSONObject();
 			String fileData=null;
 			if((JsonUtility.readFile2(totalstockfile)!=null))
@@ -566,7 +567,7 @@ public class StockAccount implements Stock
 			String unit="";
 			String value="";
 			double sell=0;
-			JSONObject jsonObject=null;
+			JSONObject jsonObject=new JSONObject();
 			JSONObject finalobject=new JSONObject();
 			while(iterator.hasNext())
 			{
@@ -576,14 +577,12 @@ public class StockAccount implements Stock
 				sell=amount/Double.parseDouble(value);
 				jsonObject.replace("stock unit", Double.toString(sell));
 				finalobject.put("Account Holder Name",getStockHolderName());
-				finalobject.put("Stock Value", value);
-				finalobject.put("Total Value:", Double.toString(Double.parseDouble(value)*sell));
-				finalobject.put("Unit", unit);
-				finalobject.put("Stock Name", StockName);
-				finalobject.put("Date&Time", java.time.LocalDateTime.now().toString());
+				finalobject.put("stock value", value);
+				finalobject.put("stock unit", Double.toString(sell));
+				finalobject.put("Stock name", StockName);
 				//jsonObject.remove(StockName);
 			} 
-			temp.put(key,jsonObject);
+			temp.put(key,finalobject);
 			
 			JsonUtility.writeToFile(totalstockfile, temp);	
 			}
@@ -691,18 +690,13 @@ public class StockAccount implements Stock
 					
 						JSONObject jsonObject3=(JSONObject) total.get(contact);
 						System.out.println("Name Of Account Holder: "+jsonObject3.get("Account Holder Name"));
-						System.out.println("Status: "+jsonObject3.get("Status"));
-						System.out.println("Stock Unit: "+jsonObject3.get("Unit"));
-						System.out.println("Stock value: "+jsonObject3.get("Stock Value"));
-						System.out.println("Total Value: "+jsonObject3.get("Total Value:"));
-						System.out.println("Stock Name: "+jsonObject3.get("Stock Name"));
-						System.out.println("Transaction Time: "+jsonObject3.get("Date&Time"));
+						System.out.println("Stock Unit: "+jsonObject3.get("stock unit"));
+						System.out.println("Stock value: "+jsonObject3.get("stock value"));
+						double totalvalue=Double.parseDouble((String) jsonObject3.get("stock value"))*Double.parseDouble((String) jsonObject3.get("stock unit"));
+						System.out.println("Total Value: "+totalvalue);
 						
 				}
 				System.out.println("-------------------------------------");
-
-				
-				
 				
 		}catch (Exception e) {
 			e.printStackTrace();

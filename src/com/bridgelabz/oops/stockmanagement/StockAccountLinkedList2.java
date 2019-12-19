@@ -124,6 +124,7 @@ public class StockAccountLinkedList2
 		JsonUtility.writeToFile(stockList, mainobject);	
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void buyStock()
 	{
 		JSONObject temp=new JSONObject();
@@ -137,17 +138,20 @@ public class StockAccountLinkedList2
 		System.out.println("Enter Your Name:");
 		String name=Utility.InputString();
 		buyer.setBuyerName(name);
-	//	mainobject.put("Name",);
+		mainobject.put("Name",name);
 		
 		System.out.println("Enter Company name :");
 		String companyName=Utility.InputString();
 		buyer.setCompanyName(companyName);
-		
+		mainobject.put("Stock Name", companyName);
 		System.out.println("Enter How many Stocks want to buy");
 		int unit=Utility.InputInt();
 		buyer.setUnit(unit);
-				
+		mainobject.put("Unit", companyName);
+		mainobject.put("Status","Stock Purchased");
 		buyer.setStatus("Purchased");
+		buyer.setTime(java.time.LocalDateTime.now().toString());
+		
 		
 		StockDetails stocks[]=Stocklist.GetListObject();
 		for(StockDetails object:stocks)
@@ -194,8 +198,8 @@ public class StockAccountLinkedList2
 			{
 			
 			case 1:
-				stocks.addStock();
-				break;
+					stocks.addStock();
+					break;
 			case 2:
 					stocks.removeLinkedList();
 					break;
