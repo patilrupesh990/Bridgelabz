@@ -1,5 +1,12 @@
 package com.bridgelabz.designpattern.creationaldesignpattern.factory;
 
+/***********************************************************************************************************
+ * @author Rupeshp007
+ * date:20/12/2019
+ * @version 1.0
+ * Purpose:Compuer Abstract class it contains common specification methods for PC and Server classes
+ **********************************************************************************************************/
+
 abstract public class Computer 
 {
 	public abstract String getRAM();
