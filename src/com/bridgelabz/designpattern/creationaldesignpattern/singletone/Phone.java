@@ -1,4 +1,5 @@
-package com.bridgelabz.designpattern.singletone;
+package com.bridgelabz.designpattern.creationaldesignpattern.singletone;
+
 /**Access Example of Singleton Eager initialization**/
 public class Phone 
 {

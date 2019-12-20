@@ -1,4 +1,4 @@
-package com.bridgelabz.designpattern.singletone;
+package com.bridgelabz.designpattern.creationaldesignpattern.singletone;
 
 public class Passangers 
 {
