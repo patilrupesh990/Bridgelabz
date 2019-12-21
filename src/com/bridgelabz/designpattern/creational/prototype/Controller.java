@@ -1,4 +1,4 @@
-package com.bridgelabz.designpattern.creationaldesignpattern.prototype;
+package com.bridgelabz.designpattern.creational.prototype;
 
 import java.util.List;
 

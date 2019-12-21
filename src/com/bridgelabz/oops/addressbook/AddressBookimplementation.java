@@ -184,7 +184,7 @@ public class AddressBookimplementation implements AddressBook
 			while(true)
 			{
 						System.out.println("Select the Option");
-						System.out.println("1.Add New Person 2.Delete Person 3.Show All Entry 4.sort List 5.Search Person  6.save File 7.MainMenu 8.exit");
+						System.out.println(" 1.Add New Person \n 2.Delete Person \n 3.Show All Entry \n 4.sort List \n 5.Search Person \n  6.save File \n 7.Edit Person Details \n 8.MainMenu \n 9.exit");
 						try{
 						 choice=Utility.InputInt();
 						}
@@ -197,7 +197,7 @@ public class AddressBookimplementation implements AddressBook
 								personacsess.addNewPeson(filename);
 										break;
 							case 2:
-								personacsess.deletePerson(fileName);
+								personacsess.deletePerson();
 										break;
 							case 3:
 								personacsess.readFromJSON();
@@ -212,10 +212,12 @@ public class AddressBookimplementation implements AddressBook
 							case 6:
 									personacsess.Save();
 										break;
-							case 7:
+							case 7:	 personacsess.editPerson();
+									 break;
+							case 8:
 										AddressBook.mainMenu();
 										break;
-							case 8:
+							case 9:
 										System.out.println("Thank you visit  again:");
 										System.exit(0);
 							default:

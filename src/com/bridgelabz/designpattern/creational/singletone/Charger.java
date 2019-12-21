@@ -1,4 +1,4 @@
-package com.bridgelabz.designpattern.creationaldesignpattern.singletone;
+package com.bridgelabz.designpattern.creational.singletone;
 /**
  * Eager intilization it contains private static object and private Constructor .
  * and returns Object throgh static method.

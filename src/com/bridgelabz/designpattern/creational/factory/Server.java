@@ -1,4 +1,4 @@
-package com.bridgelabz.designpattern.creationaldesignpattern.factory;
+package com.bridgelabz.designpattern.creational.factory;
 /***********************************************************************************************************
  * @author Rupeshp007
  * date:20/12/2019

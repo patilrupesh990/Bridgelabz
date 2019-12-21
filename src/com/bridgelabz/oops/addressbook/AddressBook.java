@@ -64,7 +64,6 @@ public interface AddressBook
 					addressbook.openBook();
 						break;
 						
-			
 			case 3:
 					addressbook.closeFile();
 						break;

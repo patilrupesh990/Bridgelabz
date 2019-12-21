@@ -26,11 +26,11 @@ public class Stack<T>
 		 else
 		  stack=new String[size];
 	 }
-	 	/**
+	 	/******************************************************************
 		 * insert values into the stack its called Push Operation
 		 * @param T type element
 		 * @return void
-		 * **/
+		 **************************************************************/
 	 public static <T> T push(T element)
 	 {
 		if(isFull())

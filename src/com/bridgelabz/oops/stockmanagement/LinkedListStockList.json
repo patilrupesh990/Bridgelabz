@@ -1,12 +1,1 @@
-{
-	"ODDI": {
-		"Stock Value": 123,
-		"Stock Name": "ODDI",
-		"Units": 23
-	},
-	"Chavrolete": {
-		"Stock Value": 230,
-		"Stock Name": "Chavrolete",
-		"Units": 2222
-	}
-}
+{"ODDI":{"Stock Value":"123","Stock Name":"ODDI","Units":"20"},"Chavrolete":{"Stock Value":"230","Stock Name":"Chavrolete","Units":"2222"}}

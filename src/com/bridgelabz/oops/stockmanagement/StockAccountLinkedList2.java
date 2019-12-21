@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 import com.bridgelabz.oops.addressbook.JsonUtility;
 import com.bridgelabz.util.LinkedListStack;
 import com.bridgelabz.util.LinkedListiml;
+import com.bridgelabz.util.QueueLinkedList;
 import com.bridgelabz.util.Utility;
 
 public class StockAccountLinkedList2 
@@ -17,9 +18,16 @@ public class StockAccountLinkedList2
 	JSONObject stockJson=new JSONObject();
 	JSONObject stockListJson=new JSONObject();
 	
-	LinkedListiml<JSONObject> Stocklist=new LinkedListiml<>();
-	LinkedListStack<JSONObject> buylist=new LinkedListStack<>();
+	LinkedListiml<JSONObject> linkedlistStocklist=new LinkedListiml<>();
+	LinkedListStack<JSONObject> stackBuyList=new LinkedListStack<>();
+	LinkedListStack<JSONObject> stacksellList=new LinkedListStack<>();
+	QueueLinkedList<String> queuetime=new QueueLinkedList<String>();
+
+
 	String stockList="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/LinkedListStockList.json";
+	String buyList="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/stackBuy.json";
+	String sellList="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/StacksellList.json";
+
 
 	
     StockDetails stock;
@@ -52,7 +60,7 @@ public class StockAccountLinkedList2
 			{
 				JSONObject object=(JSONObject) temp.get(name);
 				System.out.println(object.toJSONString());
-				Stocklist.add(object);
+				linkedlistStocklist.add(object);
 			}
 			}
 			} catch (ParseException  | FileNotFoundException e) {
@@ -68,13 +76,13 @@ public class StockAccountLinkedList2
 		
 		System.out.println("Enter the Value of stock");
 		int value=Utility.InputInt();
-		stockJson.put("Stock Value", value);
+		stockJson.put("Stock Value", Integer.toString(value));
 		
 		System.out.println("Enter the Number of stocks?");
 		int quantity=Utility.InputInt();
-		stockJson.put("Units", quantity);
+		stockJson.put("Units", Integer.toString(quantity));
 		temp.put(stockName, stockJson);
-		Stocklist.add(temp);
+		linkedlistStocklist.add(temp);
 		
 		JsonUtility.writeToFile(stockList, temp);	
 		System.out.println(stockName+"Added Successfully");
@@ -111,11 +119,11 @@ public class StockAccountLinkedList2
 				
 				if(!object.get("Stock Name").equals(stockname))
 				{
-					Stocklist.add(object);
+					linkedlistStocklist.add(object);
 					mainobject.put(name, object);
 				}
 				else
-					Stocklist.removeNode(object);
+					linkedlistStocklist.removeNode(object);
 					System.out.println("Removed Sucssefully");
 			}
 			}
@@ -128,62 +136,121 @@ public class StockAccountLinkedList2
 	public void buyStock()
 	{
 		JSONObject temp=new JSONObject();
+		JSONObject temp2=new JSONObject();
 		JSONObject mainobject=new JSONObject();
+		
+		if(JsonUtility.readFile2(buyList)!=null)
+		{
+		   temp = JsonUtility.readFile2(buyList);
+		}
 		if(JsonUtility.readFile2(stockList)!=null)
 		{
-		   temp = JsonUtility.readFile2(stockList);
-		
+		   temp2 = JsonUtility.readFile2(stockList);
 		}
 		BuyerDetails buyer=new BuyerDetails();
 		System.out.println("Enter Your Name:");
 		String name=Utility.InputString();
-		buyer.setBuyerName(name);
 		mainobject.put("Name",name);
 		
-		System.out.println("Enter Company name :");
+		System.out.println("Enter Stock name :");
 		String companyName=Utility.InputString();
 		buyer.setCompanyName(companyName);
 		mainobject.put("Stock Name", companyName);
 		System.out.println("Enter How many Stocks want to buy");
 		int unit=Utility.InputInt();
 		buyer.setUnit(unit);
-		mainobject.put("Unit", companyName);
+		mainobject.put("Unit", unit);
+		
+		
+		JSONObject read=(JSONObject) temp2.get(companyName);
+		int value=Integer.parseInt((String) read.get("Stock Value"));
+		mainobject.put("Value", value);//
+		int unit2=Integer.parseInt((String) read.get("Units"));
+		unit2=unit2-unit;
+		value=unit*value;
+		read.replace("Units", Integer.toString(unit2));
+		temp2.put(companyName, read);
+		
+		mainobject.put("Total Value", value);
 		mainobject.put("Status","Stock Purchased");
-		buyer.setStatus("Purchased");
-		buyer.setTime(java.time.LocalDateTime.now().toString());
+		mainobject.put("Transaction Time", java.time.LocalDateTime.now().toString());
+		String time=java.time.LocalDateTime.now().toString();
+		temp.put(name,mainobject);
 		
+		stackBuyList.push(temp); //Pushed JsonObject into Stack
+		queuetime.enQueue(time);
+		JsonUtility.writeToFile(buyList, temp);	
+		JsonUtility.writeToFile(stockList, temp2);	
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void SellStock()
+	{
+		JSONObject temp=new JSONObject();
+		JSONObject temp2=new JSONObject();
+		JSONObject temp3=new JSONObject();
+		JSONObject mainobject=new JSONObject();
 		
-		StockDetails stocks[]=Stocklist.GetListObject();
-		for(StockDetails object:stocks)
+		if(JsonUtility.readFile2(sellList)!=null)
 		{
-			System.out.println("dfd");
-			if(object.getStockName().equals(companyName))
+		   temp = JsonUtility.readFile2(sellList);
+		}
+		if(JsonUtility.readFile2(buyList)!=null)
+		{
+		   temp2 = JsonUtility.readFile2(buyList);
+		}
+		if(JsonUtility.readFile2(stockList)!=null)
+		{
+		   temp3 = JsonUtility.readFile2(stockList);
+		}
+		System.out.println("Enter Your Name:");
+		String name=Utility.InputString();
+		mainobject.put("Name",name);
+		
+		System.out.println("Enter Stock name :");
+		String companyName=Utility.InputString();
+		mainobject.put("Stock Name", companyName);
+		System.out.println("Enter How many Stocks want to Sell");
+		int unit=Utility.InputInt();
+		mainobject.put("Unit", companyName);
+		
+		Set<JSONObject> set=temp2.keySet();
+		Iterator<?> i=set.iterator();
+		ArrayList<String> names=new ArrayList<>();
+		do{
+			
+			names.add(i.next().toString());
+		}while(i.hasNext());
+		
+		
+		for(String string:names)
+		{
+			
+		
+			JSONObject read=(JSONObject) temp2.get(name);
+			JSONObject read2=(JSONObject) temp3.get(name);
+			if(read.get("Stock Name").equals(name))
 			{
-				System.out.println("abc");
-				int value=object.getStockValue();
-				buyer.setStockValue(value);
-				int amount=value*unit;
-				buyer.setTotalValue(amount);
-				int buyUnit=buyer.getUnit();
-				int availableunit=object.getStockQuantity();
-				System.out.println("jsj");
-				if(availableunit<=0)
-				{
-					try {
-						throw new StockMngmtExcpetion("There is No available stocks for Company"+buyer.getCompanyName());
-					} catch (StockMngmtExcpetion e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} 
-					mainMenu();
-				}
-				int result=availableunit-buyUnit;
-				object.setStockQuantity(result);
-//				Stocklist.removeNode(object);
-//				Stocklist.add(object);
-//				BuyerDetails.add(buyer);
-				System.out.println("SuccessFully You have Purchased"+buyer.getCompanyName()+"  Stocks");
+			int value=Integer.parseInt((String) read.get("Value"));
+			mainobject.put("Value", value);//
+			int unit2=Integer.parseInt((String) read.get("Units"));
+			unit2=unit2-unit;
+			value=unit*value;
+			read2.replace("Units", unit);
+			temp3.put(companyName, read);
+			mainobject.put("Total Value", value);
+			mainobject.put("Status","Stock Sold:");
+			String time=java.time.LocalDateTime.now().toString();
+			mainobject.put("Transaction Time", time);
+			temp.put(name,mainobject);
+			
+			queuetime.enQueue(time);
+			stacksellList.push(temp); //Pushed JsonObject into Stack
 			}
+			
+			JsonUtility.writeToFile(sellList, temp);	
+			JsonUtility.writeToFile(stockList, temp3);	
 		}
 	}
 	
@@ -204,10 +271,10 @@ public class StockAccountLinkedList2
 					stocks.removeLinkedList();
 					break;
 			case 3:
-					//stocks.buyStock();
+					stocks.buyStock();
 					break;
 			case 4:
-					//stocks.SellStock();
+					stocks.SellStock();
 					break;
 			case 5:
 					//stocks.compnyList();

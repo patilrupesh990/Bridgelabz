@@ -1,4 +1,4 @@
-package com.bridgelabz.designpattern.creationaldesignpattern.singletone;
+package com.bridgelabz.designpattern.creational.singletone;
 /***********************************************************************************************************
  * @author Rupeshp007
  * date:20/12/2019

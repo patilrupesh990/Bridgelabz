@@ -284,7 +284,7 @@ public class AddressBookPerson
 
 	
 	@SuppressWarnings("unchecked")
-	public  void deletePerson(String fileName) throws JSONException
+	public  void deletePerson() throws JSONException
 	{
 		
 		 JSONObject personSort = null;
@@ -298,11 +298,9 @@ public class AddressBookPerson
 					personSort = (JSONObject) parser.parse(fileRead);			
 				}
 			 catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			personSort.keySet().forEach(key -> System.out.println(key));
@@ -318,15 +316,122 @@ public class AddressBookPerson
 				try {
 					throw new AddressBookException("No Person Found");
 				} catch (AddressBookException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
 			JsonUtility.writeToFile(originbook+AddressBookimplementation.getBookName(), personSort);	
 
 		}
-			
+	
+	/*********************************************************************************
+	 * 	Purpose: It will Take Persons FisrtName and LastName as input from user and FileName as arguments and
+	 *  based on details it will Change person details from json file.
+	 *  
+	 *  @param String FileName
+	 *  @return void
+	 *  @exception JSONException
+	 *******************************************************************************/	
+	@SuppressWarnings("unchecked")
+	public  void editPerson() throws JSONException
+	{
 		
+		 JSONObject personSort = new JSONObject();
+			
+			String fileRead = null;
+			try {
+					if(JsonUtility.readFile(originbook+AddressBookimplementation.getBookName())!=null)
+					{
+							fileRead = JsonUtility.readFile(originbook+AddressBookimplementation.getBookName());
+					}
+					personSort = (JSONObject) parser.parse(fileRead);			
+				}
+			 catch (ParseException e) {
+				e.printStackTrace();
+			}
+			catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			personSort.keySet().forEach(key -> System.out.println(key));
+			System.out.println("Enter the Persons Name who's Details you want change");
+			String name=Utility.InputString();
+			System.out.println("1. Name 2.lastname 3.Address 4.PhoneNumber");
+			System.out.println("Enter Your Choice:");
+			int choice=Utility.InputInt();
+			if(personSort.containsKey(name))
+			{
+					switch(choice)
+					{
+					case 1:
+							JSONObject person=(JSONObject) personSort.get(name);
+							System.out.println("Enter New First");
+							String newName=Utility.InputString();
+							System.out.println(personSort.toJSONString());
+							person.replace("firstName",newName);
+							personSort.replace(name, person);
+							System.out.println("Succesusfully changed your First Name");
+							break;
+					case 2:
+							JSONObject person2=(JSONObject) personSort.get(name);
+							System.out.println("Enter New LastName");
+							String lastName=Utility.InputString();
+							person2.replace("lastName",lastName);
+							personSort.replace(name, person2);
+							System.out.println("Succesusfully changed your Last Name");
+							break;
+					case 3:
+							System.out.println("Enter New Address");
+							JSONObject temp=(JSONObject) personSort.get(name);
+							JSONObject address=(JSONObject) temp.get("address");
+							System.out.println(address.toJSONString());
+							System.out.println("Enter street");
+							String street=Utility.InputString();
+							address.replace("street", street);
+							
+							System.out.println("Enter city");
+							String city=Utility.InputString();
+							address.replace("city", city);
+							
+							System.out.println("Enter state");
+							String state=Utility.InputString();
+							address.replace("state", state);
+							System.out.println("Enter pincode");
+							String pincode=Utility.InputString();
+							address.put("pinCode", pincode);
+							personSort.replace("address", address);
+							System.out.println("Succesusfully changed your Adddress");
+							break;
+					case 4:
+							JSONObject person3=(JSONObject) personSort.get(name);
+							System.out.println("Enter New LastName");
+							String ph=Utility.InputString();
+							person3.replace("address",ph);
+							personSort.replace(name, person3);
+							System.out.println("Succesusfully changed your Last Name");
+							
+						default :
+						
+					}
+			
+			}
+			else
+			{
+				try {
+					throw new AddressBookException("No Person Found");
+				} catch (AddressBookException e) {
+				}
+			}
+			JsonUtility.writeToFile(originbook+AddressBookimplementation.getBookName(), personSort);	
+
+		}
+	
+	
+	
+	
+			
+	/*********************************************************************************
+	 * 	Purpose: It will Take Persons FisrtName and LastName as input from user and FileName as arguments and
+	 *  based on details it will Search person details from json file.
+	 *  
+	 *******************************************************************************/		
 	
 	
 	@SuppressWarnings("unchecked")
@@ -403,11 +508,9 @@ public class AddressBookPerson
 				personSort = (JSONObject) parser.parse(fileRead);
 			}
 			 catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -464,11 +567,9 @@ public class AddressBookPerson
 				personSort = (JSONObject) parser.parse(fileRead);
 			}
 			 catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

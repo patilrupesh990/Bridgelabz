@@ -1,4 +1,4 @@
-package com.bridgelabz.designpattern.creationaldesignpattern.singletone;
+package com.bridgelabz.designpattern.creational.singletone;
 
 public class Readers
 {
