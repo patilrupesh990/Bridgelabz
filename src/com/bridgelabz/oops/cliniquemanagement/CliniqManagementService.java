@@ -3,13 +3,8 @@ package com.bridgelabz.oops.cliniquemanagement;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import com.bridgelabz.util.JsonUtility;
 import com.bridgelabz.util.LogicalProgram;
@@ -314,37 +309,20 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 		
 		public  DoctorDetails searchDoctor() throws JSONException
 		{
-			JSONObject personObject=new JSONObject();
-			JSONParser parser=new JSONParser();
-			JSONObject stockJson=null;
-
+			String jsonData = "";
+			BufferedReader br = null;
 			DoctorDetails doctor=new DoctorDetails();
 			System.out.println("Enter The Specialization of Doctor?");
 			String specialization=Utility.InputString();
-			String fileRead = JsonUtility.readFile(patientFile);
-			personObject = (JSONObject)parser.parse(fileRead);
 			try {
-				stockJson = (JSONObject) parser.parse(fileRead);
-			} catch (ParseException e) 
-			{
-					
-			}
-				JSONArray arrayItems = new JSONArray();
-				arrayItems.add(stockJson.get(stockName));
-				Iterator<?> iterator = arrayItems.iterator();
-				String value="";
-				String unit="";
-				while(iterator.hasNext())
-				{
-					JSONObject jsonObject=(JSONObject) iterator.next();
-					value= (String) jsonObject.get("stock value");
-					unit=(String) jsonObject.get("stock unit");
-				}
-				double result=Double.parseDouble(value)*Double.parseDouble(unit);
-					return (result);
-
-			
-				
+				String line;
+				br = new BufferedReader(new FileReader(doctorFile));
+				while ((line = br.readLine()) != null) {
+					jsonData = line + "\n";
+					JSONObject obj = new JSONObject(jsonData);
+					System.out.println();
+					if(obj.getString("specialization").equals(specialization))
+					{
 						System.out.println("Doctor name: " + obj.getString("Doctor name"));
 						doctor.setDoctorName(obj.getString("Doctor name"));
 						System.out.println("Doctor name: " + obj.getString("Doctor id"));
@@ -354,10 +332,20 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 						System.out.println("===============================>>Specialist for "+specialization+"<<=============================");
 
 						return doctorDetails;
-					
+					}
 					
 
-				
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (br != null)
+						br.close();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
 			return null;
 		}
 		
