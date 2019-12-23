@@ -27,7 +27,7 @@ import com.bridgelabz.util.Utility;
  *
  **********************************************************************************************************/
 
-public class AddressBookimplementation implements AddressBook
+public class AddressBookimplementation extends AddressBookReadWrite implements AddressBook 
 {
 	//initializations 
 	static ObjectMapper objectmapper=new ObjectMapper();

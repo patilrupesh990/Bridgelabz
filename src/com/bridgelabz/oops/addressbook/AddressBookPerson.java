@@ -15,6 +15,7 @@ import org.json.simple.parser.ParseException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.bridgelabz.util.JsonUtility;
 import com.bridgelabz.util.Utility;
 
 /***********************************************************************************************************
@@ -32,7 +33,7 @@ import com.bridgelabz.util.Utility;
  * 
  **********************************************************************************************************/
 
-public class AddressBookPerson 
+public class AddressBookPerson extends AddressBookReadWrite
 {
 	static List<PersonDetails> personDetails=new ArrayList<PersonDetails>();
 	static List<AddressDetails> addressDetails=new ArrayList<AddressDetails>();
@@ -43,7 +44,7 @@ public class AddressBookPerson
 	static PersonDetails person=null;
 	static String originbook="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/jsonfiles/";
 	public JSONParser parser = new JSONParser();
-
+	AddressBookReadWrite readwrite=new AddressBookPerson();
 	/*********************************************************************************
 	 * To add New Person In current File it will take details and put data in .json file 
 	 *  
@@ -195,7 +196,7 @@ public class AddressBookPerson
 		
 			String temporary=mainobject.toString();
 			System.out.println(temporary);
-		JsonUtility.writeToFile(originbook+AddressBookimplementation.getBookName(), mainobject);	
+			readwrite.writeToFile(originbook+AddressBookimplementation.getBookName(), mainobject);	
 	}
 	
 	
@@ -318,7 +319,7 @@ public class AddressBookPerson
 				} catch (AddressBookException e) {
 				}
 			}
-			JsonUtility.writeToFile(originbook+AddressBookimplementation.getBookName(), personSort);	
+			readwrite.writeToFile(originbook+AddressBookimplementation.getBookName(), personSort);	
 
 		}
 	
