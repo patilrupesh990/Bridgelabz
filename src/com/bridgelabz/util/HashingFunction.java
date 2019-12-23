@@ -32,6 +32,11 @@ public class HashingFunction
 	{
 		linklist[value%11].add(value);	
 	}
+	
+	/** it will Search the element in LinkedList on given location.
+	 * @param int value
+	 * @return boolean  
+	 * **/	
 	static int index; 
 	@SuppressWarnings("unchecked")
 	public boolean search(int value)
@@ -46,6 +51,10 @@ public class HashingFunction
 		return result;
 	}
 	
+	/** it will Remove the element from LinkedList on given location.
+	 * @param int value
+	 * @return void  
+	 * **/	
 	@SuppressWarnings("unchecked")
 	public void removeElement(int data)
 	{

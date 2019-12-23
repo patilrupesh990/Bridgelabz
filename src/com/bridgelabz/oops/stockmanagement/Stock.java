@@ -2,58 +2,87 @@ package com.bridgelabz.oops.stockmanagement;
 
 import java.io.FileNotFoundException;
 import java.util.Iterator;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import com.bridgelabz.oops.addressbook.AddressBookimplementation;
-import com.bridgelabz.oops.addressbook.JsonUtility;
+import com.bridgelabz.util.JsonUtility;
 import com.bridgelabz.util.Utility;
 
+
+/***********************************************************************************************************
+ * @author Rupeshp007
+ * date:15/12/2019
+ * @version 1.0
+ * Purpose:It's an Interface to declare abstract methods of Stock Management Program
+ * 
+ * Operations:
+ * Main Menu of Stock program
+ * -> Abstract Methods
+ * 		void stockAccount();
+ *	    double ValueOf();//reamaining
+ * 	    void buy(int amount,String symbol);  
+ *	    void sell(int amount,String symbol);
+ *	    void printReport();
+ * 	
+ **********************************************************************************************************/
 public interface Stock
 {
 	Stock stock=new StockAccount();
 	StockAccount stockmanagement=new StockAccount();
 	static String stockfile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/StockManagement.json";
+	static String accountfile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/StockHoldersAccounts.json";
+	static String stockbuyfile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/stockmanagement/StockPurchased.json";
 	static JSONParser parser=new JSONParser();
 
 	
-	void stockAccount();//complete
+	 void stockAccount();//complete
 	 double ValueOf();//reamaining
 	 void buy(int amount,String symbol);  
 	 void sell(int amount,String symbol);
 	 void printReport();
 	 
+	    /*********************************************************************************
+		 * MainMenu of StockManagement Program
+		 * 	
+		 *   1.AddNew Stock
+		 *   2.Create User Account
+		 *   3.All Stock List
+		 *   4.Values of Stocks
+		 *   5.Purchase Stock
+		 *   6.Sell Stock 
+		 *   7. Stock Report
+		 *   8. exit
+		 *  @param no parameter
+		 *  @return void
+		 *******************************************************************************/	
+
 	 @SuppressWarnings("unchecked")
 	public static  void mainMenu()
 		{
 			String symbol;
 			int amount;
 			 JSONObject stocks = null;
-				
 				String fileRead = null;
 				try {
 						if(JsonUtility.readFile(stockfile)!=null)
 						{
 								fileRead = JsonUtility.readFile(stockfile);
 						}
-						stocks = (JSONObject) parser.parse(fileRead);			
+						stocks = (JSONObject) parser.parse(fileRead);	
+						
 					}
 				 catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			
 			while(true)
 			{
 				System.out.println("====================================================================================");
-			System.out.println("1.Add New Stock \n 2.New User Account \n 3.All Stock List \n 4.Values of Stocks \n 5.Purchase Stock \n 6.Sell Stock \n 7. Stock Report \n 8. exit");
+			System.out.println(" 1.Add New Stock \n 2.New User Account \n 3.All Stock List \n 4.Values of Stocks \n 5.Purchase Stock \n 6.Sell Stock \n 7. Stock Report \n 8. exit");
 			System.out.println("Enter Your choice");
 
 			int choice =Utility.InputInt();
@@ -93,8 +122,27 @@ public interface Stock
 						case 5:
 								
 								System.out.println("==================>>Available Stocks<<==================");
+								JSONObject temp=stocks;
+								System.out.println("Stock \tValue\tUnits");
+								stocks.keySet().forEach(key ->{ 
+									//System.out.println(key);			
+										JSONArray arrayItems = new JSONArray();
+										arrayItems.add(temp.get(key));
+										Iterator<?> iterator = arrayItems.iterator();
+										JSONObject jsonObject=null;
+										while(iterator.hasNext())
+										{
+											jsonObject=(JSONObject) iterator.next();
+											System.out.print(jsonObject.get("Company Name"));
+											System.out.print("\t"+jsonObject.get("stock value"));
+											System.out.print("\t"+jsonObject.get("stock unit"));
+											System.out.println();
+										} 
+									
+								});
 								
-								stocks.keySet().forEach(key -> System.out.println("             "+key));
+								
+								
 								System.out.println("-------------------------------");
 								System.out.println("Enter Stock Name:");
 								symbol=Utility.InputString();
@@ -107,6 +155,7 @@ public interface Stock
 								symbol=Utility.InputString();
 								System.out.println("Enter Amount");
 								amount=Utility.InputInt();
+								
 								stock.sell(amount, symbol);
 								break;
 						case 7:
@@ -120,6 +169,14 @@ public interface Stock
 			}
 		}
 	 
+
+		/*********************************************************************************
+		 * To calculate TotalValue of Stocks
+		 *  
+		 *  @param No Parameter
+		 *  @return void
+		 *******************************************************************************/	
+	
 	 @SuppressWarnings("unchecked")
 		public static double calculateTotalValue(String stockName)
 		{

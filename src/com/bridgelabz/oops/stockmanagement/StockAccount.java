@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.bridgelabz.oops.addressbook.JsonUtility;
+import com.bridgelabz.util.JsonUtility;
 import com.bridgelabz.util.Utility;
 
 /***********************************************************************************************************
@@ -30,13 +30,13 @@ import com.bridgelabz.util.Utility;
  * 8. store all this operations in .json files
  **********************************************************************************************************/
 
-public class StockAccount implements Stock
+public class StockAccount extends StockFilesReadWrite implements Stock
 {
 	static StockDetails stock=new StockDetails();
 	JSONObject individualStocks=new JSONObject();
 	JSONObject accountHolder=new JSONObject();
 	JSONObject accounttransaction=new JSONObject();
-
+	static StockFilesReadWrite readwrite=new  StockAccount();
 
 	
 	static JSONParser parser=new JSONParser();
@@ -82,7 +82,7 @@ public class StockAccount implements Stock
 				stock.setStockQuantity(Integer.parseInt(quantity));
 				individualStocks.put("stock unit", quantity);			
 				stockRead.put(stockName, individualStocks);
-				JsonUtility.writeToFile(stockfile, stockRead);	
+				readwrite.writeToFile(stockfile, stockRead);	
 				System.out.println(stockName+"Added SucessFully to database..");
 			}
 			
@@ -133,7 +133,7 @@ public class StockAccount implements Stock
 			accountHolder.put("Password",password);
 
 			accounts.put(phNo, accountHolder);
-			JsonUtility.writeToFile(accountfile, accounts);	
+			readwrite.writeToFile(accountfile, accounts);	
 			System.out.println(name+"Registered Successfully....");			
 		}
 		
@@ -358,7 +358,7 @@ public class StockAccount implements Stock
 				} 
 				temp.put(StockName,jsonObject);
 				
-				JsonUtility.writeToFile(fileName, temp);	
+				readwrite.writeToFile(fileName, temp);	
 		 }
 		 
 		 void save(String fileName)
@@ -387,8 +387,11 @@ public class StockAccount implements Stock
 			 String contact=Utility.InputString();			 
 			 System.out.println("Enter your password:");
 			 String password=Utility.InputString();
+			 
+			 
 			 if(Authentication(contact,password))
 			 {
+				
 				 UpdateFilesAfterSell(amount, symbol,contact); 
 				 JSONObject temp2=(JSONObject) temp.get("Sold");
 				 selljson.put("Stock Holder Name", StockAccount.getStockHolderName());
@@ -474,7 +477,7 @@ public class StockAccount implements Stock
 			StockAccount.Unit=Double.toString(sell);
 			temp.put(StockName,jsonObject);
 			
-			JsonUtility.writeToFile(stockfile, temp);	
+			readwrite.writeToFile(stockfile, temp);	
 			return Double.toString(sell);
 		 }
 		 
@@ -496,9 +499,9 @@ public class StockAccount implements Stock
 		 	JSONObject temp=new JSONObject();
 			String fileData=null;
 			String fileData2=null;
-			if((JsonUtility.readFile2(totalstockfile)!=null))
+			if((readwrite.readFile2(totalstockfile)!=null))
 			{
-			temp=JsonUtility.readFile2(totalstockfile);
+			temp=readwrite.readFile2(totalstockfile);
 			}
 			JSONObject temp2=JsonUtility.readFile2(stockbuyfile);
 			fileData=temp2.toString();
@@ -541,7 +544,7 @@ public class StockAccount implements Stock
 			StockAccount.Unit=Double.toString(sell);
 			temp.put(key,stockjson2);
 			
-			JsonUtility.writeToFile(totalstockfile, temp);	
+			readwrite.writeToFile(totalstockfile, temp);	
 			
 			}
 			else{   //Purchase
@@ -549,7 +552,7 @@ public class StockAccount implements Stock
 			JSONObject stockJson=new JSONObject();
 		 	JSONObject temp=new JSONObject();
 			String fileData=null;
-			if((JsonUtility.readFile2(totalstockfile)!=null))
+			if((readwrite.readFile2(totalstockfile)!=null))
 			{
 				temp=JsonUtility.readFile2(totalstockfile);
 			}
@@ -584,7 +587,7 @@ public class StockAccount implements Stock
 			} 
 			temp.put(key,finalobject);
 			
-			JsonUtility.writeToFile(totalstockfile, temp);	
+			readwrite.writeToFile(totalstockfile, temp);	
 			}
 		 }
 		  
@@ -592,7 +595,6 @@ public class StockAccount implements Stock
 		
 		@Override
 		public double ValueOf() {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 		 /*******************************************************************************

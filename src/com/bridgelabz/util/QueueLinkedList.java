@@ -63,12 +63,12 @@ public class QueueLinkedList<T>
 	 * @return type data
 	 * ***********************************************************************/
 
-	public <T> void deQueue()
+	public <T> T deQueue()
 	{
 		if(front==null)
 		{
 			System.out.println("Queue is Empty");
-			return;
+			return null;
 		}
 		
 		
@@ -78,6 +78,7 @@ public class QueueLinkedList<T>
 			{
 				rear=null;
 			}
+			return (T) temp.element;
 	}
 	
 	/*****************************************************************************

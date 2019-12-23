@@ -7,7 +7,7 @@ import com.bridgelabz.util.LinkedListiml;
 import com.bridgelabz.util.Utility;
 
 
-public class StockAccountLinkedlist
+public class StockAccountLinkedlist extends StockFilesReadWrite
 {
 	JSONObject stockJson=new JSONObject();
 	LinkedListiml<StockDetails> Stocklist=new LinkedListiml<>();

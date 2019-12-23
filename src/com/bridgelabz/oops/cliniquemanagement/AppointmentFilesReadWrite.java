@@ -1,4 +1,4 @@
-package com.bridgelabz.util;
+package com.bridgelabz.oops.cliniquemanagement;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,19 +8,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-/***********************************************************************************************************
- * @author Rupeshp007
- * date:17/12/2019
- * @version 1.0
- * Purpose:JsonUtility class
- **********************************************************************************************************/
 
-public class JsonUtility 
+abstract class AppointmentFilesReadWrite 
 {
-	
-
 	/*********************************************************************************
 	 * To read files And return String data from files
 	 * 
@@ -82,6 +75,7 @@ public class JsonUtility
             BufferedWriter out = new BufferedWriter( 
                    new FileWriter(filename, true)); 
            
+            out.append(String.valueOf(string));
            out.write(String.valueOf(string)); 
             out.newLine();
             out.close(); 
@@ -177,5 +171,4 @@ public class JsonUtility
 		{
 		}
 	}
-	
 }

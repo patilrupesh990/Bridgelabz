@@ -227,13 +227,13 @@ public class AddressBookPerson extends AddressBookReadWrite
 
 			System.out.println("     Available Uers:");
 			System.out.println("=====================================================================");
-			Set<?> s =  PersonObject.keySet(); 	//Using the HASHMAP property to list each object's KEY
-			Iterator<?> i = s.iterator();
+			Set<?> set =  PersonObject.keySet(); 	//Using the HASHMAP property to list each object's KEY
+			Iterator<?> iterator1 = set.iterator();
 			do{
-				String k = i.next().toString();
+				String k = iterator1.next().toString();
 				System.out.println("\t"+k);
 
-			}while(i.hasNext());
+			}while(iterator1.hasNext());
 
 			System.out.println();
 			System.out.print("You want To know More ?");
@@ -304,7 +304,11 @@ public class AddressBookPerson extends AddressBookReadWrite
 			catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
+			
+			//Java 8 New Feature ForEach loop 
 			personSort.keySet().forEach(key -> System.out.println(key));
+			
+			
 			System.out.println("Enter the Persons Name whom want to delete:");
 			String name=Utility.InputString();
 			if(personSort.containsKey(name))
@@ -515,13 +519,13 @@ public class AddressBookPerson extends AddressBookReadWrite
 				e.printStackTrace();
 			}
 			
-			Set<?> s =  personSort.keySet(); 	//Using the HASHMAP property to list each object's KEY
+			Set<?> set =  personSort.keySet(); 	//Using the HASHMAP property to list each object's KEY
 			List<String> temp=new ArrayList<String>();
-			Iterator<?> i = s.iterator();
+			Iterator<?> iterate = set.iterator();
 			do{
-				String k = i.next().toString();
+				String k = iterate.next().toString();
 				temp.add(k);
-			}while(i.hasNext());
+			}while(iterate.hasNext());
 			System.out.println("----------------------------persons in book-----------------------");
 			List<String>sortedList=temp.stream().sorted().collect(Collectors.toList()); 
 			sortedList.forEach(System.out::println);  
@@ -556,7 +560,14 @@ public class AddressBookPerson extends AddressBookReadWrite
 			}
 			
 		}
-		
+
+		/*********************************************************************************
+		 * To Sort the Details of Person and print the Details..
+		 * 
+		 *  @param no parameter
+		 *  @return void
+		 *******************************************************************************/	
+
 		@SuppressWarnings("unchecked")
 		public void sortByPinCode()
 		{
@@ -590,7 +601,7 @@ public class AddressBookPerson extends AddressBookReadWrite
 				arrayItems.add(personSort.get(list));
 				Iterator<?> iterator = arrayItems.iterator();
 
-				while (iterator.hasNext()) //Iterating thorugh JSONObjectso
+				while (iterator.hasNext()) //Iterating through JSONObjectso
 				{
 					JSONObject jsonObject = (JSONObject) iterator.next();
 					

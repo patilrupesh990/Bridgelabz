@@ -40,6 +40,10 @@ public class Hashing
 		SearchElement(search);
 	}
 	
+	/** it will Search the element in LinkedList on given location.
+	 * @param int value
+	 * @return void  
+	 * **/	
 	public static void SearchElement(int element)
 	{
 		boolean result=hashing.search(element);

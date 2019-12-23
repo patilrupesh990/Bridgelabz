@@ -1,4 +1,4 @@
-package com.bridgelabz.util;
+package com.bridgelabz.oops.stockmanagement;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,17 +10,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-/***********************************************************************************************************
- * @author Rupeshp007
- * date:17/12/2019
- * @version 1.0
- * Purpose:JsonUtility class
- **********************************************************************************************************/
 
-public class JsonUtility 
+abstract class StockFilesReadWrite 
 {
-	
-
 	/*********************************************************************************
 	 * To read files And return String data from files
 	 * 
@@ -31,7 +23,7 @@ public class JsonUtility
 	 *******************************************************************************/	
 	
 	
-	public static String readFile(String fileName) throws FileNotFoundException {
+	public  String readFile(String fileName) throws FileNotFoundException {
 		File file;
 		file=new File(fileName);
 		FileReader filereader=null;
@@ -74,7 +66,7 @@ public class JsonUtility
 	 *  @param T String ,String filename
 	 *******************************************************************************/	
 	
-	public static <T>void WriteinFile(T string,String filename)
+	public  <T>void WriteinFile(T string,String filename)
 	{
 		try { 
 			  
@@ -82,6 +74,7 @@ public class JsonUtility
             BufferedWriter out = new BufferedWriter( 
                    new FileWriter(filename, true)); 
            
+            out.append(String.valueOf(string));
            out.write(String.valueOf(string)); 
             out.newLine();
             out.close(); 
@@ -104,7 +97,7 @@ public class JsonUtility
 	 *******************************************************************************/	
 	
 	
-	public static void clearFile(String fileName){
+	public  void clearFile(String fileName){
 	    //go through and do this every time in order to delete previous crap
 		
 		FileWriter fwOb=null;
@@ -133,7 +126,7 @@ public class JsonUtility
 	
 	
 	@SuppressWarnings("unused")
-	public static JSONObject readFile2(String filePath)
+	public  JSONObject readFile2(String filePath)
 	{
 		JSONObject mainArrayObject = new JSONObject();
 		try(FileReader fileReader = new FileReader(filePath))
@@ -165,7 +158,7 @@ public class JsonUtility
 	 *  @return String
 	 *******************************************************************************/	
 	
-	public static void writeToFile(String filePath, JSONObject mainObject)
+	public  void writeToFile(String filePath, JSONObject mainObject)
 	{
 		try(FileWriter fileWriter = new FileWriter(filePath))
 		{
@@ -177,5 +170,4 @@ public class JsonUtility
 		{
 		}
 	}
-	
 }

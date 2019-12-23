@@ -1,5 +1,7 @@
 package com.bridgelabz.util;
 
+import org.json.simple.JSONObject;
+
 /***************************************************************************************
 * Created by:Rupesh Patil
 * since: 20/06/2016
@@ -11,7 +13,7 @@ package com.bridgelabz.util;
 
 public class LinkedListStack<T> 
 {
-		  
+		  int count=0;
 	    private class Node { 
 	  
 	        T data; 
@@ -42,6 +44,7 @@ public class LinkedListStack<T>
 	  	    temp.next = top; 
 	  
 	        top = temp; 
+	        count++;
 	    } 
 	    /*************************************************************************
 		 * To check whether stack is Empty or not.
@@ -106,6 +109,25 @@ public class LinkedListStack<T>
 	                temp = temp.next; 
 	            } 
 	        } 
+	    } 
+	    
+	    public JSONObject[] getjson() 
+	    { 
+	    	JSONObject objcet []=new JSONObject[count];
+	    	int index=0;
+	        if (top == null) { 
+	            System.out.printf("\nStack Underflow"); 
+	        } 
+	        else { 
+	            Node temp = top; 
+	            while (temp != null) { 
+	  
+	               objcet[index++]= (JSONObject) temp.data; 
+	  
+	                temp = temp.next; 	            
+	                } 
+	        }
+			return objcet;
 	    } 
 	} 
 

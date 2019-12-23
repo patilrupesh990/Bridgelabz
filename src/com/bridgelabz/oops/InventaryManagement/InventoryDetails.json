@@ -3,15 +3,5 @@
 		"Price": 123.0,
 		"name": "rrr",
 		"weight": 1222.0
-	},
-	"Wheat": {
-		"Price": 120.0,
-		"weight": 122.0,
-		"Name": "abc"
-	},
-	"Rice": {
-		"Price": 205.0,
-		"weight": 1234.0,
-		"Name": "sadar"
 	}
 }

@@ -1,8 +1,8 @@
 {
 	"Rupesh": {
 		"Status": "Stock Purchased",
-		"Value": 123,
-		"Total Value": 369,
+		"Value": "123",
+		"Total Value": "369",
 		"Transaction Time": "2019-12-21T12:43:35.219",
 		"Unit": "50",
 		"Stock Name": "ODDI",

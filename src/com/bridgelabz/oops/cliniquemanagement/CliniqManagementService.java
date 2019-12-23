@@ -3,9 +3,15 @@ package com.bridgelabz.oops.cliniquemanagement;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Iterator;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.bridgelabz.oops.addressbook.JsonUtility;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.bridgelabz.util.JsonUtility;
 import com.bridgelabz.util.LogicalProgram;
 import com.bridgelabz.util.Utility;
 
@@ -24,7 +30,7 @@ import com.bridgelabz.util.Utility;
 * 			-Patient
 ***************************************************************************/
 
-public class CliniqManagementService implements CliniqManagement
+public class CliniqManagementService extends AppointmentFilesReadWrite implements CliniqManagement
 {
 	
 	static JSONObject doctorjson=new JSONObject();
@@ -116,10 +122,7 @@ public class CliniqManagementService implements CliniqManagement
 							getAppointment();
 							break;
 					case 2:
-							//search appoinment
 							
-							
-							//getAppointment();
 							break;
 					case 3:
 							this.getDoctorDetails();
@@ -194,6 +197,7 @@ public class CliniqManagementService implements CliniqManagement
 							if(AppointmentCount(appointment.getDoctorName())==5)
 							{
 								System.out.println("Doctor is Not Availale For Today Please book for tommorow or search for another doctor");
+								
 							}
 							else
 							{
@@ -204,6 +208,7 @@ public class CliniqManagementService implements CliniqManagement
 				else
 				{
 					System.out.println("You are Not registered For this Number please Register First");
+					
 				}
 
 				
@@ -309,20 +314,37 @@ public class CliniqManagementService implements CliniqManagement
 		
 		public  DoctorDetails searchDoctor() throws JSONException
 		{
-			String jsonData = "";
-			BufferedReader br = null;
+			JSONObject personObject=new JSONObject();
+			JSONParser parser=new JSONParser();
+			JSONObject stockJson=null;
+
 			DoctorDetails doctor=new DoctorDetails();
 			System.out.println("Enter The Specialization of Doctor?");
 			String specialization=Utility.InputString();
+			String fileRead = JsonUtility.readFile(patientFile);
+			personObject = (JSONObject)parser.parse(fileRead);
 			try {
-				String line;
-				br = new BufferedReader(new FileReader(doctorFile));
-				while ((line = br.readLine()) != null) {
-					jsonData = line + "\n";
-					JSONObject obj = new JSONObject(jsonData);
-					System.out.println();
-					if(obj.getString("specialization").equals(specialization))
-					{
+				stockJson = (JSONObject) parser.parse(fileRead);
+			} catch (ParseException e) 
+			{
+					
+			}
+				JSONArray arrayItems = new JSONArray();
+				arrayItems.add(stockJson.get(stockName));
+				Iterator<?> iterator = arrayItems.iterator();
+				String value="";
+				String unit="";
+				while(iterator.hasNext())
+				{
+					JSONObject jsonObject=(JSONObject) iterator.next();
+					value= (String) jsonObject.get("stock value");
+					unit=(String) jsonObject.get("stock unit");
+				}
+				double result=Double.parseDouble(value)*Double.parseDouble(unit);
+					return (result);
+
+			
+				
 						System.out.println("Doctor name: " + obj.getString("Doctor name"));
 						doctor.setDoctorName(obj.getString("Doctor name"));
 						System.out.println("Doctor name: " + obj.getString("Doctor id"));
@@ -332,20 +354,10 @@ public class CliniqManagementService implements CliniqManagement
 						System.out.println("===============================>>Specialist for "+specialization+"<<=============================");
 
 						return doctorDetails;
-					}
+					
 					
 
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (br != null)
-						br.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-			}
+				
 			return null;
 		}
 		
