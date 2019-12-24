@@ -1,4 +1,4 @@
-package com.bridgelabz.designpattern.behavioral;
+package com.bridgelabz.designpattern.behavioral.oberservs;
 
 import java.util.ArrayList;
 import java.util.List;

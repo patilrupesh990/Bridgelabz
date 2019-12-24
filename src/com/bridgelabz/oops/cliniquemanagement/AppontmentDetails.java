@@ -14,7 +14,7 @@ public class AppontmentDetails {
 	
 	private String patientName;
 	private String doctoreName;
-	private int Count;
+	private  int Count;
 	private String doctorSpecialization;
 	private String time;
 	
@@ -89,7 +89,7 @@ public class AppontmentDetails {
 	 * @param no parameter
 	 * @return int
 	 * **/
-	public int getCount() {
+	public  int getCount() {
 		return Count;
 	}
 	
@@ -97,7 +97,7 @@ public class AppontmentDetails {
 	 * @param int
 	 * @return void
 	 * **/
-	public void setCount(int count) {
+	public  void setCount(int count) {
 		Count = count;
 	}
 	

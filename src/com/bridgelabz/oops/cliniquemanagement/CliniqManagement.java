@@ -1,12 +1,17 @@
 package com.bridgelabz.oops.cliniquemanagement;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.Iterator;
+import java.util.Set;
 
-import com.bridgelabz.util.JsonUtility;
+import org.json.JSONException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.bridgelabz.oops.stockmanagement.StockMngmtExcpetion;
 import com.bridgelabz.util.LogicalProgram;
 import com.bridgelabz.util.Utility;
 
@@ -34,7 +39,7 @@ public interface CliniqManagement
 	static String patientFile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/cliniquemanagement/Patient.json";
 	static String appointmentFile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/cliniquemanagement/AppointMent.json";
 	static CliniqManagementService clinic=new CliniqManagementService();
-	
+	AppointmentFilesReadWrite readwrite=new CliniqManagementService();
 	public static void doctorMenu() throws JSONException
 	{
 		System.out.println("============================>>WellCome To Clinic Management<<==========================\n\n\n");
@@ -96,9 +101,19 @@ public interface CliniqManagement
 	 *  @throws JSONException
 	 *******************************************************************************/	
 	
+	@SuppressWarnings({ "unchecked", "static-access" })
 	public static void patientRegister() throws JSONException
 	{
+		JSONObject mainobject=new JSONObject();
+		JSONParser parser=new JSONParser();
+	
+		String fileRead;
+		try {
+			fileRead = readwrite.readFile(patientFile);
 		
+			mainobject = (JSONObject)parser.parse(fileRead);
+		} catch (FileNotFoundException|ParseException e) {
+		}
 		System.out.println("Enter Your Name");
 		String name=Utility.InputString();
 		patientdetails.setPatientName(name);
@@ -112,14 +127,15 @@ public interface CliniqManagement
 		System.out.println("Enter your age");
 		int age=Utility.InputInt();
 		patientdetails.setAge(age);
-		patientjson.put("Patient Age", age);
+		patientjson.put("Patient Age", Integer.toString(age));
 
 		
 		System.out.println("Enter your Mobile Number");
 		long mobNo=Utility.inputLong();
 		patientdetails.setMoNumber(mobNo);
-		patientjson.put("Patient Mob No:", mobNo);
-		JsonUtility.WriteinFile(patientjson.toString(), patientFile);
+		patientjson.put("Patient Mob No:", Long.toString(mobNo));
+		mainobject.put(mobNo, patientjson);
+		readwrite.writeToFile(patientFile, mainobject);
 		System.out.println();
 		System.out.println();
 
@@ -136,30 +152,45 @@ public interface CliniqManagement
 	 *  @exception JSONException
 	 *******************************************************************************/	
 	
+	@SuppressWarnings("unchecked")
 	public static void doctorRegister() throws JSONException
 	{
+		JSONObject mainobject=new JSONObject();
+		JSONParser parser=new JSONParser();
+		String fileRead = null;
+		try {
+			if(readwrite.readFile(doctorFile)!=null)
+			{
+				fileRead = readwrite.readFile(doctorFile);
+			}
+			
+			mainobject = (JSONObject)parser.parse(fileRead);
+		} catch (FileNotFoundException|ParseException e) {
+		}
+		JSONObject temp=new JSONObject();
 		System.out.println("Enter Your Id");
 		String id=Utility.InputString();
 		doctorDetails.setDoctorId(id);
-		doctorjson.put("Doctor id", id);
+		temp.put("Doctor id", id);
 		
 		System.out.println("Enter your Name");
 		String name=Utility.InputString();
 		doctorDetails.setDoctorName(name);
-		doctorjson.put("Doctor name", name);
+		temp.put("Doctor name", name);
 		
 		System.out.println("Enter your Specialization");
 		String specialization=Utility.InputString();
 		doctorDetails.setSpecialization(specialization);
-		doctorjson.put("specialization", specialization);
+		temp.put("specialization", specialization);
 		
 		System.out.println("Enter Your Availablity For Patient");
 		String availablity=Utility.InputString();
 		doctorDetails.setAvailablity(availablity);
-		doctorjson.put("availablity", availablity);
+		temp.put("availablity", availablity);
+		mainobject.put(id, temp);
 		System.out.println();
 		System.out.println();
-		JsonUtility.WriteinFile(doctorjson.toString(), doctorFile);
+		readwrite.writeToFile(doctorFile, mainobject);
 		System.out.println("Dr. "+name+" You Registered SuccessFully");
 	}
 
@@ -172,36 +203,48 @@ public interface CliniqManagement
 	 *  
 	 *******************************************************************************/	
 	
+	@SuppressWarnings("unchecked")
 	public static void  searchPatientByDoctor() throws JSONException
 	{
 		
-		String jsonData = "";
-		BufferedReader br = null;
-		
+		System.out.println("Enter Patiet Name");
+		@SuppressWarnings("unused")
+		String name=Utility.InputString();
+		System.out.println("Enter Patiet Contact");
+		String phno=Utility.InputString();
+		JSONObject PersonObject =null;
+		JSONParser parser=new JSONParser();
+		//Iterating through ArrayObjects
+		String fileRead;
 		try {
-			String line;
-			br = new BufferedReader(new FileReader(patientFile));
-			while ((line = br.readLine()) != null) {
-				jsonData = line + "\n";
-				JSONObject obj = new JSONObject(jsonData);
-					System.out.println(obj.getString("Patient Name"));
-					System.out.println(Integer.parseInt(obj.getString("Patient Age")));
-					System.out.println(Long.parseLong(obj.getString("Patient Age")));
-				
-			}
-		} catch (IOException e) {
+			fileRead = readwrite.readFile(patientFile);
+		
+		PersonObject = (JSONObject)parser.parse(fileRead);
+		JSONObject temp=PersonObject;
+		System.out.println(" Patient Id\tPatient Name\tAge");
+		PersonObject.keySet().forEach(key ->{ 
+			//System.out.println(key);			
+				JSONArray arrayItems = new JSONArray();
+				arrayItems.add(temp.get(key));
+				Iterator<?> iterator = arrayItems.iterator();
+				JSONObject jsonObject=null;
+				while(iterator.hasNext())
+				{
+					jsonObject=(JSONObject) iterator.next();
+					if(jsonObject.get("Patient Mob No:").equals(phno))
+					{
+						System.out.print(jsonObject.get("Patient Id"));
+						System.out.print("\t"+jsonObject.get("Patient Name"));
+						System.out.print("\t\t"+jsonObject.get("Patient Age"));
+						System.out.println();
+					}
+				} 
+			
+		}); 
+		} catch (FileNotFoundException|ParseException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null)
-					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}	
+		}
 	}
-	
-
 	/*************************************************************************************************
 	 * static Method to gel all Patients list and informations.
 	 * @param no param
@@ -210,81 +253,116 @@ public interface CliniqManagement
 	 *******************************************************************************/	
 	
 	
+	@SuppressWarnings("unchecked")
 	public static void getPatientList() throws JSONException
 	{
-		String jsonData = "";
-		BufferedReader br = null;
-		try {
-			String line;
-			br = new BufferedReader(new FileReader(patientFile));
-			while ((line = br.readLine()) != null) {
-				jsonData = line + "\n";
-				JSONObject obj = new JSONObject(jsonData);
-				System.out.println();
-				
-				System.out.println("Patient Name: " + obj.getString("Patient Name"));
-				System.out.println("Patient Id: " + obj.getString("Patient Id"));
-				System.out.println("Patient Age: " + obj.getString("Patient Age"));
-				System.out.println("Patient Mob No: " + obj.getString("Patient Mob No:"));
+		JSONObject PersonObject=new JSONObject();
+		JSONParser parser=new JSONParser();
+		try 
+		{
+			String fileRead = readwrite.readFile(patientFile);
+			try {
+				PersonObject = (JSONObject)parser.parse(fileRead);
+				JSONObject temp=PersonObject;
+				System.out.println(" Patient Id\tPatient Name\tAge");
+				PersonObject.keySet().forEach(key ->{ 
+					//System.out.println(key);			
+						JSONArray arrayItems = new JSONArray();
+						arrayItems.add(temp.get(key));
+						Iterator<?> iterator = arrayItems.iterator();
+						JSONObject jsonObject=null;
+						while(iterator.hasNext())
+						{
+							jsonObject=(JSONObject) iterator.next();
+
+							System.out.print(jsonObject.get("Patient Id"));
+							System.out.print("\t"+jsonObject.get("Patient Name"));
+							System.out.print("\t"+jsonObject.get("Patient Age"));
+							System.out.println();
+						} 
+					
+				});
+			System.out.println("================================================");
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null)
-					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+		} 
 		}
 	
-	}
+	
 	
 
 	/*************************************************************************************************
 	 * static Method to count Appointments for perticuler Doctors..
 	 * 
 	 * @param no param
+	 * @return 
 	 * @return void
 	 *  
 	 *******************************************************************************/	
-	
+	AppontmentDetails appont=new AppontmentDetails();
+	@SuppressWarnings("unchecked")
 	public static int getCount(String doctorName)
 	{
-		int count=0;
-		String jsonData = "";
-		BufferedReader br = null;
+		 int count=0;
+		 int count2=0;
+		JSONObject appointment=new JSONObject();
+		String fileRead=null;
+		JSONParser parser=new JSONParser();
 		try {
-			String line;
-			br = new BufferedReader(new FileReader(appointmentFile));
-			while ((line = br.readLine()) != null) {
-				jsonData = line + "\n";
-				JSONObject obj;
+			if(readwrite.readFile(appointmentFile)!=null)
+			{
+				fileRead = readwrite.readFile(appointmentFile);
+			}
+			else
+			{
+				return 1;
+			}
+			appointment = (JSONObject)parser.parse(fileRead);
+		} catch (FileNotFoundException|ParseException e) {
+		}	
+		JSONObject temp=appointment;
+		Set<String> set=temp.keySet();
+		for(String name:set)
+		{
+		JSONArray arrayItems = new JSONArray();
+		arrayItems.add(temp.get(name));
+		Iterator<JSONObject> iterator = arrayItems.iterator();
+
+		JSONObject jsonObject=new JSONObject();
+		while(iterator.hasNext())
+		{
+			try{
+			jsonObject=(JSONObject) iterator.next();
+			
+			if(jsonObject.get("doctor Name").equals(doctorName))
+			{
+					 count=Integer.parseInt(jsonObject.get("Token No").toString());
+					 if(count>count2)
+					 {
+						 count2=count;
+					 }
+					 
+			}
+			
+			
+			}catch (NullPointerException e) {
 				try {
-					obj = new JSONObject(jsonData);
-				
-				System.out.println();
-				if(obj.getString("doctor Name").equals(doctorName))
-				{
-					count=obj.getInt("Token No");
+					throw new StockMngmtExcpetion("Please Enter valid Details");
+				} catch (StockMngmtExcpetion e1) {
 				}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null)
-					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+		} 
 		}
-		return ++count;
+		return ++count2;
 	}
+	
+	
+	
+	
 	public void mainMenu(); 
 
 }

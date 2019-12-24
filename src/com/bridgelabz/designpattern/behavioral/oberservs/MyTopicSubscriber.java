@@ -1,4 +1,5 @@
-package com.bridgelabz.designpattern.behavioral;
+package com.bridgelabz.designpattern.behavioral.oberservs;
+
 /***********************************************************************************************************
  * @author Rupeshp007
  * date:24/12/2019

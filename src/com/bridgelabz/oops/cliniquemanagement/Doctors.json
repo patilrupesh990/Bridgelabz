@@ -1,0 +1,14 @@
+{
+	"DC54": {
+		"Doctor name": "Bikash",
+		"Doctor id": "DC54",
+		"availablity": "9AM-6PM",
+		"specialization": "dermetologist"
+	},
+	"DC03": {
+		"Doctor name": "Gaurang",
+		"Doctor id": "DC03",
+		"availablity": "9AM-6PM",
+		"specialization": "Dentist"
+	}
+}

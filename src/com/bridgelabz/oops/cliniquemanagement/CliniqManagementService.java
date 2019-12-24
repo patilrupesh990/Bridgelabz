@@ -1,12 +1,15 @@
 package com.bridgelabz.oops.cliniquemanagement;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import com.bridgelabz.util.JsonUtility;
 import com.bridgelabz.util.LogicalProgram;
 import com.bridgelabz.util.Utility;
 
@@ -33,6 +36,7 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 	static JSONObject appointmentjson=new JSONObject();
 	static DoctorDetails doctorDetails=new DoctorDetails();
 	static PatientDetails patientDetails=new PatientDetails();
+	static AppointmentFilesReadWrite readwrite =new CliniqManagementService();
 	static String doctorFile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/cliniquemanagement/Doctors.json";
 	static String patientFile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/cliniquemanagement/Patient.json";
 	static String appointmentFile="/home/user/Documents/FellowShip/FellowShipProject/src/com/bridgelabz/oops/cliniquemanagement/AppointMent.json";
@@ -151,6 +155,7 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 		 *******************************************************************************/	
 
 		
+		@SuppressWarnings("unchecked")
 		public void getAppointment() throws JSONException
 		{
 			try {
@@ -164,7 +169,7 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 				e.printStackTrace();
 			}
 
-			System.out.println("Enter The Doctor Name or id from Given List");
+			System.out.println("Enter The Doctor Name from Given List");
 			String id=Utility.InputString();
 			
 			System.out.println("Are you Confirm?? press 1 for book Appointment");
@@ -172,33 +177,69 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 			if(input==1)
 			{
 				System.out.println("Enter your mob no");
-				long phno=Utility.inputLong();
+				String phno=Utility.InputString();
 				
 				
-				
+				JSONObject temp=new JSONObject();
 				AppontmentDetails search=searchPatient(phno,id);
 				if(search!=null)
 				{
+					JSONParser parser=new JSONParser();
+					String fileRead;
+					try {
+						fileRead = readwrite.readFile(appointmentFile);
+					
+						temp = (JSONObject)parser.parse(fileRead);
+					} catch (FileNotFoundException|ParseException e) {
+					}
 							DoctorDetails appointment=bookAppointMent(id);
 							String name=appointment.getDoctorName();
 							search.setDoctoreName(name);
 							search.setDoctorSpecialization(appointment.getSpecialization());
 							search.setTime(appointment.getAvailablity());
+							String id2=LogicalProgram.GenerateCode(10);
+							appointmentjson.put("Appointment id:", id2);
 							appointmentjson.put("Patient Name", search.getPatientName());
-							appointmentjson.put("doctor Name",search.getDoctoreName());
-							appointmentjson.put("doctor specialization",search.getDoctorSpecialization());
-							appointmentjson.put("time",search.getTime());
-							appointmentjson.put("Token No",search.getCount());
-							if(AppointmentCount(appointment.getDoctorName())==5)
+							appointmentjson.put("doctor Name",id);
+							appointmentjson.put("doctor specialization",appointment.getSpecialization());
+							appointmentjson.put("time",java.time.LocalDateTime.now().toString());
+							int count=CliniqManagement.getCount(id);
+							appointmentjson.put("Token No",Integer.toString(count));
+							temp.put(id2, appointmentjson);
+							if(count==6)
 							{
-								System.out.println("Doctor is Not Availale For Today Please book for tommorow or search for another doctor");
+								appointmentjson.put("Appointment id:", id2);
+								appointmentjson.put("Patient Name", search.getPatientName());
+								appointmentjson.put("doctor Name",id);
+								appointmentjson.put("doctor specialization",appointment.getSpecialization());
+								 Calendar calendar = Calendar.getInstance();
+								    								 
+								    calendar.add(Calendar.DAY_OF_YEAR, 1);
+								    
+								    Date tomorrow = calendar.getTime();
+								appointmentjson.put("time",tomorrow);
+								 count=CliniqManagement.getCount(id);
+								appointmentjson.put("Token No",Integer.toString(count));
+								temp.put(id2, appointmentjson);
+								System.out.println("Doctor is Not Availale For Today Please book for tommorow or search for another doctor ");
+								System.out.println("Do you want to Book For Next Day press 1 For Book Appointment..");
+								int choice=Utility.InputInt();
+								if(choice==1)
+								{
+									readwrite.writeToFile( appointmentFile,temp);
+									System.out.println("your appointment is suucessfully booked");
+								}
+								else {
+									System.out.println("Thans for visit");
+								}
 								
 							}
 							else
 							{
-								JsonUtility.WriteinFile(appointmentjson.toString(), appointmentFile);
+								readwrite.writeToFile( appointmentFile,temp);
 								System.out.println("your appointment is suucessfully booked");
 							}
+					
 				}
 				else
 				{
@@ -215,6 +256,22 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 			
 		}
 		
+		static int count2=0;
+		/** To get Appointment Count
+		 * @param no parameter
+		 * @return int
+		 * **/
+		public static int getCount() {
+			return count2;
+		}
+		
+		/** To setCount
+		 * @param int
+		 * @return void
+		 * **/
+		public static void setCount(int count) {
+			count2 = count;
+		}
 		/*********************************************************************************
 		 * To book Patient Appointment with Different Doctors it will take doctor name,id,availablity,specializtion
 		 * from Doctors.json file and return Doctor Details object.
@@ -224,37 +281,35 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 		 * @exception JSONException  
 		 *******************************************************************************/
 		
+		@SuppressWarnings("unchecked")
 		public DoctorDetails bookAppointMent(String name) throws JSONException
 		{
-		     DoctorDetails doctorappoint=new DoctorDetails();
-			
-		     String jsonData = "";
-				BufferedReader br = null;
-				try {
-					String line;
-					br = new BufferedReader(new FileReader(doctorFile));
-					while ((line = br.readLine()) != null) {
-						jsonData = line + "\n";
-						JSONObject obj = new JSONObject(jsonData);
-						System.out.println();
-						if(obj.getString("Doctor name").equals(name))
-						{
-						doctorappoint.setDoctorName(obj.getString("Doctor name"));
-						doctorappoint.setDoctorId(obj.getString("Doctor id"));
-						doctorappoint.setAvailablity(obj.getString("availablity"));
-						doctorappoint.setSpecialization(obj.getString("specialization"));
-						}
-					}
-				} catch (IOException e) {
+		     	DoctorDetails doctorappoint=new DoctorDetails();
+		     	JSONObject doctorjson=new JSONObject();
+		     	JSONParser parser=new JSONParser();
+		     	String fileRead=null;
+		     	try {
+					fileRead = readwrite.readFile(doctorFile);
+				
+				doctorjson = (JSONObject)parser.parse(fileRead);
+				} catch (FileNotFoundException | ParseException e) {
 					e.printStackTrace();
-				} finally {
-					try {
-						if (br != null)
-							br.close();
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
-				}
+				}	
+		     	JSONObject temp=doctorjson;
+				doctorjson.keySet().forEach(key ->{ 
+					//System.out.println(key);			
+						JSONObject jsonObject=(JSONObject) temp.get(key);
+							if(jsonObject.get("Doctor name").equals(name))
+							{
+								
+								doctorappoint.setDoctorName(jsonObject.get("Doctor name").toString());
+								doctorappoint.setDoctorId(jsonObject.get("Doctor id").toString());
+								doctorappoint.setAvailablity(jsonObject.get("availablity").toString());
+								doctorappoint.setSpecialization(jsonObject.get("specialization").toString());
+							}
+							
+						 
+				});
 				return doctorappoint;
 		}
 		
@@ -268,33 +323,44 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 		 *******************************************************************************/
 	
 		
+		@SuppressWarnings("unchecked")
 		public void getDoctorDetails() throws JSONException
 		{
-			String jsonData = "";
-			BufferedReader br = null;
-			try {
-				String line;
-				br = new BufferedReader(new FileReader(doctorFile));
-				while ((line = br.readLine()) != null) {
-					jsonData = line + "\n";
-					JSONObject obj = new JSONObject(jsonData);
-					System.out.println("===============================>>All Doctors List<<=============================");
-					System.out.println("Doctor name: " + obj.getString("Doctor name"));
-					System.out.println("Doctor id: " + obj.getString("Doctor id"));
-					System.out.println("availablity: " + obj.getString("availablity"));
-					System.out.println("specialization: " + obj.getString("specialization"));
+			JSONObject doctorjson=new JSONObject();
+			JSONParser parser=new JSONParser();
+			JSONObject stockJson=new JSONObject();
 
-				}
-			} catch (IOException e) {
+			DoctorDetails doctor=new DoctorDetails();
+		
+			String fileRead=new String();
+			try {
+				fileRead = readwrite.readFile(doctorFile);
+			
+				doctorjson = (JSONObject)parser.parse(fileRead);
+			} catch (FileNotFoundException | ParseException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					if (br != null)
-						br.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
+			}	
+			JSONObject temp=doctorjson;
+			doctorjson.keySet().forEach(key->{
+				JSONArray arrayItems = new JSONArray();
+				arrayItems.add(temp.get(key));
+				Iterator<?> iterator = arrayItems.iterator();
+				while(iterator.hasNext())
+				{
+					
+					 JSONObject jsonObject=(JSONObject) iterator.next();
+					
+						System.out.println("Doctor name: " + jsonObject.get("Doctor name"));
+						doctor.setDoctorName(jsonObject.get("Doctor name").toString());
+						System.out.println("Doctor name: " + jsonObject.get("Doctor id"));
+						System.out.println("availablity: " + jsonObject.get("availablity"));
+						System.out.println("specialization: " + jsonObject.get("specialization"));
+						doctor.setSpecialization(jsonObject.get("specialization").toString());
+						System.out.println("===============================>><<=============================");
+					 
 				}
-			}
+			});
+			
 		}
 		
 		/*********************************************************************************
@@ -307,46 +373,42 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 		 * @exception JSONException  
 		 *******************************************************************************/
 		
+		@SuppressWarnings("unchecked")
 		public  DoctorDetails searchDoctor() throws JSONException
 		{
-			String jsonData = "";
-			BufferedReader br = null;
+			JSONObject personObject=new JSONObject();
+			JSONParser parser=new JSONParser();
+
 			DoctorDetails doctor=new DoctorDetails();
 			System.out.println("Enter The Specialization of Doctor?");
 			String specialization=Utility.InputString();
+			String fileRead;
 			try {
-				String line;
-				br = new BufferedReader(new FileReader(doctorFile));
-				while ((line = br.readLine()) != null) {
-					jsonData = line + "\n";
-					JSONObject obj = new JSONObject(jsonData);
-					System.out.println();
-					if(obj.getString("specialization").equals(specialization))
-					{
-						System.out.println("Doctor name: " + obj.getString("Doctor name"));
-						doctor.setDoctorName(obj.getString("Doctor name"));
-						System.out.println("Doctor name: " + obj.getString("Doctor id"));
-						System.out.println("availablity: " + obj.getString("availablity"));
-						System.out.println("specialization: " + obj.getString("specialization"));
-						doctor.setSpecialization(obj.getString("specialization"));
-						System.out.println("===============================>>Specialist for "+specialization+"<<=============================");
-
-						return doctorDetails;
-					}
-					
-
-				}
-			} catch (IOException e) {
+				fileRead = readwrite.readFile(doctorFile);
+			
+				personObject = (JSONObject)parser.parse(fileRead);
+			} catch (FileNotFoundException|ParseException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					if (br != null)
-						br.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-			}
-			return null;
+			}	
+			JSONObject temp=personObject;
+			personObject.keySet().forEach(key ->{ 
+				//System.out.println(key);			
+					JSONObject jsonObject=(JSONObject) temp.get(key);
+						String contact=(String) jsonObject.get("specialization");
+						System.out.println(contact);
+						if(contact.equals(specialization))
+						{
+							System.out.println("Doctor name: " + jsonObject.get("Doctor name"));
+							doctor.setDoctorName(jsonObject.get("Doctor name").toString());
+							System.out.println("Doctor name: " + jsonObject.get("Doctor id"));
+							System.out.println("availablity: " + jsonObject.get("availablity"));
+							System.out.println("specialization: " + jsonObject.get("specialization"));
+							doctor.setSpecialization(jsonObject.get("specialization").toString());
+							System.out.println("===============================>>Specialist for "+specialization+"<<=============================");						}
+			});
+		
+			return doctorDetails;
+
 		}
 		
 		
@@ -357,47 +419,42 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 		 * 
 		 * 
 		 * @param no param
+		 * @return 
+		 * @return 
 		 * @return void
 		 * @exception JSONException 
 		 *******************************************************************************/
-		public AppontmentDetails searchPatient(long phNo,String name) throws JSONException
+		AppontmentDetails appointment=new AppontmentDetails();
+
+		@SuppressWarnings("unchecked")
+		public AppontmentDetails searchPatient(String phNo,String name) throws JSONException
 		{
-			
-			String jsonData = "";
-			BufferedReader br = null;
-			System.out.println();
+		
+			JSONObject personObject=new JSONObject();
+			JSONParser parser=new JSONParser();
+			String fileRead;
 			try {
-				String line;
-				br = new BufferedReader(new FileReader(patientFile));
-				while ((line = br.readLine()) != null) {
-					jsonData = line + "\n";
-					JSONObject obj = new JSONObject(jsonData);
-					long contact=Long.parseLong(obj.getString("Patient Mob No:"));
-					//count=Integer.parseInt(obj.getString("Token No"));
-					if(contact==phNo)
-					{
-						AppontmentDetails appointment=new AppontmentDetails();
-						String appoinmentid=LogicalProgram.GenerateCode(5);
-						appointment.setAppointmentId(appoinmentid);
-						appointment.setCount(CliniqManagement.getCount(name));
-						appointment.setPatientName(obj.getString("Patient Name"));
-						return appointment;
-						
-					}
-					
-				}
-			} catch (IOException e) {
+				fileRead = readwrite.readFile(patientFile);
+			
+			personObject = (JSONObject)parser.parse(fileRead);
+			} catch (FileNotFoundException|ParseException e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					if (br != null)
-						br.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
+			}	
+			JSONObject temp=personObject;
+			personObject.keySet().forEach(key ->{ 
+					JSONObject jsonObject=(JSONObject) temp.get(key);
+						String contact=(String) jsonObject.get("Patient Mob No:");
+						if(contact.equals(phNo))
+						{
+							String appoinmentid=LogicalProgram.GenerateCode(5);
+							appointment.setAppointmentId(appoinmentid);
+							appointment.setPatientName(jsonObject.get("Patient Name").toString());
+							appointment.setCount(CliniqManagement.getCount(name));
+						}
+			});
+			
+			return appointment;
 				}
-			}
-			return null;
-		}
 	
 		
 		/*********************************************************************************
@@ -408,44 +465,47 @@ public class CliniqManagementService extends AppointmentFilesReadWrite implement
 		 * 
 		 *
 		 * @param no param
+		 * @return 
 		 * @return void
 		 * @exception JSONException 
 		 *******************************************************************************/
+		@SuppressWarnings("unchecked")
 		public  int AppointmentCount(String DoctorName) throws JSONException
 		{
-			String jsonData = "";
-			BufferedReader br = null;
-			int result=0;
+			JSONObject appointment=new JSONObject();
+			String fileRead=null;
+			JSONParser parser=new JSONParser();
 			try {
-				String line;
-				br = new BufferedReader(new FileReader(appointmentFile));
-				while ((line = br.readLine()) != null) {
-					jsonData = line + "\n";
-					JSONObject obj = new JSONObject(jsonData);
-					System.out.println();
-					if(obj.getString("doctor Name").equals(DoctorName))
-					{
-						count=obj.getInt("Token No");
-						
-						if(count==5)
+				if(readwrite.readFile(appointmentFile)!=null)
+				{
+					fileRead = readwrite.readFile(appointmentFile);
+				}
+				else
+				{
+					return 1;
+				}
+				appointment = (JSONObject)parser.parse(fileRead);
+			} catch (FileNotFoundException|ParseException e) {
+			}	
+			JSONObject temp=appointment;
+			appointment.keySet().forEach(key ->{ 
+				//System.out.println(key);			
+					JSONObject jsonObject= (JSONObject) temp.get(key);
+						String contact=jsonObject.get("doctor Name").toString();
+						System.out.println(contact);
+						if(contact.equals(DoctorName))
 						{
-							result=count;
-							return result;
+							int count=Integer.parseInt(jsonObject.get("Token No").toString());
+							
+							if(count==5)
+							{
+								return;
+							}						
 						}
-					}
-					
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (br != null)
-						br.close();
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-			}
-			return result;
+			});
+			return 1;		
+			
+			
 		}
 		
 		

@@ -24,7 +24,7 @@ abstract class AppointmentFilesReadWrite
 	 *******************************************************************************/	
 	
 	
-	public static String readFile(String fileName) throws FileNotFoundException {
+	public  String readFile(String fileName) throws FileNotFoundException {
 		File file;
 		file=new File(fileName);
 		FileReader filereader=null;
@@ -67,7 +67,7 @@ abstract class AppointmentFilesReadWrite
 	 *  @param T String ,String filename
 	 *******************************************************************************/	
 	
-	public static <T>void WriteinFile(T string,String filename)
+	public  <T>void WriteinFile(T string,String filename)
 	{
 		try { 
 			  
@@ -98,7 +98,7 @@ abstract class AppointmentFilesReadWrite
 	 *******************************************************************************/	
 	
 	
-	public static void clearFile(String fileName){
+	public  void clearFile(String fileName){
 	    //go through and do this every time in order to delete previous crap
 		
 		FileWriter fwOb=null;
@@ -159,7 +159,7 @@ abstract class AppointmentFilesReadWrite
 	 *  @return String
 	 *******************************************************************************/	
 	
-	public static void writeToFile(String filePath, JSONObject mainObject)
+	public  void writeToFile(String filePath, JSONObject mainObject)
 	{
 		try(FileWriter fileWriter = new FileWriter(filePath))
 		{
