@@ -1,4 +1,10 @@
 package com.bridgelabz.designpattern.behavioral.visitor;
+/***********************************************************************************************************
+ * @author Rupeshp007
+ * date:24/12/2019
+ * @version 1.0
+ * Purpose:ShppingCartClien class Controller and contains Calculate price method.
+ **********************************************************************************************************/
 
 public class ShoppingCartClient {
 
@@ -9,7 +15,10 @@ public class ShoppingCartClient {
 		int total = calculatePrice(items);
 		System.out.println("Total Cost = "+total);
 	}
-
+	/******************************************
+	 * to Calculate Price Price of product
+	 *@return int
+	 ******************************************/
 	private static int calculatePrice(ItemElement[] items) {
 		ShoppingCartVisitor visitor = new ShoppingCartVisitorImpl();
 		int sum=0;
